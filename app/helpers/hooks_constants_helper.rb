@@ -1,0 +1,2 @@
+module HooksConstantsHelper
+end

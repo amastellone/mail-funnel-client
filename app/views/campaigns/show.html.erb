@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hook uuid:</strong>
+  <%= @campaign.hook_uuid %>
+</p>
+
+<p>
+  <strong>Campaign job:</strong>
+  <%= @campaign.campaign_job_id %>
+</p>
+
+<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
+<%= link_to 'Back', campaigns_path %>

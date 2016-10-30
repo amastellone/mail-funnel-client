@@ -1,0 +1,1 @@
+json.array! @campaign_jobs, partial: 'campaign_jobs/campaign_job', as: :campaign_job

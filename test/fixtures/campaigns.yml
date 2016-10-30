@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hook_uuid: one
+  campaign_job_id: one
+
+two:
+  hook_uuid: two
+  campaign_job_id: two

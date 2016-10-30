@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hooks Constants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hooks_constants.each do |hooks_constant| %>
+      <tr>
+        <td><%= hooks_constant.name %></td>
+        <td><%= hooks_constant.uuid %></td>
+        <td><%= link_to 'Show', hooks_constant %></td>
+        <td><%= link_to 'Edit', edit_hooks_constant_path(hooks_constant) %></td>
+        <td><%= link_to 'Destroy', hooks_constant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hooks Constant', new_hooks_constant_path %>

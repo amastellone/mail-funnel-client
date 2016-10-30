@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Campaign:</strong>
+  <%= @campaign_job.campaign_id %>
+</p>
+
+<p>
+  <strong>Job uuid:</strong>
+  <%= @campaign_job.job_uuid %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @campaign_job.position %>
+</p>
+
+<%= link_to 'Edit', edit_campaign_job_path(@campaign_job) %> |
+<%= link_to 'Back', campaign_jobs_path %>

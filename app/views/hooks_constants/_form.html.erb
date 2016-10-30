@@ -1,0 +1,27 @@
+<%= form_for(hooks_constant) do |f| %>
+  <% if hooks_constant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hooks_constant.errors.count, "error") %> prohibited this hooks_constant from being saved:</h2>
+
+      <ul>
+      <% hooks_constant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid_id %>
+    <%= f.text_field :uuid_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
