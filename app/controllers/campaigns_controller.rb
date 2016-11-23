@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :viewcampaignjobs]
 
   # GET /campaigns
   # GET /campaigns.json
@@ -10,11 +10,16 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    @jobs = CampaignJob.where(campaign_id: @campaign.id)
   end
 
   # GET /campaigns/new
   def new
     @campaign = Campaign.new
+  end
+
+  def viewcampaignjobs
+    @jobs = CampaignJob.where(campaign_id: @campaign.id)
   end
 
   # GET /campaigns/1/edit
@@ -69,6 +74,6 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:hook_uuid_id, :campaign_job_id_id)
+      params.require(:campaign).permit(:name, :campaign_job_id_id)
     end
 end
