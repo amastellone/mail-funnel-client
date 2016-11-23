@@ -1,0 +1,41 @@
+html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+h2.hooks {
+    float:left;
+}
+
+h2.actions {
+    float: right;
+}
+
+#jquery-script-menu {
+    height:30px;
+    border-top:2px solid black;
+}
+
+.demo {
+    height:1000px;
+    width:1000px;
+}
+body {
+    background-color: #fafafa;
+}
+
+.container {
+    min-height:100%;
+    width:100%;
+}
+
+.canvas-class {
+    height: 300px;
+    margin-bottom: 10px;
+}
+.flowchart-container {
+    width:100%;
+}
+.hook-buttons{
+    padding-top:50px;
+}
