@@ -1,7 +1,7 @@
 class CreateCampaigns < ActiveRecord::Migration[5.0]
   def change
     create_table :campaigns do |t|
-      t.references :hook_uuid, foreign_key: true
+      t.integer :hook
 
       t.timestamps
     end
