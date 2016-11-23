@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
+
+
 gem 'her'
 
 # Bootstrap, Bootswatch, Font-Awesome, SASS
@@ -11,10 +14,10 @@ gem 'sass-rails', '>= 3.2'
 
 gem 'schema_auto_foreign_keys'
 gem 'yaml_db'
-gem 'dotenv-rails'
 
 gem 'shopify_app'
 gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
+gem 'active_model_serializers', '~> 0.10.0.rc2'
 
 # RAILS
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -27,7 +30,7 @@ gem 'pg'
 gem 'puma', '~> 3.0'
 
 # INTERFACE
-gem 'sass-rails', '~> 5.0'
+# gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
