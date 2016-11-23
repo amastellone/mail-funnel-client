@@ -1,4 +1,4 @@
 class CampaignJob < ApplicationRecord
-  belongs_to :campaign_id
-  belongs_to :job_uuid
+  belongs_to :campaign
+  belongs_to :hooks_constant
 end

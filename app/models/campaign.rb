@@ -1,3 +1,4 @@
 class Campaign < ApplicationRecord
-  belongs_to :hook_uuid
+  belongs_to :hooks_constant
+  has_many   :campaign_jobs
 end

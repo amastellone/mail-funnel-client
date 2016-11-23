@@ -1,3 +1,4 @@
 class HooksConstant < ApplicationRecord
-  belongs_to :uuid
+  has_many :campaign_jobs
+  has_many :campaigns
 end
