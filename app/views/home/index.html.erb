@@ -1,11 +1,51 @@
-<h2>Products</h2>
-
-<ul>
-  <% @products.each do |product| %>
-    <li>
-      <%= link_to product.title,
-                  "https://#{@shop_session.url}/admin/products/#{product.id}",
-                  target: "_top" %>
-    </li>
-  <% end %>
-</ul>
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+<div class="container">
+	
+	<h1>Hooks Constants</h1>
+	<br>
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Hook</th>
+			<th>Campaign</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<% @hooks_constants.each do |hooks_constant| %>
+				<% Campaign.where(hooks_constant_id: hooks_constant.id).find_each do |cj| %>
+						<tr>
+							<td><%= hooks_constant.name %></td>
+							<td>
+								<a href="<%= root_url %>/campaignjobs/<%= cj.id %>">View >> </a>
+							</td>
+							<!--<td>-->
+							<%# CampaignJob.where(campaign_id: hooks_constant.id).find_each do |c| %>
+							<%#= c.id %>
+							<%# end %>
+							<!--</td>-->
+						</tr>
+				<% end %>
+		<% end %>
+		</tbody>
+	</table>
+	
+	<br>
+</div>

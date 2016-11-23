@@ -8,7 +8,12 @@
 <p>
   <strong>Campaign job:</strong>
   <%= @campaign.campaign_job_id %>
+	<% @jobs.find_each do |job| %>
+	
+	<%= job.id %>
+			
+	<% end %>
 </p>
 
-<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
-<%= link_to 'Back', campaigns_path %>
+<%= link_to 'New Campaign Job', new_campaign_job_path %>
+
