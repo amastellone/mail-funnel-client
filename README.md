@@ -1,6 +1,18 @@
 # README
 Mail-Funnel is a Ruby on Rails embedded Shopify App (Distributed in Shopify App Store). It works with the Mail-Funnel central API.
 
+
+## Usage
+Run
+```
+bundle exec rails server
+```
+Then, to install, go to http://localhost:3000/login
+
+
+## REST ORM
+http://www.her-rb.org/
+
 ### Install
 ```bash
  1277  rails g migration add_uuid_to_books
