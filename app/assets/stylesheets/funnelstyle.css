@@ -35,6 +35,7 @@ body {
 }
 .flowchart-container {
     width:100%;
+    height:50%;
 }
 .hook-buttons{
     padding-top:50px;
