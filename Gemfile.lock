@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/activeresource.git
-  revision: f4bec7f8f389a203c51bdeaac02addc0bca7ce43
+  revision: 4ff7b1496c7abc5633386e30f90b2d4ae73257a6
   specs:
     activeresource (5.0.0)
       activemodel (> 4.2, < 6)
@@ -33,11 +33,10 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_model_serializers (0.10.2)
+    active_model_serializers (0.10.3)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
-      jsonapi (~> 0.1.1.beta2)
-      railties (>= 4.1, < 6)
+      jsonapi (= 0.1.1.beta2)
     activejob (5.0.0.1)
       activesupport (= 5.0.0.1)
       globalid (>= 0.3.6)
@@ -58,7 +57,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
-    autoprefixer-rails (6.5.1)
+    autoprefixer-rails (6.5.3)
       execjs
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -75,9 +74,11 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.10.0)
+    coffee-script-source (1.11.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
+    domain_name (0.5.20161021)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
@@ -86,8 +87,10 @@ GEM
     execjs (2.7.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.10.1)
+      faraday (>= 0.7.4, < 1.0)
     ffi (1.9.14)
-    font-awesome-rails (4.6.3.1)
+    font-awesome-rails (4.7.0.0)
       railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -97,6 +100,8 @@ GEM
       activesupport (>= 3.0.0, <= 6.0.0)
       faraday (>= 0.8, < 1.0)
       multi_json (~> 1.7)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     its-it (1.3.0)
     jbuilder (2.6.0)
@@ -106,11 +111,9 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jsonapi (0.1.1.beta6)
-      jsonapi-parser (= 0.1.1.beta3)
-      jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta3)
-    jsonapi-renderer (0.1.1.beta1)
+    json (1.8.3)
+    jsonapi (0.1.1.beta2)
+      json (~> 1.8)
     jwt (1.5.1)
     key_struct (0.4.2)
     listen (3.0.8)
@@ -131,6 +134,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -156,7 +160,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (3.6.0)
+    puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -187,6 +191,10 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    rest-client (2.0.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rollbar (2.13.3)
       multi_json
     sass (3.4.22)
@@ -241,7 +249,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     table_print (1.5.6)
-    thor (0.19.1)
+    thor (0.19.3)
     thread_safe (0.3.5)
     tilt (2.0.5)
     turbolinks (5.0.1)
@@ -251,6 +259,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     valuable (0.9.13)
     web-console (3.4.0)
       actionview (>= 5.0)
@@ -276,15 +287,20 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   dotenv-rails
+  faraday_middleware
   font-awesome-rails
   her
+  http-cookie
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  mime-types
+  netrc
   pg
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  rest-client
   rollbar
   sass-rails (>= 3.2)
   schema_auto_foreign_keys

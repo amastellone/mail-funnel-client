@@ -1,7 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'faraday_middleware'
+
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
+gem 'mime-types'
+gem 'netrc'
+gem 'http-cookie'
+gem 'rest-client'
 
 gem 'her'
 
