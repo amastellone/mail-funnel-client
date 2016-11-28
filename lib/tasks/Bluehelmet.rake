@@ -1,7 +1,24 @@
 namespace :Bluehelmet do
 
+	desc "Prepare Testing Seeding"
+	task :prepare => :environment do
+		Rake::Task["db:drop"].invoke
+		Rake::Task["db:create"].invoke
+		Rake::Task["db:migrate"].invoke
+		Rake::Task["Bluehelmet:seed"].invoke # Seed Campaigns and Hooks
+	end
+
 	desc "Test Seeding"
 	task :test => :environment do
+		# Create
+		railsapp  = App.all
+
+		puts railsapp.first.name
+
+		end
+
+	desc "Test Seeding"
+	task :test3 => :environment do
 		Rake::Task["db:drop"].invoke
 		Rake::Task["db:create"].invoke
 		Rake::Task["db:migrate"].invoke
