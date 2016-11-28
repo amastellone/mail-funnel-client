@@ -1,4 +1,4 @@
-class App < ApplicationRecord
+class App
 	include Her::JsonApi::Model
 
 	type :apps

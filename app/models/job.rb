@@ -1,5 +1,6 @@
 class Job
 	include Her::JsonApi::Model
-	type :jobs
+	# type :jobs
 	belongs_to :Campaign
-end
+
+	collection_path "/apps.json/:id"end
