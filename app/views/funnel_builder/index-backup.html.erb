@@ -1,0 +1,163 @@
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+      integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+<div class="container">
+	<h2>Mail Funnel Builder</h2>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">Jobs</h3>
+		</div>
+		<div class="panel-body">
+			<button class="btn btn-success create_operator" id="create_operator">New Job</button>
+			<button class="btn btn-primary" id="save_funnel-builder">Save Rules</button>
+			<button class="btn btn-danger" id="delete_selected_button">Delete Selected Job</button>
+		</div>
+	</div>
+	
+	<h2 class="actions">Action</h2>
+	<h2>Campaigns (Hooks)</h2>
+	
+	<div class="canvas-class" id="funnel-builder-canvas"></div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var flowchart_data = {
+			operators: {
+				operator1: {
+					top: 20,
+					left: 20,
+					multipleLinksOnInput: true,
+					properties: {
+						title: 'Cart Trigger',
+						inputs: {},
+						outputs: {
+							output_1: {
+								label: 'cart/create',
+							},
+							output_2: {
+								label: 'cart/update',
+							}
+						}
+					}
+				},
+				operator2: {
+					top: 130,
+					left: 20,
+					properties: {
+						title: 'Customer Hook',
+						inputs: {},
+						outputs: {
+							output_1: {
+								label: 'customer/create',
+							},
+							output_2: {
+								label: 'customer/delete',
+							}
+						}
+					}
+				},
+				operator3: {
+					top: 20,
+					left: 600,
+					properties: {
+						title: 'Sendgrid',
+						inputs: {
+							input_1: {
+								label: 'Send Mail',
+							}
+						},
+						outputs: {}
+					}
+				}
+			}
+		};
+		
+		// Apply the plugin on a standard, empty div...
+		var $canvas = $('#funnel-builder-canvas');
+		$canvas.flowchart({
+			data: flowchart_data
+		});
+		
+		var windowHeight = $(window).height();   // Browser Viewport Height
+		var docHeight = $(document).height(); // HTML Doc height
+		var height = window.innerHeight;
+		
+		$canvas.height(docHeight);
+		
+		var operatorI = 0;
+		$canvas.siblings('.create_operator').click(function () {
+			var operatorId = 'created_operator_' + operatorI;
+			var operatorData = {
+				top: 60,
+				left: 500,
+				properties: {
+					title: 'Operator ' + (operatorI + 3),
+					inputs: {
+						input_1: {
+							label: 'Input 1',
+						}
+					},
+					outputs: {
+						output_1: {
+							label: 'Output 1',
+						}
+					}
+				}
+			};
+		});
+		
+		
+		$('#submit_rules').click(function () {
+		});
+		
+		$('#delete_selected_button').click(function () {
+			$('#funnel-builder-canvas').flowchart('deleteSelected');
+		});
+		
+		
+		var operatorI = 0;
+		$canvas.siblings('.create_operator').click(function () {
+			var operatorId = 'created_operator_' + operatorI;
+			var operatorData = {
+				top: 60,
+				left: 500,
+				properties: {
+					title: 'Operator ' + (operatorI + 3),
+					inputs: {
+						input_1: {
+							label: 'Input 1',
+						}
+					},
+					outputs: {
+						output_1: {
+							label: 'Output 1',
+						}
+					}
+				}
+			};
+			
+			operatorI++;
+			
+			$canvas.flowchart('createOperator', operatorId, operatorData);
+		});
+		
+		$canvas.siblings('.delete_selected_button').click(function () {
+			$canvas.flowchart('deleteSelected');
+		});
+		
+		$canvas.siblings('.get_data').click(function () {
+			var data = $canvas.flowchart('getData');
+			$('#flowchart_data').val(JSON.stringify(flowchart_data, null, 2));
+		});
+		
+		$canvas.siblings('.set_data').click(function () {
+			var data = JSON.parse($('#flowchart_data').val());
+			$canvas.flowchart('setData', flowchart_data);
+		});
+		
+	});
+</script>
+<textarea class="panel" style="float:right" id="flowchart_data"></textarea>

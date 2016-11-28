@@ -1,3 +1,5 @@
 class EmailsList
-	include Her::Model
+	include Her::JsonApi::Model
+	type :email_lists
+	has_many :Email
 end
