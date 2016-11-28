@@ -1,5 +1,84 @@
-
 namespace :Bluehelmet do
+
+	desc "Test Seeding"
+	task :test => :environment do
+		Rake::Task["db:drop"].invoke
+		Rake::Task["db:create"].invoke
+		Rake::Task["db:migrate"].invoke
+		Rake::Task["Bluehelmet:seed"].invoke # Seed Campaigns and Hooks
+		# Create
+		railsapp  = App.where(name: "bluehelmet-dev").first.id
+	end
+
+	desc "Test Seeding 2"
+	task :test2 => :environment do
+		Rake::Task["Bluehelmet:seed"].invoke # Seed
+				list = EmailsList.create(name:        "Main List " + $x.to_s,
+				                         description: "This is a great email list",
+				                         app_id:      app);
+
+				puts "Created List " + list.name.to_s
+				email = Email.create(email:         Faker::Internet.email,
+				                     name:          Faker::Internet.name,
+				                     app_id:        app,
+				                     email_list_id: list.id);
+				puts list.name.to_s + ": Email Created " + email.email.to_s
+
+		thislist = List.all.first
+
+		Campaign.all.each do |c|
+			until $x > 2 do
+				job = Job.create(frequency:           "execute_once",
+				                 execute_time:        "1330",
+				                 subject:             "Email subject",
+				                 content:             "Email Contents",
+				                 app_id:              app,
+				                 campaign_identifier: c.name,
+				                 hook_identifier:     c.hook_identifier,
+				                 executed:            false,
+				                 email_list_id:       List.offset(rand(List.count)).first
+				)
+				puts "Job Created for " + job.hook_identifier.to_s
+			end
+		end
+	end
+
+	desc "Seed Configs + Campaigns"
+	task :seed => :environment do
+
+		# Checkout
+		cart_create_hook = HooksConstant.create(hook_type: 'cart', name: 'create', identifier: 'cart_create');
+		campaign = Campaign.create(name: 'Cart / Create', hooks_constant_id: cart_create_hook.id, hook_identifier: cart_create_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		cart_update_hook = HooksConstant.create(hook_type: 'cart', name: 'Update', identifier: 'cart_update');
+		campaign = Campaign.create(name: 'Cart / Update', hooks_constant_id: cart_update_hook.id, hook_identifier: cart_update_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		cart_abandon_hook = HooksConstant.create(hook_type: 'cart', name: 'abandon', identifier: 'cart_abandon');
+		campaign = Campaign.create(name: 'Cart / Abandon', hooks_constant_id: cart_abandon_hook.id, hook_identifier: cart_abandon_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		# Checkout
+		checkout_create_hook = HooksConstant.create(hook_type: 'checkout', name: 'Create', identifier: 'checkout_create');
+		campaign = Campaign.create(name: 'Checkout / Create', hooks_constant_id: checkout_create_hook.id, hook_identifier: checkout_create_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		checkout_update_hook = HooksConstant.create(hook_type: 'checkout', name: 'Update', identifier: 'checkout_update');
+		campaign = Campaign.create(name: 'Checkout / Update', hooks_constant_id: checkout_update_hook.id, hook_identifier: checkout_create_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		# Order
+		order_create_hook = HooksConstant.create(hook_type: 'order', name: 'Create', identifier: 'order_create');
+		campaign = Campaign.create(name: 'Order / Create', hooks_constant_id: order_create_hook.id, hook_identifier: order_create_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+
+		order_update_hook = HooksConstant.create(hook_type: 'order', name: 'Update', identifier: 'order_update');
+		campaign = Campaign.create(name: 'Order / Update', hooks_constant_id: order_update_hook.id, hook_identifier: order_update_hook.identifier);
+		puts "Campaign + Hook Created: " + campaign.name.to_s
+	end
+
+
 	# Database
 	desc "Reset Database"
 	task :reset => :environment do
@@ -8,31 +87,15 @@ namespace :Bluehelmet do
 		Rake::Task["db:migrate"].invoke
 		Rake::Task["db:schema:load"].invoke
 	end
-	desc "Seed Articles and Projects"
-	task :seed => :environment do
-		Rake::Task["Bluehelmet:import_wp"].invoke
-		Rake::Task["db:data:load"].invoke
-		Rake::Task["Bluehelmet:convert_projects"].invoke
-	end
+
 	desc "Info"
 	task :info => :environment do
 		Bundler.with_clean_env do
 			sh "rails --help | grep Bluehelmet: "
 		end
 		# Bundler.with_clean_env do
-			# sh "rails --help | grep db: "
+		# sh "rails --help | grep db: "
 		# end
-	end
-
-	# HEROKU
-	desc "Clear Heroku Cache"
-	task :heroku_cache => :environment do
-		heroku("run rake Bluehelmet:clear_cache")
-	end
-	desc "Upload Database to Heroku"
-	task :push_db => :environment do
-		heroku("pg:reset HEROKU_POSTGRESQL_GOLD")
-		heroku("pg:push vkaloidis HEROKU_POSTGRESQL_GOLD --app vkaloidis")
 	end
 
 	def heroku(cmd)
