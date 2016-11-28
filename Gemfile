@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'faraday_middleware'
+gem 'faraday', '~> 0.9.2'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
