@@ -1,0 +1,122 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+
+Funnel Builder
+<div class="mermaid" id="mermaidChart0">
+	<svg></svg>
+</div>
+
+<script>
+	mermaidAPI.initialize({
+		startOnLoad: false
+	});
+	$(function () {
+		// Example of using the API
+		var element = document.querySelector("#mermaidChart0");
+		
+		var insertSvg = function (svgCode, bindFunctions) {
+			element.innerHTML = svgCode;
+		};
+		
+		var graphDefinition = '<%= raw @chartdata %>';
+		console.log(graphDefinition);
+		var graphDefinition_example = 'graph TB\na-->b';
+		
+		if(mermaid.parse(graphDefinition)) {
+			console.log("Data is OK");
+		} else {
+			mermaid.parseError = function (err, hash) {
+				displayErrorInGui(err);
+				console.log(err)
+			};
+		}
+		
+		var graph = mermaidAPI.render(element, graphDefinition, insertSvg);
+		
+		var textFieldUpdated = function () {
+			var textStr = getTextFromFormField('code');
+			if(mermaid.parse(textStr)) {
+				reRender(textStr)
+			}
+			mermaid.parseError = function (err, hash) {
+				displayErrorInGui(err);
+				console.log(err)
+			};
+		}
+		
+	});
+</script>
+
+
+<!-- TABS -->
+
+<!--<div>-->
+<!--&lt;!&ndash; Nav tabs &ndash;&gt;-->
+<!--<ul class="nav nav-tabs" role="tablist">-->
+<!--<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>-->
+<!--</li>-->
+<!--<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>-->
+<!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
+<!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
+<!--</ul>-->
+<!---->
+<!--&lt;!&ndash; Tab panes &ndash;&gt;-->
+<!--<div class="tab-content">-->
+<!--<div role="tabpanel" class="tab-pane fade in active" id="home">-->
+<!--Tab Contents-->
+<!--</div>-->
+<!--<div role="tabpanel" class="tab-pane fade" id="profile">...</div>-->
+<!--<div role="tabpanel" class="tab-pane fade" id="messages">...</div>-->
+<!--<div role="tabpanel" class="tab-pane fade" id="settings">...</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+<script>
+	if(1 === 0) {
+		
+		var textFieldUpdated = function () {
+			var textStr = getTextFromFormField('code');
+			
+			if(mermaid.parse(textStr)) {
+				reRender(textStr)
+			}
+		};
+		mermaid.parseError = function (err, hash) {
+			displayErrorInGui(err);
+			console.log()
+		};
+		
+		mermaid.init(undefined, $("#mermaidChart0 "));
+		
+		// Example of using the API
+		var element = document.querySelector("#mermaidChart0");
+		
+		var insertSvg = function (svgCode, bindFunctions) {
+			element.innerHTML = svgCode;
+		};
+		
+		//var graphDefinition2 = '<%#= @chartdata %>';
+		var graphDefinition = 'graph TB\na-->b';
+		var graph = mermaid.render('graphDiv', graphDefinition, insertSvg);
+		
+		//	bindEventHandler('change', 'code', textFieldUpdated);
+	}
+</script>
