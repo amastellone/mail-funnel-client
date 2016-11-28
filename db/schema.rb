@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122234825) do
+ActiveRecord::Schema.define(version: 20161128041036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_configs", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+  end
+
+  create_table "apps", force: :cascade do |t|
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
+  end
 
   create_table "hooks_constants", force: :cascade do |t|
     t.string   "name"
     t.string   "identifier"
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false
+    t.string   "type"
+    t.string   "hook_type"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -28,6 +40,10 @@ ActiveRecord::Schema.define(version: 20161122234825) do
     t.datetime "updated_at",        :null=>false
     t.integer  "hooks_constant_id", :foreign_key=>{:references=>"hooks_constants", :name=>"fk_campaigns_hooks_constant_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__campaigns_hooks_constant_id", :using=>:btree}
     t.string   "name"
+    t.float    "x"
+    t.float    "y"
+    t.string   "cell"
+    t.string   "hook_identifier"
   end
 
   create_table "campaign_jobs", force: :cascade do |t|
@@ -37,6 +53,26 @@ ActiveRecord::Schema.define(version: 20161122234825) do
     t.datetime "updated_at",        :null=>false
     t.integer  "hooks_constant_id", :foreign_key=>{:references=>"hooks_constants", :name=>"fk_campaign_jobs_hooks_constant_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__campaign_jobs_hooks_constant_id", :using=>:btree}
     t.integer  "campaign_id",       :foreign_key=>{:references=>"campaigns", :name=>"fk_campaign_jobs_campaign_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__campaign_jobs_campaign_id", :using=>:btree}
+  end
+
+  create_table "configs", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
+  end
+
+  create_table "emails_lists", force: :cascade do |t|
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
   end
 
   create_table "shops", force: :cascade do |t|
