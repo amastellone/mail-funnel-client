@@ -17,7 +17,7 @@ class HooksConstantsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create hooks_constant" do
     assert_difference('HooksConstant.count') do
-      post hooks_constants_url, params: { hooks_constant: { name: @hooks_constant.name, uuid_id: @hooks_constant.uuid_id } }
+      post hooks_constants_url, params: { hooks_constant: { name: @hooks_constant.name, identifier: @hooks_constant.identifier, type: @hooks_constant.type, hook_type: @hooks_constant.hook_type } }
     end
 
     assert_redirected_to hooks_constant_url(HooksConstant.last)
@@ -34,7 +34,7 @@ class HooksConstantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update hooks_constant" do
-    patch hooks_constant_url(@hooks_constant), params: { hooks_constant: { name: @hooks_constant.name, uuid_id: @hooks_constant.uuid_id } }
+    patch hooks_constant_url(@hooks_constant), params: { hooks_constant: { name: @hooks_constant.name, identifier: @hooks_constant.identifier, type: @hooks_constant.type, hook_type: @hooks_constant.hook_type} }
     assert_redirected_to hooks_constant_url(@hooks_constant)
   end
 

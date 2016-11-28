@@ -17,7 +17,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create campaign" do
     assert_difference('Campaign.count') do
-      post campaigns_url, params: { campaign: { campaign_job_id_id: @campaign.campaign_job_id_id, hook_uuid_id: @campaign.hook_uuid_id } }
+      post campaigns_url, params: { campaign: { hook: @campaign.hook, hook_constant_id: @campaign.hook_constant_id, name: @campaign.name, hook_identifier: @campaign.hook_identifier } }
     end
 
     assert_redirected_to campaign_url(Campaign.last)
@@ -34,7 +34,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update campaign" do
-    patch campaign_url(@campaign), params: { campaign: { campaign_job_id_id: @campaign.campaign_job_id_id, hook_uuid_id: @campaign.hook_uuid_id } }
+    patch campaign_url(@campaign), params: { campaign: { hook: @campaign.hook, hook_constant_id: @campaign.hook_constant_id, name: @campaign.name, hook_identifier: @campaign.hook_identifier} }
     assert_redirected_to campaign_url(@campaign)
   end
 
