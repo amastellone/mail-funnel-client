@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128041036) do
+ActiveRecord::Schema.define(version: 20161128060721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,9 +40,6 @@ ActiveRecord::Schema.define(version: 20161128041036) do
     t.datetime "updated_at",        :null=>false
     t.integer  "hooks_constant_id", :foreign_key=>{:references=>"hooks_constants", :name=>"fk_campaigns_hooks_constant_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__campaigns_hooks_constant_id", :using=>:btree}
     t.string   "name"
-    t.float    "x"
-    t.float    "y"
-    t.string   "cell"
     t.string   "hook_identifier"
   end
 
