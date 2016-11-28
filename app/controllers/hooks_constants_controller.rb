@@ -70,7 +70,7 @@ module AppProxy
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def hooks_constant_params
-			params.require(:hooks_constant).permit(:name, :uuid_id)
+			params.require(:hooks_constant).permit(:name, :identifier, :type, :hook_type)
 		end
 	end
 end
