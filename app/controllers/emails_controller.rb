@@ -1,6 +1,6 @@
 class EmailsController < ApplicationController
 
-	before_action :set_list_id, only: [:lists]
+	before_action :set_list_id, only: [:emails]
 
 	def lists
 		# @lists = EmailsList.where()
@@ -14,8 +14,16 @@ class EmailsController < ApplicationController
 		# 	c.use Faraday::Adapter::NetHttp
 		# end
 
-		app    = App.where(name: "bluehelmet-dev").first
-		@lists = EmailsList.where(app_id: app.id)
+		# require 'rest-client'
+		#
+		# app = RestClient::Resource.new 'http://localhost:3000/app'
+		# app.get
+		#
+		# private_resource = RestClient::Resource.new 'https://example.com/private/resource', 'user', 'pass'
+		# private_resource.put File.read('pic.jpg'), :content_type => 'image/jpg'
+
+		app    = App.find(:params => { :name => "bluehelmet-dev"}).first
+		@lists = EmailsList.find(:params => { :app_id => app.id})
 
 
 	end
