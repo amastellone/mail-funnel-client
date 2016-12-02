@@ -18,14 +18,27 @@ Her::API.setup url: "http://localhost:3001" do |c|
 	# c.use Faraday::Request::UrlEncoded
 	# c.use FaradayMiddleware::EncodeJson
 	# c.use Her::Middleware::DefaultParseJSON
-	c.use Her::Middleware::AcceptJSON
+	# c.use Her::Middleware::AcceptJSON *
 
 	# Response
-	c.use Her::Middleware::DefaultParseJSON
+	# c.use Her::Middleware::DefaultParseJSON *
 	# c.use Her::Middleware::JsonApiParser
 
 	# Adapter
 	# c.use Faraday::Adapter::NetHttp
+	# c.use Her::Middleware::AcceptJSON *
+
+	# Request
 	c.use Her::Middleware::AcceptJSON
+
+
+	# Response
+	c.use Her::Middleware::DefaultParseJSON
+
+	# Adapter
+	# c.use FaradayMiddleware::EncodeJson
+	c.use Faraday::Adapter::NetHttp
+
+
 
 end
