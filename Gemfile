@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'htmlentities'
+
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 # Rest-Client
