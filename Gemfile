@@ -1,16 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'faraday_middleware'
-gem 'faraday', '~> 0.9.2'
-
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
+# Rest-Client
 gem 'mime-types'
 gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
 
+# Her
 gem 'her'
+# Faraday Middleware for Her
+gem 'faraday_middleware'
+gem 'faraday', '~> 0.9.2'
 
 # Bootstrap, Bootswatch, Font-Awesome, SASS
 gem 'bootstrap_form'
@@ -24,6 +26,7 @@ gem 'yaml_db'
 
 gem 'shopify_app'
 gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
+# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
 gem 'active_model_serializers', '~> 0.10.0.rc2'
 
 # RAILS
