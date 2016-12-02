@@ -14,4 +14,11 @@ class App
 
 	has_many :emails_lists
 	# has_many :emails
+
+	def myId()
+		# Get Shopify App Name
+		name = ShopifyAPI::Store::name
+		return App.where(name: name).first.id
+	end
+
 end
