@@ -77,6 +77,7 @@ GEM
     coffee-script-source (1.11.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
+    diff-lcs (1.2.5)
     domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
@@ -100,6 +101,7 @@ GEM
       activesupport (>= 3.0.0, <= 6.0.0)
       faraday (>= 0.8, < 1.0)
       multi_json (~> 1.7)
+    htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -197,6 +199,27 @@ GEM
       netrc (~> 0.8)
     rollbar (2.13.3)
       multi_json
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -291,6 +314,7 @@ DEPENDENCIES
   faraday_middleware
   font-awesome-rails
   her
+  htmlentities
   http-cookie
   jbuilder (~> 2.5)
   jquery-rails
@@ -303,6 +327,8 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   rest-client
   rollbar
+  rspec
+  rspec-rails
   sass-rails (>= 3.2)
   schema_auto_foreign_keys
   shopify_app
