@@ -16,5 +16,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+database.yml
+
 
 .env
