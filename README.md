@@ -1,5 +1,6 @@
-# README
-Mail-Funnel is a Ruby on Rails embedded Shopify App (Distributed in Shopify App Store). It works with the Mail-Funnel central API.
+# Mail-Funnel-Client
+Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify App Store). It uses Her ORM to connect to it's REST Server.
+
 
 
 ## Usage
