@@ -1,0 +1,2 @@
+class MailFunnelConfig < ApplicationRecord
+end

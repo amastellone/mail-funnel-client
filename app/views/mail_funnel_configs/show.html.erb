@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @mail_funnel_config.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @mail_funnel_config.value %>
+</p>
+
+<%= link_to 'Edit', edit_mail_funnel_config_path(@mail_funnel_config) %> |
+<%= link_to 'Back', mail_funnel_configs_path %>
