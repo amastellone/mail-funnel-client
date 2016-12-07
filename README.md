@@ -4,6 +4,8 @@ Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify Ap
 
 
 ## Usage + Install
+
+**Warning:** You must
 To start the client execute this
 
 ```
