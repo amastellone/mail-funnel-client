@@ -2,8 +2,8 @@
 		attr_reader :id
 		attr_writer :id
 
-    	attr_reader :local_identifier
-     	attr_writer :local_identifier
+    attr_reader :local_identifier
+    attr_writer :local_identifier
 
 		attr_reader :name
 		attr_writer :name
