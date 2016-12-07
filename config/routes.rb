@@ -29,8 +29,7 @@ Rails.application.routes.draw do
 
     # resources :hooks_constants
     # resources :users
-    resources :campaign_jobs
-    # resources :campaigns
+      # resources :campaigns
 
     # more complex routes will go to controllers in the AppProxy namespace
     # 	resources :reviews
