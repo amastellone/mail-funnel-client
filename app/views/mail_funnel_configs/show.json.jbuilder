@@ -1,0 +1,1 @@
+json.partial! "mail_funnel_configs/mail_funnel_config", mail_funnel_config: @mail_funnel_config

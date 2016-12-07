@@ -1,0 +1,1 @@
+json.array! @mail_funnel_configs, partial: 'mail_funnel_configs/mail_funnel_config', as: :mail_funnel_config

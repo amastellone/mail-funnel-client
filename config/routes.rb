@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mail_funnel_configs
   mount ShopifyApp::Engine, at: '/'
 
   root :to => 'home#index'
