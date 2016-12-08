@@ -1,5 +1,8 @@
 class App
-	include Her::Model
+	Her::API.setup
+	include Her::JsonApi::Model
+	type :apps
+
 	parse_root_in_json true, format: :active_model_serializers
 
 	include_root_in_json true # Remove if anything
@@ -7,17 +10,10 @@ class App
 
 	collection_path "/apps"
 
-
-	#
-	# < ActiveResource::Base
-	# self.site = "http://localhost:3000"
-
-
-	# include Her::JsonApi::Model
-	# type :apps
-
 	has_many :emails_lists
 	# has_many :emails
+
+
 
 	def myId()
 		# TODO: Verify this works / get it working

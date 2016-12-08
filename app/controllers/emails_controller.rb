@@ -22,8 +22,8 @@ class EmailsController < ApplicationController
 		# private_resource = RestClient::Resource.new 'https://example.com/private/resource', 'user', 'pass'
 		# private_resource.put File.read('pic.jpg'), :content_type => 'image/jpg'
 
-		app    = App.find(:params => { :name => "bluehelmet-dev"}).first
-		@lists = EmailsList.find(:params => { :app_id => app.id})
+		app    = App.find(name: "bluehelmet-dev").first
+		@lists = EmailsList.find(app_id: app.id)
 
 
 	end
@@ -41,7 +41,7 @@ class EmailsController < ApplicationController
 	end
 
 	def emails
-		@emails = Email.where(email_list_id: @list.id)
+		@emails = Email.find(email_list_id: @list.id)
 	end
 
 	def newemail

@@ -28,7 +28,10 @@ Her::API.setup url: "http://localhost:3001" do |c|
 	# c.use Faraday::Adapter::NetHttp
 	# c.use Her::Middleware::AcceptJSON *
 
+	c.use Faraday::Response::Logger, ActiveSupport::Logger.new(STDOUT) if Rails.env.development?
+
 	# Request
+	c.use Faraday::Request::UrlEncoded
 	c.use Her::Middleware::AcceptJSON
 
 
@@ -39,6 +42,6 @@ Her::API.setup url: "http://localhost:3001" do |c|
 	# c.use FaradayMiddleware::EncodeJson
 	c.use Faraday::Adapter::NetHttp
 
-
+	c.use Faraday::Response::Logger, ActiveSupport::Logger.new(STDOUT) if Rails.env.development?
 
 end

@@ -1,5 +1,7 @@
 class EmailsList
-	include Her::Model
+	include Her::JsonApi::Model
+	type :email_lists
+
 	parse_root_in_json true, format: :active_model_serializers
 
 	include_root_in_json true # Remove if anything
