@@ -4,6 +4,10 @@ class App
 
 	include_root_in_json true # Remove if anything
 	# include_root_in_json :app
+
+	collection_path "/apps"
+
+
 	#
 	# < ActiveResource::Base
 	# self.site = "http://localhost:3000"
