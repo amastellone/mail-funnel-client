@@ -1,0 +1,21 @@
+machine:
+  ruby:
+    version: rbx-2.3.1
+machine:
+  environment:
+    RAILS_ENV: production
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: mailfunnel-server
+deployment:
+  production:
+    branch: production
+    commands:
+      - git push git@heroku.com:mailfunnel-server.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app mailfunnel-server
