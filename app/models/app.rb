@@ -1,17 +1,6 @@
 class App
-	Her::API.setup
-	include Her::JsonApi::Model
-	type :apps
 
-	parse_root_in_json true, format: :active_model_serializers
-
-	include_root_in_json true # Remove if anything
-	# include_root_in_json :app
-
-	collection_path "/apps"
-
-	has_many :emails_lists
-	# has_many :emails
+	RestClient.post "http://example.com/resource", {'x' => 1}.to_json, {content_type: :json, accept: :json}
 
 
 

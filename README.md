@@ -1,7 +1,40 @@
 # Mail-Funnel-Client
 Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify App Store). It uses Her ORM to connect to it's REST Server.
 
+## Developmet
 
+```
+Visit (Development)
+http://localhost:3000 
+```
+
+### Testing
+
+```bash
+rake test
+```
+### Development
+```bash
+rake test
+```
+
+### Staging + Production
+
+**Deployment Process**  
+Github -> Circle-CI Server -> Heroku-Staging -> Heroku-Production
+
+- **Github**
+ - Pushed to GitHub
+ - Code-Analysis Service(s) Executed Automatically
+- **Circle-CI**
+ - **coveralls.io** - Test Coverage Executed
+ - **depbot.io** - Dependency Analysis  
+- **Heroku-Staging**  
+ - Builds temporary Heroku server, destroys 5 days after last use  
+ - Creates new Heroku server to test production data
+- **Heroku-Production**
+  - **Rollbar.io** - Error / Log Monitoring + Reporting Tool
+- **Mail-Funnel-Client**
 
 ## Usage + Install
 To start the client execute this
@@ -28,14 +61,17 @@ Then once you visit the client - you will be forwarded to your App's page in the
 You **MUST** disable this by clicking the icon in the URL-bar, on the right, and telling it to load the script regardless
 
 ```
-Visit 
-http://localhost:3000
+Visit App Install Page
+http://localhost:3000 / mf-client.bluehelmet.io 
 
-And it will foward you to a URL similar to this, with your app in an embedded window
-
+This will foward you to the Shopify Store's internal Mail Client App URL.
 http://your-store.myshopify.com
+
+Mail-Funnel API Server (Dev) / (Staging) / (Production)
+http://localhost:3001 / http://mf-server.bluehelmet.io
 
 ```
 
-## REST ORM
-http://www.her-rb.org/
+# Developers
+Developers links, resources and guides
+

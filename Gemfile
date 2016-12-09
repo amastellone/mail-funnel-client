@@ -10,8 +10,10 @@ gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
 
+gem 'spyke'
+gem 'jwt'    # https://github.com/jwt/ruby-jwt/blob/master/README.md
+
 # Her
-gem 'her'
 # Faraday Middleware for Her
 gem 'faraday_middleware'
 gem 'faraday', '~> 0.9.2'
@@ -90,3 +92,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rspec'
  gem'rspec-rails'
+
+# Gems appended using BASH '>' feature
+gem 'rack-jwt'
