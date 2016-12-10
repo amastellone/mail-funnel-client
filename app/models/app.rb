@@ -1,7 +1,6 @@
-class App
+class App < Spyke::Base
 
-	RestClient.post "http://example.com/resource", {'x' => 1}.to_json, {content_type: :json, accept: :json}
-
+RestClient.post "http://example.com/resource", { 'x' => 1 }.to_json, { content_type: :json, accept: :json }
 
 
 	def myId()

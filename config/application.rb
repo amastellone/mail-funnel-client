@@ -14,7 +14,7 @@ module MailFunnelClient
        'X-Frame-Options' => 'ALLOWALL'
     }
 
-    config.middleware.use, Rack::JWT::Auth, my_args;
+    config.middleware.use, Rack::JWT::Auth,
 
     config.active_record.raise_in_transactional_callbacks = true
 

@@ -88,10 +88,17 @@ group :development do
 	gem 'pry-rails'
 end
 
+group :test do
+	gem "rspec-rails"
+	gem "factory_girl_rails"
+	# gem "capybara"
+	# gem "selenium-webdriver"
+	gem "database_cleaner"
+	gem "shoulda-matchers"
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rspec'
- gem'rspec-rails'
-
+\
 # Gems appended using BASH '>' feature
 gem 'rack-jwt'
