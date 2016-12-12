@@ -18,5 +18,9 @@
 
 database.yml
 
+.idea
+.idea/
+idea*
+idea/*
 
 .env
