@@ -1,7 +1,10 @@
 class App < Spyke::Base
 
-RestClient.post "http://example.com/resource", { 'x' => 1 }.to_json, { content_type: :json, accept: :json }
+include_root_in_json :app
 
+has_many :jobs, class: "Job", uri: nil
+has_many :emails_lists, class: "EmailsList", uri: nil
+has_many :emails, class: "Email", uri: nil
 
 	def myId()
 		# TODO: Verify this works / get it working
