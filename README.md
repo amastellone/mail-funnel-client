@@ -1,7 +1,26 @@
 # Mail-Funnel-Client
 Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify App Store). It uses Her ORM to connect to it's REST Server.
 
-## Developmet
+### Client Security Method  
+We are using JWT, automaticaly added to the header on the Client, and added in the Rack on the server
+
+```
+# Client
+https://www.sitepoint.com/introduction-to-using-jwt-in-rails/
+
+# Both
+https://github.com/nsarno/knock
+
+# Server (and maybe client)
+https://github.com/eigenbart/rack-jwt
+https://github.com/jgalmeida/rack-jwt-auth
+https://github.com/jwt/ruby-jwt
+
+https://jwt.io/
+
+```
+
+### Developmet
 
 ```
 Visit (Development)
@@ -12,6 +31,9 @@ http://localhost:3000
 
 ```bash
 rake test
+
+# Test Individual Client-API Tests
+bundle exec rspec ./spec/models/apps_spec.rb # Tests Apps w/ ORM to Server-API
 ```
 ### Development
 ```bash

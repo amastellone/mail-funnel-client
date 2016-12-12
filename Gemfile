@@ -1,5 +1,20 @@
 source 'https://rubygems.org'
 
+# CLIENT
+
+gem 'shopify_app'
+gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
+# gem 'activemerchant', '1.50.0'
+# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
+gem 'active_model_serializers', '~> 0.10.0.rc2'
+
+gem 'bcrypt', '~> 3.1.7'
+# gem 'knock'
+gem 'rack-jwt'
+# gem 'jwt'    # https://github.com/jwt/ruby-jwt/blob/master/README.md
+
+gem 'multi_json'
+
 gem 'htmlentities'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
@@ -11,7 +26,6 @@ gem 'http-cookie'
 gem 'rest-client'
 
 gem 'spyke'
-gem 'jwt'    # https://github.com/jwt/ruby-jwt/blob/master/README.md
 
 # Her
 # Faraday Middleware for Her
@@ -28,10 +42,6 @@ gem 'sass-rails', '>= 3.2'
 gem 'schema_auto_foreign_keys'
 gem 'yaml_db'
 
-gem 'shopify_app'
-gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
-# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
-gem 'active_model_serializers', '~> 0.10.0.rc2'
 
 # RAILS
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -75,6 +85,8 @@ group :development, :test do
 	gem 'byebug', platform: :mri
 	gem 'rspec'
 	gem 'rspec-rails'
+
+	gem 'spring-commands-rspec'
 end
 
 group :development do
@@ -99,6 +111,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-\
 # Gems appended using BASH '>' feature
 gem 'rack-jwt'
