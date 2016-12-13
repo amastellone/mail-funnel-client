@@ -22,11 +22,10 @@ class EmailsController < ApplicationController
 		# private_resource = RestClient::Resource.new 'https://example.com/private/resource', 'user', 'pass'
 		# private_resource.put File.read('pic.jpg'), :content_type => 'image/jpg'
 
-		app    = App.where(name: "bluehelmet-dev")
-		p app
-		p "App ID " + app.id.to_s
+		@app    = App.where(name: "bluehelmet-dev")
+		p @app
+		my_hash = JSON.parse "App To_S" + @app
 		# @lists = EmailsList.find(app_id: app.id)
-
 
 	end
 
