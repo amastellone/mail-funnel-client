@@ -2,8 +2,18 @@ source 'https://rubygems.org'
 
 # CLIENT
 
+# gem 'activerecord-session_store'
+# gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
+# /vaskaloidis/request_store_registry
+
+# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
+
+
+
 gem 'shopify_app'
 gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
+# gem 'activesupport-json_encoder'
+
 # gem 'activemerchant', '1.50.0'
 # gem 'activeresource', github: 'rails/activeresource', branch: 'master'
 gem 'active_model_serializers', '~> 0.10.0.rc2'
@@ -98,6 +108,7 @@ group :development do
 	gem 'spring-watcher-listen', '~> 2.0.0'
 	gem 'table_print'
 	gem 'pry-rails'
+	gem 'meta_request'
 end
 
 group :test do
