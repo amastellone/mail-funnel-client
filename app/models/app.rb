@@ -1,10 +1,8 @@
-class App < Spyke::Base
+class App < RestModel
 
-include_root_in_json :app
-
-has_many :jobs, class: "Job", uri: nil
-has_many :emails_lists, class: "EmailsList", uri: nil
-has_many :emails, class: "Email", uri: nil
+has_many :jobs, :class_name => "Job"
+has_many :emails_lists, :class_name => "EmailsList"
+has_many :emails, :class_name => "Email"
 
 	def myId()
 		# TODO: Verify this works / get it working

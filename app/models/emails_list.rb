@@ -1,8 +1,8 @@
-class EmailsList< Spyke::Base
+class EmailsList < RestModel
 
 	# include_root_in_json :emails_list
-	include_root_in_json false
+	# include_root_in_json false
 
-	has_many   :emails, class: "Email", uri: nil
-	belongs_to :app, class: "App"
+	has_many   :emails, :class_name => "Email"
+	belongs_to :app, :class_name => "App"
 end

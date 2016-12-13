@@ -1,14 +1,20 @@
-class Job < Spyke::Base
-	attributes :frequency, :subject, :content, :email_list_id, :app_id, :campaign_identifier, :executed, :hook_identifier
+class Job < RestModel
+
+	#
+	# attributes :id, :subject, :content,
+	#            :email_list_id, :app_id, :campaign_identifier,
+	#            :execute_frequency, :executed, :execute_time,
+	#            :hook_identifier
 
 	# uri 'jobs/(:id)'
 
 	# include_root_in_json :jobs
-	include_root_in_json false
+	# include_root_in_json false
 
-	belongs_to :apps, class: "App"
-	has_one :emails_lists, class: "EmailsList", uri: nil
-	accepts_nested_attributes_for :emails_lists
+	belongs_to :app, :class_name => "App"
+	has_one :emails_lists, :class_name => "EmailsList"
+
+	# accepts_nested_attributes_for :emails_lists
 
 	# parse_root_in_json true, format: :active_model_serializers
 	# include_root_in_json true # Remove if anything
