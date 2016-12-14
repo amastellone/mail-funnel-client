@@ -34,7 +34,7 @@
 	<%= raw @chartdata %>
 </textarea>
 
-<div id="job_editors">
+<div style="display:none" id="job_editors">
 	<% @local_jobs.each do |job| %>
 		<div id="form_<%= job.local_identifier %>">
 			<b>Name:</b><br>

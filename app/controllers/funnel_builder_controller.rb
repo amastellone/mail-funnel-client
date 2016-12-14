@@ -42,6 +42,7 @@ class FunnelBuilderController < ApplicationController
 			firstjob = true
 			count    = 0
 			Job.where(app_id: appid, hook_identifier: identifier).each do |j|
+				p "Adding Job ID " + appid.to_s
 				jl                  = JobLocal.new
 				jl.local_identifier = "job_" + identifier + "_" + count.to_s
 				jl.hook_identifier  = identifier

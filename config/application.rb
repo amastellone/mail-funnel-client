@@ -27,11 +27,18 @@ module MailFunnelClient
 
 		config.generators do |g|
 			g.orm :active_session
-			g.template_engine :erb
-			g.test_framework :test_unit, fixture: false
+
 			g.test_framework :rspec
-			g.stylesheets false
-			g.javascripts false
+			g.test_framework :test_unit, fixture: true
+			# g.test_framework :test_unit, fixture: false
+
+			g.template_engine :erb
+			g.stylesheets true
+			g.javascripts true
+		end
+
+		config.generators do |g|
+			g.test_framework :rspec
 		end
 
 		# Settings in config/environments/* take precedence over those specified here.
