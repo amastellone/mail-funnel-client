@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
+
+  resources :campaigns
   resources :mail_funnel_configs
+
   mount ShopifyApp::Engine, at: '/'
 
   root :to => 'home#index'
 
   get '/funnel', to: 'funnel_builder#index'
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
-  get '/lists', to: 'emails#lists'
-  get '/emails/:id', to: 'emails#emails'
+  get '/list', to: 'email#list'
+  get '/email/:list_id', to: 'email#emails'
 
 
   get 'modal' => "home#modal", :as => :modal
@@ -21,10 +24,8 @@ Rails.application.routes.draw do
   post 'form_page' => "home#form_page"
   get 'error' => 'home#error'
 
-  resources :campaigns
-
-  namespace :app_proxy do
-    root action: 'index'
+  # namespace :app_proxy do
+  #   root action: 'index'
     # simple routes without a specified controller will go to AppProxyController
 
     # resources :hooks_constants
@@ -35,5 +36,5 @@ Rails.application.routes.draw do
     # 	resources :reviews
     # GET /app_proxy/reviews will now be routed to
     # AppProxy::ReviewsController#index, for example
-  end
+  # end
 end

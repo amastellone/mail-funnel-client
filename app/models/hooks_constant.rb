@@ -1,3 +1,3 @@
 class HooksConstant < ApplicationRecord
-  has_one :campaigns
+  has_one :campaign
 end

@@ -18,30 +18,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-  # Her ORM
-  config.include(Module.new do
-    def stub_api_for(klass)
-      klass.use_api (api = Her::API.new)
-
-      # Here, you would customize this for your own API (URL, middleware, etc)
-      # like you have done in your application’s initializer
-      api.setup url: "http://localhost:3001" do |c|
-        # c.use Her::Middleware::FirstLevelParseJSON
-        # Request
-        c.use Her::Middleware::AcceptJSON
-
-
-        # Response
-        c.use Her::Middleware::DefaultParseJSON
-
-        # Adapter
-        # c.use FaradayMiddleware::EncodeJson
-        c.use Faraday::Adapter::NetHttp
-
-        c.adapter(:test) { |s| yield(s) }
-      end
-    end
-  end)
+  # TODO: NEED to Test the Json Web Token Eventually here
+  # config.include Rack::Test::Methods
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -114,7 +92,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = :random
+  # config.order = :random
 
   # Seed global randomization in this process using the `--seed` CLI option.
   # Setting this allows you to use `--seed` to deterministically reproduce

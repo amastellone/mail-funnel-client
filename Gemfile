@@ -1,5 +1,28 @@
 source 'https://rubygems.org'
 
+# CLIENT
+
+# gem 'activerecord-session_store'
+# gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
+# /vaskaloidis/request_store_registry
+
+# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
+
+gem 'shopify_app'
+gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
+# gem 'activesupport-json_encoder'
+
+# gem 'activemerchant', '1.50.0'
+# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
+gem 'active_model_serializers', '~> 0.10.0.rc2'
+
+gem 'bcrypt', '~> 3.1.7'
+# gem 'knock'
+gem 'rack-jwt'
+# gem 'jwt'    # https://github.com/jwt/ruby-jwt/blob/master/README.md
+
+gem 'multi_json'
+
 gem 'htmlentities'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
@@ -10,8 +33,10 @@ gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
 
+#TODO: Remvoe Spyke
+gem 'spyke'
+
 # Her
-gem 'her'
 # Faraday Middleware for Her
 gem 'faraday_middleware'
 gem 'faraday', '~> 0.9.2'
@@ -23,20 +48,13 @@ gem "font-awesome-rails"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
-gem 'schema_auto_foreign_keys'
-gem 'yaml_db'
-
-gem 'shopify_app'
-gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
-# gem 'activeresource', github: 'rails/activeresource', branch: 'master'
-gem 'active_model_serializers', '~> 0.10.0.rc2'
-
 # RAILS
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 # DATABASE
-# gem 'sqlite3'
 gem 'pg'
+gem 'schema_auto_foreign_keys'
+gem 'yaml_db'
 
 # WEB SERVER
 gem 'puma', '~> 3.0'
@@ -73,6 +91,7 @@ group :development, :test do
 	gem 'byebug', platform: :mri
 	gem 'rspec'
 	gem 'rspec-rails'
+	gem 'spring-commands-rspec'
 end
 
 group :development do
@@ -84,10 +103,22 @@ group :development do
 	gem 'spring-watcher-listen', '~> 2.0.0'
 	gem 'table_print'
 	gem 'pry-rails'
+	gem 'meta_request'
+end
+
+group :test do
+	gem "rspec-rails"
+	gem "factory_girl_rails"
+	# gem "capybara"
+	# gem "selenium-webdriver"
+	gem "database_cleaner"
+	gem "shoulda-matchers"
 	gem 'capybara'
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rspec'
-gem'rspec-rails'
+
+# Gems appended using BASH '>' feature
+gem 'rack-jwt' 

@@ -43,7 +43,7 @@ if rest_server_interaction
 	app = App.where(name: "bluehelmet-dev").first.id
 
 	# Generate default Email_List
-	defaultlist = EmailsList.create(name: 			"Default",
+	defaultlist = EmailList.create(name: 			"Default",
 									description:    "The default Mail-Funnel email list",
 									app_id:  		app);
 
@@ -62,7 +62,7 @@ if rest_server_interaction
 	if generate_dummy_data
 
 		# until $x > 5 do
-			list = EmailsList.create(name:        "Main List " + $x.to_s,
+			list = EmailList.create(name:        "Main List " + $x.to_s,
 			                         description: "This is a great email list",
 			                         app_id:      app);
 

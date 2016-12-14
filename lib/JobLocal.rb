@@ -1,25 +1,23 @@
-	class JobLocal
-		attr_reader :id
-		attr_writer :id
+class JobLocal
+	@@array = Array.new
+	attr_accessor :id, :local_identifier,
+	              :name, :hook_identifier,
+	              :email_list_id, :subject,
+	              :content, :execute_frequency,
+	              :executed, :execute_time
 
-    attr_reader :local_identifier
-    attr_writer :local_identifier
 
-		attr_reader :name
-		attr_writer :name
-
-		attr_reader :hook_identifier
-		attr_writer :hook_identifier
-
-		attr_reader :email_list_id
-		attr_writer :email_list_id
-
- 		attr_reader :subject
-		attr_writer :subject
-
-		attr_reader :content
-  	 	attr_writer :content
-
-		 # attr_reader :hook_identifier
-  		 # attr_writer :hook_identifier
+	def self.all_instances
+		@@array
 	end
+
+	def all
+		ObjectSpace.each_object(self).entries
+	end
+
+	# def initialize
+	# 	@id = id,
+	# 	@name = name
+	# end
+
+end

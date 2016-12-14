@@ -38,9 +38,9 @@
 									<a href="<%= root_url %>/campaignjobs/<%= cj.id %>">View >> </a>
 								</td>
 								<td>
-									<% CampaignJob.where(campaign_id: hooks_constant.id).find_each do |c| %>
-										<%= c.id %> <br>
-									<% end %>
+									<%# CampaignJob.where(campaign_id: hooks_constant.id).find_each do |c| %>
+										<%#= c.id %> <br>
+									<%# end %>
 								</td>
 							</tr>
 					<% end %>
