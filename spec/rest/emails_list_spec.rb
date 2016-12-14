@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe EmailsList, type: :model do
+RSpec.describe EmailList, type: :model do
 
 	it "Views all apps" do
-		lists = EmailsList.all
+		lists = EmailList.all
 
 		expect(app.id).to be >- 0
 	end
@@ -18,10 +18,10 @@ RSpec.describe EmailsList, type: :model do
 		name = "test-app-name-" + Random.rand(1...9).to_s
 		description = "bluehelmet test app description " + Random.rand(1...9).to_s
 
-		EmailsList.create(name: name, description: description, app_id: app.id)
+		EmailList.create(name: name, description: description, app_id: app.id)
 
 
-		result = EmailsList.where(app_id: app.id, name: name)
+		result = EmailList.where(app_id: app.id, name: name)
 
 		expect(result).to exist
 		expect(result.id).to be >= 0

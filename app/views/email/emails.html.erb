@@ -1,0 +1,16 @@
+<%= render 'layouts/navbar' %>
+
+<h3><%= @app.name %></h3>
+
+<div class="container">
+	<ul class="list-group">
+		<% @emails.each do |e| %>
+				<li class="list-group-item">
+					<%= e.email %>
+				</li>
+		<% end %>
+	</ul>
+	
+	<b>Create New List</b>
+
+</div>
