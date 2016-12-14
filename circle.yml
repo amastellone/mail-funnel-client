@@ -17,5 +17,5 @@ deployment:
   production:
     branch: production
     commands:
-      - git push git@heroku.com:mailfunnel-server.git $CIRCLE_SHA1:master
-      - heroku run rake db:migrate --app mailfunnel-server
+      - git push git@heroku.com:mail-funnel-server.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app mail-funnel-server
