@@ -1,0 +1,1046 @@
+/Users/vasilioskaloidis/.rvm/rubies/ruby-2.3.1/bin/ruby -I/Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rspec-core-3.5.4/lib:/Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rspec-support-3.5.0/lib /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rspec-core-3.5.4/exe/rspec --pattern spec/\*\*\{,/\*/\*\*\}/\*_spec.rb
+
+Randomized with seed 32240
+*******F********FFFFFFFFFFF*F*FFFFFFFFFFFFF*FFF*FFFFFFFFFF*****F**********F*FFF*FFFF*F**************F**........**F********F*****F***F***********FFFFFFFFFFF
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) Campaign add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/models/campaign_spec.rb
+     # Not yet implemented
+     # ./spec/models/campaign_spec.rb:4
+
+  2) AppsController GET #show assigns the requested app as @app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:48
+
+  3) AppsController GET #edit assigns the requested app as @app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:63
+
+  4) AppsController POST #create with invalid params assigns a newly created but unsaved app as @app
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/apps_controller_spec.rb:91
+
+  5) AppsController POST #create with invalid params re-renders the 'new' template
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/apps_controller_spec.rb:96
+
+  6) AppsController POST #create with valid params redirects to the created app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:84
+
+  7) AppsController POST #create with valid params assigns a newly created app as @app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:78
+
+  8) AppsController DELETE #destroy destroys the requested app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:145
+
+  9) AppsController DELETE #destroy redirects to the apps list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:152
+
+  10) AppsController GET #index assigns all apps as @apps
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:40
+
+  11) AppsController PUT #update with invalid params assigns the app as @app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:130
+
+  12) AppsController PUT #update with invalid params re-renders the 'edit' template
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:136
+
+  13) AppsController PUT #update with valid params updates the requested app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:109
+
+  14) AppsController PUT #update with valid params redirects to the app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:122
+
+  15) AppsController PUT #update with valid params assigns the requested app as @app
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/apps_controller_spec.rb:116
+
+  16) CampaignsHelper add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/helpers/campaigns_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/campaigns_helper_spec.rb:14
+
+  17) EmailList add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/models/email_list_spec.rb
+     # Not yet implemented
+     # ./spec/models/email_list_spec.rb:4
+
+  18) HooksConstantsHelper add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/helpers/hooks_constants_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/hooks_constants_helper_spec.rb:14
+
+  19) App add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/models/app_spec.rb
+     # Not yet implemented
+     # ./spec/models/app_spec.rb:4
+
+  20) HooksConstantsController PUT #update with valid params assigns the requested hooks_constant as @hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:116
+
+  21) HooksConstantsController PUT #update with valid params updates the requested hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:109
+
+  22) HooksConstantsController PUT #update with valid params redirects to the hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:122
+
+  23) HooksConstantsController PUT #update with invalid params re-renders the 'edit' template
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:136
+
+  24) HooksConstantsController PUT #update with invalid params assigns the hooks_constant as @hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:130
+
+  25) HooksConstantsController GET #show assigns the requested hooks_constant as @hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:48
+
+  26) HooksConstantsController POST #create with invalid params re-renders the 'new' template
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:96
+
+  27) HooksConstantsController POST #create with invalid params assigns a newly created but unsaved hooks_constant as @hooks_constant
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:91
+
+  28) HooksConstantsController POST #create with valid params creates a new HooksConstant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:72
+
+  29) HooksConstantsController POST #create with valid params redirects to the created hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:84
+
+  30) HooksConstantsController POST #create with valid params assigns a newly created hooks_constant as @hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:78
+
+  31) HooksConstantsController DELETE #destroy destroys the requested hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:145
+
+  32) HooksConstantsController DELETE #destroy redirects to the hooks_constants list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:152
+
+  33) HooksConstantsController GET #edit assigns the requested hooks_constant as @hooks_constant
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:63
+
+  34) HooksConstantsController GET #index assigns all hooks_constants as @hooks_constants
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/hooks_constants_controller_spec.rb:40
+
+  35) EmailListsHelper add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/helpers/email_lists_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/email_lists_helper_spec.rb:14
+
+  36) EmailsHelper add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/helpers/emails_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/emails_helper_spec.rb:14
+
+  37) CampaignsController GET #edit assigns the requested campaign as @campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:63
+
+  38) CampaignsController GET #index assigns all campaigns as @campaigns
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:40
+
+  39) CampaignsController DELETE #destroy destroys the requested campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:145
+
+  40) CampaignsController DELETE #destroy redirects to the campaigns list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:152
+
+  41) CampaignsController GET #show assigns the requested campaign as @campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:48
+
+  42) CampaignsController PUT #update with invalid params re-renders the 'edit' template
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:136
+
+  43) CampaignsController PUT #update with invalid params assigns the campaign as @campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:130
+
+  44) CampaignsController PUT #update with valid params updates the requested campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:109
+
+  45) CampaignsController PUT #update with valid params assigns the requested campaign as @campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:116
+
+  46) CampaignsController PUT #update with valid params redirects to the campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:122
+
+  47) CampaignsController POST #create with invalid params assigns a newly created but unsaved campaign as @campaign
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:91
+
+  48) CampaignsController POST #create with invalid params re-renders the 'new' template
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:96
+
+  49) CampaignsController POST #create with valid params creates a new Campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:72
+
+  50) CampaignsController POST #create with valid params redirects to the created campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:84
+
+  51) CampaignsController POST #create with valid params assigns a newly created campaign as @campaign
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/campaigns_controller_spec.rb:78
+
+  52) AppsHelper add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/helpers/apps_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/apps_helper_spec.rb:14
+
+  53) HooksConstant add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/models/hooks_constant_spec.rb
+     # Not yet implemented
+     # ./spec/models/hooks_constant_spec.rb:4
+
+  54) EmailsController DELETE #destroy redirects to the emails list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:152
+
+  55) EmailsController DELETE #destroy destroys the requested email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:145
+
+  56) EmailsController GET #edit assigns the requested email as @email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:63
+
+  57) EmailsController GET #index assigns all emails as @emails
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:40
+
+  58) EmailsController PUT #update with invalid params assigns the email as @email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:130
+
+  59) EmailsController PUT #update with invalid params re-renders the 'edit' template
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:136
+
+  60) EmailsController PUT #update with valid params redirects to the email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:122
+
+  61) EmailsController PUT #update with valid params assigns the requested email as @email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:116
+
+  62) EmailsController PUT #update with valid params updates the requested email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:109
+
+  63) EmailsController GET #show assigns the requested email as @email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:48
+
+  64) EmailsController POST #create with valid params assigns a newly created email as @email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:78
+
+  65) EmailsController POST #create with valid params redirects to the created email
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/emails_controller_spec.rb:84
+
+  66) EmailsController POST #create with invalid params re-renders the 'new' template
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/emails_controller_spec.rb:96
+
+  67) EmailsController POST #create with invalid params assigns a newly created but unsaved email as @email
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/emails_controller_spec.rb:91
+
+  68) Email add some examples to (or delete) /Users/vasilioskaloidis/Code/Rails/mail-funnel-client/spec/models/email_spec.rb
+     # Not yet implemented
+     # ./spec/models/email_spec.rb:4
+
+  69) EmailListsController GET #show assigns the requested email_list as @email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:48
+
+  70) EmailListsController POST #create with valid params redirects to the created email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:84
+
+  71) EmailListsController POST #create with valid params assigns a newly created email_list as @email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:78
+
+  72) EmailListsController POST #create with invalid params re-renders the 'new' template
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:96
+
+  73) EmailListsController POST #create with invalid params assigns a newly created but unsaved email_list as @email_list
+     # Add a hash of attributes invalid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:91
+
+  74) EmailListsController GET #edit assigns the requested email_list as @email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:63
+
+  75) EmailListsController PUT #update with invalid params re-renders the 'edit' template
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:136
+
+  76) EmailListsController PUT #update with invalid params assigns the email_list as @email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:130
+
+  77) EmailListsController PUT #update with valid params assigns the requested email_list as @email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:116
+
+  78) EmailListsController PUT #update with valid params redirects to the email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:122
+
+  79) EmailListsController PUT #update with valid params updates the requested email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:109
+
+  80) EmailListsController DELETE #destroy redirects to the email_lists list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:152
+
+  81) EmailListsController DELETE #destroy destroys the requested email_list
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:145
+
+  82) EmailListsController GET #index assigns all email_lists as @email_lists
+     # Add a hash of attributes valid for your model
+     # ./spec/controllers/email_lists_controller_spec.rb:40
+
+Failures:
+
+  1) AppsController POST #create with valid params creates a new App
+     Failure/Error:
+       expect {
+         post :create, params: {app: valid_attributes}, session: valid_session
+       }.to change(App, :count).by(1)
+
+     NoMethodError:
+       undefined method `count' for App:Class
+     # ./spec/controllers/apps_controller_spec.rb:73:in `block (4 levels) in <top (required)>'
+
+  2) AppsController GET #new assigns a new app as @app
+     Failure/Error: get :new, params: {}, session: valid_session
+
+     ActionController::UrlGenerationError:
+       No route matches {:action=>"new", :controller=>"apps"}
+     # ./spec/controllers/apps_controller_spec.rb:57:in `block (3 levels) in <top (required)>'
+
+  3) emails/new renders new email form
+     Failure/Error: <%= form_for(email) do |f| %>
+
+     ActionView::Template::Error:
+       undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0ada6b3b8>
+       Did you mean?  image_path
+     # ./app/views/emails/_form.html.erb:1:in `_app_views_emails__form_html_erb___2808324150730130144_70198431977000'
+     # ./app/views/emails/new.html.erb:3:in `_app_views_emails_new_html_erb___4506084032043286176_70198432095460'
+     # ./spec/views/emails/new.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+     # ------------------
+     # --- Caused by: ---
+     # NoMethodError:
+     #   undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0ada6b3b8>
+     #   Did you mean?  image_path
+     #   ./app/views/emails/_form.html.erb:1:in `_app_views_emails__form_html_erb___2808324150730130144_70198431977000'
+
+  4) AppsController routing routes to #show
+     Failure/Error: expect(:get => "/apps/1").to route_to("apps#show", :id => "1")
+       No route matches "/apps/1"
+     # ./spec/routing/apps_routing_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+  5) AppsController routing routes to #create
+     Failure/Error: expect(:post => "/apps").to route_to("apps#create")
+       No route matches "/apps"
+     # ./spec/routing/apps_routing_spec.rb:23:in `block (3 levels) in <top (required)>'
+
+  6) AppsController routing routes to #update via PUT
+     Failure/Error: expect(:put => "/apps/1").to route_to("apps#update", :id => "1")
+       No route matches "/apps/1"
+     # ./spec/routing/apps_routing_spec.rb:27:in `block (3 levels) in <top (required)>'
+
+  7) AppsController routing routes to #destroy
+     Failure/Error: expect(:delete => "/apps/1").to route_to("apps#destroy", :id => "1")
+       No route matches "/apps/1"
+     # ./spec/routing/apps_routing_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  8) AppsController routing routes to #new
+     Failure/Error: expect(:get => "/apps/new").to route_to("apps#new")
+       No route matches "/apps/new"
+     # ./spec/routing/apps_routing_spec.rb:11:in `block (3 levels) in <top (required)>'
+
+  9) AppsController routing routes to #update via PATCH
+     Failure/Error: expect(:patch => "/apps/1").to route_to("apps#update", :id => "1")
+       No route matches "/apps/1"
+     # ./spec/routing/apps_routing_spec.rb:31:in `block (3 levels) in <top (required)>'
+
+  10) AppsController routing routes to #index
+      Failure/Error: expect(:get => "/apps").to route_to("apps#index")
+        No route matches "/apps"
+      # ./spec/routing/apps_routing_spec.rb:7:in `block (3 levels) in <top (required)>'
+
+  11) AppsController routing routes to #edit
+      Failure/Error: expect(:get => "/apps/1/edit").to route_to("apps#edit", :id => "1")
+        No route matches "/apps/1/edit"
+      # ./spec/routing/apps_routing_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  12) apps/edit renders the edit app form
+      Failure/Error:
+        @app = assign(:app, App.create!(
+          :name => "MyString",
+          :builder_lock => false,
+          :auth_token => "MyString"
+        ))
+
+      ActiveResource::ResourceInvalid:
+        Failed.
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:1303:in `save!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `block in create!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `tap'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `create!'
+      # ./spec/views/apps/edit.html.erb_spec.rb:5:in `block (2 levels) in <top (required)>'
+
+  13) email_lists/index renders a list of email_lists
+      Failure/Error: <td><%= link_to 'Show', email_list %></td>
+
+      ActionView::Template::Error:
+        undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b1013290>
+        Did you mean?  email_field_tag
+      # ./app/views/email_lists/index.html.erb:21:in `block in _app_views_email_lists_index_html_erb__2221760363776898528_70198409084300'
+      # ./app/views/email_lists/index.html.erb:16:in `each'
+      # ./app/views/email_lists/index.html.erb:16:in `_app_views_email_lists_index_html_erb__2221760363776898528_70198409084300'
+      # ./spec/views/email_lists/index.html.erb_spec.rb:20:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b1013290>
+      #   Did you mean?  email_field_tag
+      #   ./app/views/email_lists/index.html.erb:21:in `block in _app_views_email_lists_index_html_erb__2221760363776898528_70198409084300'
+
+  14) email_lists/new renders new email_list form
+      Failure/Error: <%= form_for(email_list) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0aed417f8>
+        Did you mean?  email_field_tag
+      # ./app/views/email_lists/_form.html.erb:1:in `_app_views_email_lists__form_html_erb___3083590670153787942_70198411925580'
+      # ./app/views/email_lists/new.html.erb:3:in `_app_views_email_lists_new_html_erb___4111334462659296135_70198411989220'
+      # ./spec/views/email_lists/new.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0aed417f8>
+      #   Did you mean?  email_field_tag
+      #   ./app/views/email_lists/_form.html.erb:1:in `_app_views_email_lists__form_html_erb___3083590670153787942_70198411925580'
+
+  15) EmailsController routing routes to #destroy
+      Failure/Error: expect(:delete => "/emails/1").to route_to("emails#destroy", :id => "1")
+        No route matches "/emails/1"
+      # ./spec/routing/emails_routing_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  16) EmailsController routing routes to #show
+      Failure/Error: expect(:get => "/emails/1").to route_to("emails#show", :id => "1")
+        No route matches "/emails/1"
+      # ./spec/routing/emails_routing_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+  17) EmailsController routing routes to #index
+      Failure/Error: expect(:get => "/emails").to route_to("emails#index")
+        No route matches "/emails"
+      # ./spec/routing/emails_routing_spec.rb:7:in `block (3 levels) in <top (required)>'
+
+  18) EmailsController routing routes to #update via PUT
+      Failure/Error: expect(:put => "/emails/1").to route_to("emails#update", :id => "1")
+        No route matches "/emails/1"
+      # ./spec/routing/emails_routing_spec.rb:27:in `block (3 levels) in <top (required)>'
+
+  19) EmailsController routing routes to #update via PATCH
+      Failure/Error: expect(:patch => "/emails/1").to route_to("emails#update", :id => "1")
+        No route matches "/emails/1"
+      # ./spec/routing/emails_routing_spec.rb:31:in `block (3 levels) in <top (required)>'
+
+  20) EmailsController routing routes to #new
+      Failure/Error: expect(:get => "/emails/new").to route_to("emails#new")
+        No route matches "/emails/new"
+      # ./spec/routing/emails_routing_spec.rb:11:in `block (3 levels) in <top (required)>'
+
+  21) EmailsController routing routes to #edit
+      Failure/Error: expect(:get => "/emails/1/edit").to route_to("emails#edit", :id => "1")
+        No route matches "/emails/1/edit"
+      # ./spec/routing/emails_routing_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  22) EmailsController routing routes to #create
+      Failure/Error: expect(:post => "/emails").to route_to("emails#create")
+        No route matches "/emails"
+      # ./spec/routing/emails_routing_spec.rb:23:in `block (3 levels) in <top (required)>'
+
+  23) apps/index renders a list of apps
+      Failure/Error:
+        App.create!(
+          :name => "Name",
+          :builder_lock => false,
+          :auth_token => "Auth Token"
+        ),
+
+      ActiveResource::ResourceInvalid:
+        Failed.
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:1303:in `save!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `block in create!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `tap'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `create!'
+      # ./spec/views/apps/index.html.erb_spec.rb:6:in `block (2 levels) in <top (required)>'
+
+  24) emails/edit renders the edit email form
+      Failure/Error: <%= form_for(email) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0ae716540>
+        Did you mean?  image_path
+      # ./app/views/emails/_form.html.erb:1:in `_app_views_emails__form_html_erb___2808324150730130144_70198431977000'
+      # ./app/views/emails/edit.html.erb:3:in `_app_views_emails_edit_html_erb__2266374459808903407_70198408606100'
+      # ./spec/views/emails/edit.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0ae716540>
+      #   Did you mean?  image_path
+      #   ./app/views/emails/_form.html.erb:1:in `_app_views_emails__form_html_erb___2808324150730130144_70198431977000'
+
+  25) hooks_constants/index renders a list of hooks_constants
+      Failure/Error:
+        HooksConstant.create!(
+          :name => "Name",
+          :identifier => "Identifier",
+          :type => "Type",
+          :hook_type => "Hook Type"
+        ),
+
+      ActiveRecord::SubclassNotFound:
+        The single-table inheritance mechanism failed to locate the subclass: 'Type'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite HooksConstant.inheritance_column to use another column for that information.
+      # ./spec/views/hooks_constants/index.html.erb_spec.rb:6:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NameError:
+      #   uninitialized constant Type
+      #   ./spec/views/hooks_constants/index.html.erb_spec.rb:6:in `block (2 levels) in <top (required)>'
+
+  26) Emails GET /emails works! (now write some real specs)
+      Failure/Error: get emails_path
+
+      NameError:
+        undefined local variable or method `emails_path' for #<RSpec::ExampleGroups::Emails::GETEmails:0x007fb0aeb8b648>
+      # ./spec/requests/emails_spec.rb:6:in `block (3 levels) in <top (required)>'
+
+  27) Campaigns GET /campaigns works! (now write some real specs)
+      Failure/Error: <td><%= campaign.hook_uuid %></td>
+
+      ActionView::Template::Error:
+        undefined method `hook_uuid' for #<Campaign:0x007fb0b485aa68>
+        Did you mean?  hook_was
+      # ./app/views/campaigns/index.html.erb:17:in `block in _app_views_campaigns_index_html_erb___3870149005894629915_70198433560920'
+      # ./app/views/campaigns/index.html.erb:15:in `_app_views_campaigns_index_html_erb___3870149005894629915_70198433560920'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/spyke-4.1.1/lib/spyke/instrumentation/controller_runtime.rb:18:in `cleanup_view_runtime'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/spyke-4.1.1/lib/spyke/instrumentation/controller_runtime.rb:12:in `process_action'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/omniauth-1.3.1/lib/omniauth/strategy.rb:186:in `call!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/omniauth-1.3.1/lib/omniauth/strategy.rb:164:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/omniauth-1.3.1/lib/omniauth/builder.rb:63:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/etag.rb:25:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/conditional_get.rb:25:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/head.rb:12:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/session/abstract/id.rb:222:in `context'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/session/abstract/id.rb:216:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/railties-5.0.0.1/lib/rails/rack/logger.rb:36:in `call_app'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/railties-5.0.0.1/lib/rails/rack/logger.rb:24:in `block in call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/railties-5.0.0.1/lib/rails/rack/logger.rb:24:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/method_override.rb:22:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/runtime.rb:22:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-2.0.1/lib/rack/sendfile.rb:111:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/railties-5.0.0.1/lib/rails/engine.rb:522:in `call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-test-0.6.3/lib/rack/mock_session.rb:30:in `request'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-test-0.6.3/lib/rack/test.rb:244:in `process_request'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/rack-test-0.6.3/lib/rack/test.rb:124:in `request'
+      # ./spec/requests/campaigns_spec.rb:6:in `block (3 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `hook_uuid' for #<Campaign:0x007fb0b485aa68>
+      #   Did you mean?  hook_was
+      #   ./app/views/campaigns/index.html.erb:17:in `block in _app_views_campaigns_index_html_erb___3870149005894629915_70198433560920'
+
+  28) emails/show renders attributes in <p>
+      Failure/Error: <%= link_to 'Edit', edit_email_path(@email) %> |
+
+      ActionView::Template::Error:
+        undefined method `edit_email_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b4838b20>
+        Did you mean?  edit_campaign_path
+      # ./app/views/emails/show.html.erb:18:in `_app_views_emails_show_html_erb__4568000066332044703_70198456132960'
+      # ./spec/views/emails/show.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `edit_email_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b4838b20>
+      #   Did you mean?  edit_campaign_path
+      #   ./app/views/emails/show.html.erb:18:in `_app_views_emails_show_html_erb__4568000066332044703_70198456132960'
+
+  29) apps/new renders new app form
+      Failure/Error: <%= form_for(app) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `apps_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b37da490>
+      # ./app/views/apps/_form.html.erb:1:in `_app_views_apps__form_html_erb___1465345954662303924_70198451080460'
+      # ./app/views/apps/new.html.erb:3:in `_app_views_apps_new_html_erb___1479364280340519403_70198451128420'
+      # ./spec/views/apps/new.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `apps_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b37da490>
+      #   ./app/views/apps/_form.html.erb:1:in `_app_views_apps__form_html_erb___1465345954662303924_70198451080460'
+
+  30) hooks_constants/new renders new hooks_constant form
+      Failure/Error: <%= form_for(hooks_constant) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `hooks_constants_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b3717490>
+      # ./app/views/hooks_constants/_form.html.erb:1:in `_app_views_hooks_constants__form_html_erb___717446360022559100_70198450336240'
+      # ./app/views/hooks_constants/new.html.erb:3:in `_app_views_hooks_constants_new_html_erb__1256131282273325232_70198450427140'
+      # ./spec/views/hooks_constants/new.html.erb_spec.rb:14:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `hooks_constants_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b3717490>
+      #   ./app/views/hooks_constants/_form.html.erb:1:in `_app_views_hooks_constants__form_html_erb___717446360022559100_70198450336240'
+
+  31) HooksConstants GET /hooks_constants works! (now write some real specs)
+      Failure/Error: get hooks_constants_path
+
+      NameError:
+        undefined local variable or method `hooks_constants_path' for #<RSpec::ExampleGroups::HooksConstants::GETHooksConstants:0x007fb0b411b978>
+      # ./spec/requests/hooks_constants_spec.rb:6:in `block (3 levels) in <top (required)>'
+
+  32) HooksConstantsController routing routes to #index
+      Failure/Error: expect(:get => "/hooks_constants").to route_to("hooks_constants#index")
+        No route matches "/hooks_constants"
+      # ./spec/routing/hooks_constants_routing_spec.rb:7:in `block (3 levels) in <top (required)>'
+
+  33) HooksConstantsController routing routes to #edit
+      Failure/Error: expect(:get => "/hooks_constants/1/edit").to route_to("hooks_constants#edit", :id => "1")
+        No route matches "/hooks_constants/1/edit"
+      # ./spec/routing/hooks_constants_routing_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  34) HooksConstantsController routing routes to #create
+      Failure/Error: expect(:post => "/hooks_constants").to route_to("hooks_constants#create")
+        No route matches "/hooks_constants"
+      # ./spec/routing/hooks_constants_routing_spec.rb:23:in `block (3 levels) in <top (required)>'
+
+  35) HooksConstantsController routing routes to #destroy
+      Failure/Error: expect(:delete => "/hooks_constants/1").to route_to("hooks_constants#destroy", :id => "1")
+        No route matches "/hooks_constants/1"
+      # ./spec/routing/hooks_constants_routing_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  36) HooksConstantsController routing routes to #new
+      Failure/Error: expect(:get => "/hooks_constants/new").to route_to("hooks_constants#new")
+        No route matches "/hooks_constants/new"
+      # ./spec/routing/hooks_constants_routing_spec.rb:11:in `block (3 levels) in <top (required)>'
+
+  37) HooksConstantsController routing routes to #update via PATCH
+      Failure/Error: expect(:patch => "/hooks_constants/1").to route_to("hooks_constants#update", :id => "1")
+        No route matches "/hooks_constants/1"
+      # ./spec/routing/hooks_constants_routing_spec.rb:31:in `block (3 levels) in <top (required)>'
+
+  38) HooksConstantsController routing routes to #update via PUT
+      Failure/Error: expect(:put => "/hooks_constants/1").to route_to("hooks_constants#update", :id => "1")
+        No route matches "/hooks_constants/1"
+      # ./spec/routing/hooks_constants_routing_spec.rb:27:in `block (3 levels) in <top (required)>'
+
+  39) HooksConstantsController routing routes to #show
+      Failure/Error: expect(:get => "/hooks_constants/1").to route_to("hooks_constants#show", :id => "1")
+        No route matches "/hooks_constants/1"
+      # ./spec/routing/hooks_constants_routing_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+  40) HooksConstantsController GET #new assigns a new hooks_constant as @hooks_constant
+      Failure/Error: get :new, params: {}, session: valid_session
+
+      ActionController::UrlGenerationError:
+        No route matches {:action=>"new", :controller=>"hooks_constants"}
+      # ./spec/controllers/hooks_constants_controller_spec.rb:57:in `block (3 levels) in <top (required)>'
+
+  41) campaigns/show renders attributes in <p>
+      Failure/Error:
+        @campaign = assign(:campaign, Campaign.create!(
+          :hook => 2,
+          :hooks_constant_id => 3,
+          :name => "Name",
+          :hook_identifier => "Hook Identifier"
+        ))
+
+      ActiveRecord::InvalidForeignKey:
+        PG::ForeignKeyViolation: ERROR:  insert or update on table "campaigns" violates foreign key constraint "fk_campaigns_hooks_constant_id"
+        DETAIL:  Key (hooks_constant_id)=(3) is not present in table "hooks_constants".
+        : INSERT INTO "campaigns" ("hook", "created_at", "updated_at", "hooks_constant_id", "name", "hook_identifier") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:57:in `block in exec_no_cache'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:54:in `call_implementation'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:84:in `_modware_continue'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:76:in `_modware_call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:43:in `execute'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:19:in `start'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_monkey-2.1.5/lib/schema_monkey/stack.rb:34:in `start'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:56:in `exec_no_cache'
+      # ./spec/views/campaigns/show.html.erb_spec.rb:5:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # PG::ForeignKeyViolation:
+      #   ERROR:  insert or update on table "campaigns" violates foreign key constraint "fk_campaigns_hooks_constant_id"
+      #   DETAIL:  Key (hooks_constant_id)=(3) is not present in table "hooks_constants".
+      #   /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:57:in `block in exec_no_cache'
+
+  42) Apps GET /apps works! (now write some real specs)
+      Failure/Error: get apps_path
+
+      NameError:
+        undefined local variable or method `apps_path' for #<RSpec::ExampleGroups::Apps::GETApps:0x007fb0b35408b0>
+      # ./spec/requests/apps_spec.rb:6:in `block (3 levels) in <top (required)>'
+
+  43) emails/index renders a list of emails
+      Failure/Error: <td><%= link_to 'Show', email %></td>
+
+      ActionView::Template::Error:
+        undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b3530168>
+        Did you mean?  image_path
+      # ./app/views/emails/index.html.erb:21:in `block in _app_views_emails_index_html_erb__1726506047805814385_70198449592680'
+      # ./app/views/emails/index.html.erb:16:in `each'
+      # ./app/views/emails/index.html.erb:16:in `_app_views_emails_index_html_erb__1726506047805814385_70198449592680'
+      # ./spec/views/emails/index.html.erb_spec.rb:20:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `emails_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b3530168>
+      #   Did you mean?  image_path
+      #   ./app/views/emails/index.html.erb:21:in `block in _app_views_emails_index_html_erb__1726506047805814385_70198449592680'
+
+  44) hooks_constants/show renders attributes in <p>
+      Failure/Error:
+        @hooks_constant = assign(:hooks_constant, HooksConstant.create!(
+          :name => "Name",
+          :identifier => "Identifier",
+          :type => "Type",
+          :hook_type => "Hook Type"
+        ))
+
+      ActiveRecord::SubclassNotFound:
+        The single-table inheritance mechanism failed to locate the subclass: 'Type'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite HooksConstant.inheritance_column to use another column for that information.
+      # ./spec/views/hooks_constants/show.html.erb_spec.rb:5:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NameError:
+      #   uninitialized constant Type
+      #   ./spec/views/hooks_constants/show.html.erb_spec.rb:5:in `block (2 levels) in <top (required)>'
+
+  45) hooks_constants/edit renders the edit hooks_constant form
+      Failure/Error: <%= form_for(hooks_constant) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `hooks_constant_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b4032a48>
+      # ./app/views/hooks_constants/_form.html.erb:1:in `_app_views_hooks_constants__form_html_erb___717446360022559100_70198450336240'
+      # ./app/views/hooks_constants/edit.html.erb:3:in `_app_views_hooks_constants_edit_html_erb__3911565532876477819_70198455454980'
+      # ./spec/views/hooks_constants/edit.html.erb_spec.rb:14:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `hooks_constant_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b4032a48>
+      #   ./app/views/hooks_constants/_form.html.erb:1:in `_app_views_hooks_constants__form_html_erb___717446360022559100_70198450336240'
+
+  46) email_lists/edit renders the edit email_list form
+      Failure/Error: <%= form_for(email_list) do |f| %>
+
+      ActionView::Template::Error:
+        undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b175eba8>
+        Did you mean?  email_field_tag
+      # ./app/views/email_lists/_form.html.erb:1:in `_app_views_email_lists__form_html_erb___3083590670153787942_70198433986680'
+      # ./app/views/email_lists/edit.html.erb:3:in `_app_views_email_lists_edit_html_erb__1584173723701715562_70198434059980'
+      # ./spec/views/email_lists/edit.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `email_lists_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0b175eba8>
+      #   Did you mean?  email_field_tag
+      #   ./app/views/email_lists/_form.html.erb:1:in `_app_views_email_lists__form_html_erb___3083590670153787942_70198433986680'
+
+  47) campaigns/edit renders the edit campaign form
+      Failure/Error: <%= f.text_field :hook_uuid_id %>
+
+      ActionView::Template::Error:
+        undefined method `hook_uuid_id' for #<Campaign:0x007fb0b335b608>
+        Did you mean?  hook_identifier
+      # ./app/views/campaigns/_form.html.erb:16:in `block in _app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+      # ./app/views/campaigns/_form.html.erb:1:in `_app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+      # ./app/views/campaigns/edit.html.erb:3:in `_app_views_campaigns_edit_html_erb__2687067245406381321_70198448736420'
+      # ./spec/views/campaigns/edit.html.erb_spec.rb:14:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `hook_uuid_id' for #<Campaign:0x007fb0b335b608>
+      #   Did you mean?  hook_identifier
+      #   ./app/views/campaigns/_form.html.erb:16:in `block in _app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+
+  48) email_lists/show renders attributes in <p>
+      Failure/Error: <%= link_to 'Edit', edit_email_list_path(@email_list) %> |
+
+      ActionView::Template::Error:
+        undefined method `edit_email_list_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0aef68db0>
+        Did you mean?  edit_mail_funnel_config_path
+      # ./app/views/email_lists/show.html.erb:18:in `_app_views_email_lists_show_html_erb___693110711543319755_70198433523380'
+      # ./spec/views/email_lists/show.html.erb_spec.rb:13:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `edit_email_list_path' for #<#<Class:0x007fb0b13a8ef0>:0x007fb0aef68db0>
+      #   Did you mean?  edit_mail_funnel_config_path
+      #   ./app/views/email_lists/show.html.erb:18:in `_app_views_email_lists_show_html_erb___693110711543319755_70198433523380'
+
+  49) CampaignsController GET #new assigns a new campaign as @campaign
+      Failure/Error: expect(assigns(:campaign)).to be_a_new(Campaign)
+
+      NoMethodError:
+        assigns has been extracted to a gem. To continue using it,
+                add `gem 'rails-controller-testing'` to your Gemfile.
+      # ./spec/controllers/campaigns_controller_spec.rb:58:in `block (3 levels) in <top (required)>'
+
+  50) campaigns/new renders new campaign form
+      Failure/Error: <%= f.text_field :hook_uuid_id %>
+
+      ActionView::Template::Error:
+        undefined method `hook_uuid_id' for #<Campaign:0x007fb0ada7b5b0>
+        Did you mean?  hook_identifier
+      # ./app/views/campaigns/_form.html.erb:16:in `block in _app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+      # ./app/views/campaigns/_form.html.erb:1:in `_app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+      # ./app/views/campaigns/new.html.erb:3:in `_app_views_campaigns_new_html_erb___288946808696244259_70198402174700'
+      # ./spec/views/campaigns/new.html.erb_spec.rb:14:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # NoMethodError:
+      #   undefined method `hook_uuid_id' for #<Campaign:0x007fb0ada7b5b0>
+      #   Did you mean?  hook_identifier
+      #   ./app/views/campaigns/_form.html.erb:16:in `block in _app_views_campaigns__form_html_erb___925194222010554893_70198448676000'
+
+  51) EmailsController GET #new assigns a new email as @email
+      Failure/Error: get :new, params: {}, session: valid_session
+
+      ActionController::UrlGenerationError:
+        No route matches {:action=>"new", :controller=>"emails"}
+      # ./spec/controllers/emails_controller_spec.rb:57:in `block (3 levels) in <top (required)>'
+
+  52) EmailsController POST #create with valid params creates a new Email
+      Failure/Error:
+        expect {
+          post :create, params: {email: valid_attributes}, session: valid_session
+        }.to change(Email, :count).by(1)
+
+      NoMethodError:
+        undefined method `count' for Email:Class
+      # ./spec/controllers/emails_controller_spec.rb:73:in `block (4 levels) in <top (required)>'
+
+  53) campaigns/index renders a list of campaigns
+      Failure/Error:
+        Campaign.create!(
+          :hook => 2,
+          :hooks_constant_id => 3,
+          :name => "Name",
+          :hook_identifier => "Hook Identifier"
+        ),
+
+      ActiveRecord::InvalidForeignKey:
+        PG::ForeignKeyViolation: ERROR:  insert or update on table "campaigns" violates foreign key constraint "fk_campaigns_hooks_constant_id"
+        DETAIL:  Key (hooks_constant_id)=(3) is not present in table "hooks_constants".
+        : INSERT INTO "campaigns" ("hook", "created_at", "updated_at", "hooks_constant_id", "name", "hook_identifier") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:57:in `block in exec_no_cache'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:54:in `call_implementation'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:84:in `_modware_continue'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:76:in `_modware_call'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:43:in `execute'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/modware-0.1.3/lib/modware/stack.rb:19:in `start'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_monkey-2.1.5/lib/schema_monkey/stack.rb:34:in `start'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:56:in `exec_no_cache'
+      # ./spec/views/campaigns/index.html.erb_spec.rb:6:in `block (2 levels) in <top (required)>'
+      # ------------------
+      # --- Caused by: ---
+      # PG::ForeignKeyViolation:
+      #   ERROR:  insert or update on table "campaigns" violates foreign key constraint "fk_campaigns_hooks_constant_id"
+      #   DETAIL:  Key (hooks_constant_id)=(3) is not present in table "hooks_constants".
+      #   /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/gems/schema_plus_core-2.0.1/lib/schema_plus/core/active_record/connection_adapters/postgresql_adapter.rb:57:in `block in exec_no_cache'
+
+  54) EmailListsController POST #create with valid params creates a new EmailList
+      Failure/Error:
+        expect {
+          post :create, params: {email_list: valid_attributes}, session: valid_session
+        }.to change(EmailList, :count).by(1)
+
+      NoMethodError:
+        undefined method `count' for EmailList:Class
+      # ./spec/controllers/email_lists_controller_spec.rb:73:in `block (4 levels) in <top (required)>'
+
+  55) EmailListsController GET #new assigns a new email_list as @email_list
+      Failure/Error: get :new, params: {}, session: valid_session
+
+      ActionController::UrlGenerationError:
+        No route matches {:action=>"new", :controller=>"email_lists"}
+      # ./spec/controllers/email_lists_controller_spec.rb:57:in `block (3 levels) in <top (required)>'
+
+  56) EmailListsController routing routes to #new
+      Failure/Error: expect(:get => "/email_lists/new").to route_to("email_lists#new")
+        No route matches "/email_lists/new"
+      # ./spec/routing/email_lists_routing_spec.rb:11:in `block (3 levels) in <top (required)>'
+
+  57) EmailListsController routing routes to #show
+      Failure/Error: expect(:get => "/email_lists/1").to route_to("email_lists#show", :id => "1")
+        No route matches "/email_lists/1"
+      # ./spec/routing/email_lists_routing_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+  58) EmailListsController routing routes to #edit
+      Failure/Error: expect(:get => "/email_lists/1/edit").to route_to("email_lists#edit", :id => "1")
+        No route matches "/email_lists/1/edit"
+      # ./spec/routing/email_lists_routing_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  59) EmailListsController routing routes to #update via PUT
+      Failure/Error: expect(:put => "/email_lists/1").to route_to("email_lists#update", :id => "1")
+        No route matches "/email_lists/1"
+      # ./spec/routing/email_lists_routing_spec.rb:27:in `block (3 levels) in <top (required)>'
+
+  60) EmailListsController routing routes to #destroy
+      Failure/Error: expect(:delete => "/email_lists/1").to route_to("email_lists#destroy", :id => "1")
+        No route matches "/email_lists/1"
+      # ./spec/routing/email_lists_routing_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  61) EmailListsController routing routes to #index
+      Failure/Error: expect(:get => "/email_lists").to route_to("email_lists#index")
+        No route matches "/email_lists"
+      # ./spec/routing/email_lists_routing_spec.rb:7:in `block (3 levels) in <top (required)>'
+
+  62) EmailListsController routing routes to #create
+      Failure/Error: expect(:post => "/email_lists").to route_to("email_lists#create")
+        No route matches "/email_lists"
+      # ./spec/routing/email_lists_routing_spec.rb:23:in `block (3 levels) in <top (required)>'
+
+  63) EmailListsController routing routes to #update via PATCH
+      Failure/Error: expect(:patch => "/email_lists/1").to route_to("email_lists#update", :id => "1")
+        No route matches "/email_lists/1"
+      # ./spec/routing/email_lists_routing_spec.rb:31:in `block (3 levels) in <top (required)>'
+
+  64) apps/show renders attributes in <p>
+      Failure/Error:
+        @app = assign(:app, App.create!(
+          :name => "Name",
+          :builder_lock => false,
+          :auth_token => "Auth Token"
+        ))
+
+      ActiveResource::ResourceInvalid:
+        Failed.
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:1303:in `save!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `block in create!'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `tap'
+      # /Users/vasilioskaloidis/.rvm/gems/ruby-2.3.1/bundler/gems/activeresource-271c42aa938e/lib/active_resource/base.rb:867:in `create!'
+      # ./spec/views/apps/show.html.erb_spec.rb:5:in `block (2 levels) in <top (required)>'
+
+  65) EmailLists GET /email_lists works! (now write some real specs)
+      Failure/Error: get email_lists_path
+
+      NameError:
+        undefined local variable or method `email_lists_path' for #<RSpec::ExampleGroups::EmailLists::GETEmailLists:0x007fb0aeda2dc8>
+      # ./spec/requests/email_lists_spec.rb:6:in `block (3 levels) in <top (required)>'
+
+Finished in 1.46 seconds (files took 3.22 seconds to load)
+155 examples, 65 failures, 82 pending
+
+Failed examples:
+
+rspec ./spec/controllers/apps_controller_spec.rb:72 # AppsController POST #create with valid params creates a new App
+rspec ./spec/controllers/apps_controller_spec.rb:56 # AppsController GET #new assigns a new app as @app
+rspec ./spec/views/emails/new.html.erb_spec.rb:12 # emails/new renders new email form
+rspec ./spec/routing/apps_routing_spec.rb:14 # AppsController routing routes to #show
+rspec ./spec/routing/apps_routing_spec.rb:22 # AppsController routing routes to #create
+rspec ./spec/routing/apps_routing_spec.rb:26 # AppsController routing routes to #update via PUT
+rspec ./spec/routing/apps_routing_spec.rb:34 # AppsController routing routes to #destroy
+rspec ./spec/routing/apps_routing_spec.rb:10 # AppsController routing routes to #new
+rspec ./spec/routing/apps_routing_spec.rb:30 # AppsController routing routes to #update via PATCH
+rspec ./spec/routing/apps_routing_spec.rb:6 # AppsController routing routes to #index
+rspec ./spec/routing/apps_routing_spec.rb:18 # AppsController routing routes to #edit
+rspec ./spec/views/apps/edit.html.erb_spec.rb:12 # apps/edit renders the edit app form
+rspec ./spec/views/email_lists/index.html.erb_spec.rb:19 # email_lists/index renders a list of email_lists
+rspec ./spec/views/email_lists/new.html.erb_spec.rb:12 # email_lists/new renders new email_list form
+rspec ./spec/routing/emails_routing_spec.rb:34 # EmailsController routing routes to #destroy
+rspec ./spec/routing/emails_routing_spec.rb:14 # EmailsController routing routes to #show
+rspec ./spec/routing/emails_routing_spec.rb:6 # EmailsController routing routes to #index
+rspec ./spec/routing/emails_routing_spec.rb:26 # EmailsController routing routes to #update via PUT
+rspec ./spec/routing/emails_routing_spec.rb:30 # EmailsController routing routes to #update via PATCH
+rspec ./spec/routing/emails_routing_spec.rb:10 # EmailsController routing routes to #new
+rspec ./spec/routing/emails_routing_spec.rb:18 # EmailsController routing routes to #edit
+rspec ./spec/routing/emails_routing_spec.rb:22 # EmailsController routing routes to #create
+rspec ./spec/views/apps/index.html.erb_spec.rb:19 # apps/index renders a list of apps
+rspec ./spec/views/emails/edit.html.erb_spec.rb:12 # emails/edit renders the edit email form
+rspec ./spec/views/hooks_constants/index.html.erb_spec.rb:21 # hooks_constants/index renders a list of hooks_constants
+rspec ./spec/requests/emails_spec.rb:5 # Emails GET /emails works! (now write some real specs)
+rspec ./spec/requests/campaigns_spec.rb:5 # Campaigns GET /campaigns works! (now write some real specs)
+rspec ./spec/views/emails/show.html.erb_spec.rb:12 # emails/show renders attributes in <p>
+rspec ./spec/views/apps/new.html.erb_spec.rb:12 # apps/new renders new app form
+rspec ./spec/views/hooks_constants/new.html.erb_spec.rb:13 # hooks_constants/new renders new hooks_constant form
+rspec ./spec/requests/hooks_constants_spec.rb:5 # HooksConstants GET /hooks_constants works! (now write some real specs)
+rspec ./spec/routing/hooks_constants_routing_spec.rb:6 # HooksConstantsController routing routes to #index
+rspec ./spec/routing/hooks_constants_routing_spec.rb:18 # HooksConstantsController routing routes to #edit
+rspec ./spec/routing/hooks_constants_routing_spec.rb:22 # HooksConstantsController routing routes to #create
+rspec ./spec/routing/hooks_constants_routing_spec.rb:34 # HooksConstantsController routing routes to #destroy
+rspec ./spec/routing/hooks_constants_routing_spec.rb:10 # HooksConstantsController routing routes to #new
+rspec ./spec/routing/hooks_constants_routing_spec.rb:30 # HooksConstantsController routing routes to #update via PATCH
+rspec ./spec/routing/hooks_constants_routing_spec.rb:26 # HooksConstantsController routing routes to #update via PUT
+rspec ./spec/routing/hooks_constants_routing_spec.rb:14 # HooksConstantsController routing routes to #show
+rspec ./spec/controllers/hooks_constants_controller_spec.rb:56 # HooksConstantsController GET #new assigns a new hooks_constant as @hooks_constant
+rspec ./spec/views/campaigns/show.html.erb_spec.rb:13 # campaigns/show renders attributes in <p>
+rspec ./spec/requests/apps_spec.rb:5 # Apps GET /apps works! (now write some real specs)
+rspec ./spec/views/emails/index.html.erb_spec.rb:19 # emails/index renders a list of emails
+rspec ./spec/views/hooks_constants/show.html.erb_spec.rb:13 # hooks_constants/show renders attributes in <p>
+rspec ./spec/views/hooks_constants/edit.html.erb_spec.rb:13 # hooks_constants/edit renders the edit hooks_constant form
+rspec ./spec/views/email_lists/edit.html.erb_spec.rb:12 # email_lists/edit renders the edit email_list form
+rspec ./spec/views/campaigns/edit.html.erb_spec.rb:13 # campaigns/edit renders the edit campaign form
+rspec ./spec/views/email_lists/show.html.erb_spec.rb:12 # email_lists/show renders attributes in <p>
+rspec ./spec/controllers/campaigns_controller_spec.rb:56 # CampaignsController GET #new assigns a new campaign as @campaign
+rspec ./spec/views/campaigns/new.html.erb_spec.rb:13 # campaigns/new renders new campaign form
+rspec ./spec/controllers/emails_controller_spec.rb:56 # EmailsController GET #new assigns a new email as @email
+rspec ./spec/controllers/emails_controller_spec.rb:72 # EmailsController POST #create with valid params creates a new Email
+rspec ./spec/views/campaigns/index.html.erb_spec.rb:21 # campaigns/index renders a list of campaigns
+rspec ./spec/controllers/email_lists_controller_spec.rb:72 # EmailListsController POST #create with valid params creates a new EmailList
+rspec ./spec/controllers/email_lists_controller_spec.rb:56 # EmailListsController GET #new assigns a new email_list as @email_list
+rspec ./spec/routing/email_lists_routing_spec.rb:10 # EmailListsController routing routes to #new
+rspec ./spec/routing/email_lists_routing_spec.rb:14 # EmailListsController routing routes to #show
+rspec ./spec/routing/email_lists_routing_spec.rb:18 # EmailListsController routing routes to #edit
+rspec ./spec/routing/email_lists_routing_spec.rb:26 # EmailListsController routing routes to #update via PUT
+rspec ./spec/routing/email_lists_routing_spec.rb:34 # EmailListsController routing routes to #destroy
+rspec ./spec/routing/email_lists_routing_spec.rb:6 # EmailListsController routing routes to #index
+rspec ./spec/routing/email_lists_routing_spec.rb:22 # EmailListsController routing routes to #create
+rspec ./spec/routing/email_lists_routing_spec.rb:30 # EmailListsController routing routes to #update via PATCH
+rspec ./spec/views/apps/show.html.erb_spec.rb:12 # apps/show renders attributes in <p>
+rspec ./spec/requests/email_lists_spec.rb:5 # EmailLists GET /email_lists works! (now write some real specs)
+
+Randomized with seed 32240
+
