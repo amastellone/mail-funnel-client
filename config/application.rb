@@ -28,9 +28,9 @@ module MailFunnelClient
 		config.generators do |g|
 			g.orm :active_record
 
-			g.factory_girl false #  Automatic Replaces Fixtures
+			g.factory_girl true #  Automatic Replaces Fixtures
 			g.test_framework :rspec
-			g.test_framework :test_unit, fixture: true
+			# g.test_framework :test_unit, fixture: true
 			# g.test_framework :test_unit, fixture: false
 
 			g.template_engine :erb
