@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @app.name %>
+</p>
+
+<p>
+  <strong>Builder lock:</strong>
+  <%= @app.builder_lock %>
+</p>
+
+<p>
+  <strong>Auth token:</strong>
+  <%= @app.auth_token %>
+</p>
+
+<%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Back', apps_path %>

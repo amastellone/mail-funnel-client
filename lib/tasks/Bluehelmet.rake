@@ -1,5 +1,30 @@
 namespace :Bluehelmet do
 
+	desc "Generate Scaffolds for Existing Data"
+	task :generate_scaffolds_phase_1 => :environment do
+		Bundler.with_clean_env do
+
+			# ** Look through Log Output or PIPE Output to File review what files were overridden / created / ignored
+
+			# Skip Model
+			sh "rails g scaffold App name:string builder_lock:boolean auth_token:string --no-migration --no-assets --no-resource-route --skip"
+
+			# Skip Model
+			sh "rails g scaffold EmailList name:string description:test app_id:integer --no-migration --no-resource-route --skip"
+
+			# Skip Controller, Model
+			sh "rails g scaffold Email name:string description:test app_id:integer --no-migration --no-resource-route --no-assets --skip"
+
+			# Skip Mode, Comment out Route
+			sh "rails g scaffold Campaign hook:integer hooks_constant_id:integer name:string hook_identifier:string --no-migration --no-assets --no-assets  --skip"
+
+			# Skip Model
+			sh "rails g scaffold HooksConstant name:string identifier:string type:string hook_type:string --no-migration --no-assets --no-assets --no-resource-route  --skip"
+		end
+	end
+
+
+
 	desc "Prepare Testing Seeding"
 	task :prepare => :environment do
 		Rake::Task["db:drop"].invoke
