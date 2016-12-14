@@ -8,8 +8,6 @@ source 'https://rubygems.org'
 
 # gem 'activeresource', github: 'rails/activeresource', branch: 'master'
 
-
-
 gem 'shopify_app'
 gem 'activeresource', :git => 'git://github.com/rails/activeresource.git'
 # gem 'activesupport-json_encoder'
@@ -35,6 +33,7 @@ gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
 
+#TODO: Remvoe Spyke
 gem 'spyke'
 
 # Her
@@ -49,16 +48,13 @@ gem "font-awesome-rails"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
-gem 'schema_auto_foreign_keys'
-gem 'yaml_db'
-
-
 # RAILS
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 # DATABASE
-# gem 'sqlite3'
 gem 'pg'
+gem 'schema_auto_foreign_keys'
+gem 'yaml_db'
 
 # WEB SERVER
 gem 'puma', '~> 3.0'
@@ -95,7 +91,6 @@ group :development, :test do
 	gem 'byebug', platform: :mri
 	gem 'rspec'
 	gem 'rspec-rails'
-
 	gem 'spring-commands-rspec'
 end
 
@@ -118,9 +113,12 @@ group :test do
 	# gem "selenium-webdriver"
 	gem "database_cleaner"
 	gem "shoulda-matchers"
+	gem 'capybara'
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
 # Gems appended using BASH '>' feature
-gem 'rack-jwt'
+gem 'rack-jwt' 
