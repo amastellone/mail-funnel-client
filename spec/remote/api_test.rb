@@ -19,9 +19,9 @@ end
 # TODO: These tests create special names with -test suffix, then find them, to check if ORM is working
 
 # until $x > 5 do
-list = EmailsList.create(name:        "Main List " + $x.to_s,
-                         description: "This is a great email list",
-                         app_id:      app);
+list = EmailList.create(name:        "Main List " + $x.to_s,
+                        description: "This is a great email list",
+                        app_id:      app);
 
 puts "Created List " + list.name.to_s
 # until $x > Random.rand(3...15) do

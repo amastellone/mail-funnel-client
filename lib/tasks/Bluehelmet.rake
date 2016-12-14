@@ -30,7 +30,7 @@ namespace :Bluehelmet do
 	desc "Test Seeding 2"
 	task :test2 => :environment do
 		Rake::Task["Bluehelmet:seed"].invoke # Seed
-				list = EmailsList.create(name:        "Main List " + $x.to_s,
+				list = EmailList.create(name:        "Main List " + $x.to_s,
 				                         description: "This is a great email list",
 				                         app_id:      app);
 

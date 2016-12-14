@@ -35,7 +35,7 @@
 </textarea>
 
 <div id="job_editors">
-	<% @jobs.each do |job| %>
+	<% @local_jobs.each do |job| %>
 		<div id="form_<%= job.local_identifier %>">
 			<b>Name:</b><br>
 			<input type="text" id="form_name_<%= job.local_identifier %>" value="<%= job.name %>" />

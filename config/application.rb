@@ -19,15 +19,17 @@ module MailFunnelClient
 		}
 
 		# config.middleware.use, Rack::JWT::Auth,
+		# config.middleware.use Magical::Unicorns
 
 		# config.middleware.insert_before ActionDispatch::ParamsParser, "CatchJsonParseErrors"
 
 		config.active_record.raise_in_transactional_callbacks = true
 
 		config.generators do |g|
-			g.orm :active_record
+			g.orm :active_session
 			g.template_engine :erb
-			g.test_framework :test_unit, fixture: true
+			g.test_framework :test_unit, fixture: false
+			g.test_framework :rspec
 			g.stylesheets false
 			g.javascripts false
 		end

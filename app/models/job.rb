@@ -12,7 +12,7 @@ class Job < RestModel
 	# include_root_in_json false
 
 	belongs_to :app, :class_name => "App"
-	has_one :emails_lists, :class_name => "EmailsList"
+	has_one :email_lists, :class_name => "EmailList"
 
 	# accepts_nested_attributes_for :emails_lists
 

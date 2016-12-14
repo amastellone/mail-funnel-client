@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe EmailsList, type: :model do
+RSpec.describe EmailList, type: :model do
 
 	it "Views all apps" do
 		p "TEST: Index"
-		lists = EmailsList.all
+		lists = EmailList.all
 
 		p lists.to_s
 
@@ -19,9 +19,9 @@ RSpec.describe EmailsList, type: :model do
 		runthis = false
 		if runthis == true
 			p "TEST: Create An Email List"
-			EmailsList.create(name: "test-app-name-1")
+			EmailList.create(name: "test-app-name-1")
 
-			result = EmailsList.where(name: "test-app-name-1")
+			result = EmailList.where(name: "test-app-name-1")
 
 			p "Result Email-List-ID: " + result.to_s
 			# expect(app.id).to be > -1

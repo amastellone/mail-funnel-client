@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   get '/funnel', to: 'funnel_builder#index'
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
-  get '/lists', to: 'emails#lists'
-  get '/emails/:id', to: 'emails#emails'
+  get '/list', to: 'email#list'
+  get '/email/:list_id', to: 'email#emails'
 
 
   get 'modal' => "home#modal", :as => :modal
