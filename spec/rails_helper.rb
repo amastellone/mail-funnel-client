@@ -32,6 +32,8 @@ RSpec.configure do |config|
 
 	# ActiveModel::Serializer.config.adapter = :json_api
 
+	require 'support/factory_girl'
+
 
 	# config/initializers/spyke.rb
 	require 'multi_json'

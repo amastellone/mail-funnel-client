@@ -26,8 +26,9 @@ module MailFunnelClient
 		config.active_record.raise_in_transactional_callbacks = true
 
 		config.generators do |g|
-			g.orm :active_session
+			g.orm :active_record
 
+			g.factory_girl false #  Automatic Replaces Fixtures
 			g.test_framework :rspec
 			g.test_framework :test_unit, fixture: true
 			# g.test_framework :test_unit, fixture: false
@@ -37,9 +38,6 @@ module MailFunnelClient
 			g.javascripts true
 		end
 
-		config.generators do |g|
-			g.test_framework :rspec
-		end
 
 		# Settings in config/environments/* take precedence over those specified here.
 		# Application configuration should go into files in config/initializers
