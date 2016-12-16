@@ -30,6 +30,8 @@ http://localhost:3000
 ### Testing
 
 ```bash
+rake
+# or
 rake test
 
 # Test Individual Client-API Tests

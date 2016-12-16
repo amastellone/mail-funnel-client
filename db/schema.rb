@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207014028) do
+ActiveRecord::Schema.define(version: 20161216063403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,13 +25,19 @@ ActiveRecord::Schema.define(version: 20161207014028) do
     t.datetime "updated_at", :null=>false
   end
 
+  create_table "hook_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
+  end
+
   create_table "hooks_constants", force: :cascade do |t|
     t.string   "name"
     t.string   "identifier"
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-    t.string   "type"
+    t.datetime "created_at",   :null=>false
+    t.datetime "updated_at",   :null=>false
     t.string   "hook_type"
+    t.integer  "hook_type_id", :foreign_key=>{:references=>"hook_types", :name=>"fk_hooks_constants_hook_type_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__hooks_constants_hook_type_id", :using=>:btree}
   end
 
   create_table "campaigns", force: :cascade do |t|

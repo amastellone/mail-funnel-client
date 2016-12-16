@@ -2,6 +2,11 @@ source 'https://rubygems.org'
 
 # CLIENT
 
+gem 'json'
+gem 'jsonify'
+
+gem 'faker'
+
 # gem 'activerecord-session_store'
 # gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
 # /vaskaloidis/request_store_registry
@@ -34,8 +39,6 @@ gem 'mime-types'
 gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
-
-gem 'spyke'
 
 # Her
 # Faraday Middleware for Her
