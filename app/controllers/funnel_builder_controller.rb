@@ -1,6 +1,180 @@
+require 'htmlentities'
+require 'JobLocal'
+
 class FunnelBuilderController < ApplicationController
 
+
+	# var flowchart_data = {
+	# 	 operators: {
+	# 			operator1: {
+	# 				 top: 20,
+	# 				 left: 20,
+	# 				 multipleLinksOnInput: true,
+	# 				 properties: {
+	# 						title: 'Cart Trigger',
+	# 						inputs: {},
+	# 						outputs: {
+	# 							 output_1: {
+	# 									label: 'cart/create',
+	# 							 },
+	# 							 output_2: {
+	# 									label: 'cart/update',
+	# 							 }
+	# 						}
+	# 				 }
+	# 			},
+	# },
+	# 	 links: {
+	# 		 link_1: {
+	# 				fromOperator: 'operator1',
+	# 				fromConnector: 'output_1',
+	# 				toOperator: 'operator2',
+	# 				toConnector: 'input_2',
+	# 		 },
+	# }
+
 	def index
+		# Build this information as JSON
+
+		appid        = App.where(name: 'bluehelmet-dev').first.id
+
+		# hook_type_id = params[:id]
+		hook_type_id = 1
+
+		hook_request = 'first'
+		if hook_request != 'all'
+			@hook_type = HookType.first
+		else
+			@hook_type = HookType.all
+		end
+		@hooks = HooksConstant.where(hook_type_id: @hook_type.id)
+
+
+		@local_jobs = Array.new
+		first       = true
+
+		top           = 0
+		top_increment = 150 #Top Increment
+		left          = 80
+
+		count     = 0
+		operators = Hash.new
+
+
+		@hooks.each do |hook|
+			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
+
+				operator_title = ("campaign_" + count.to_s).to_s
+
+				operators[operator_title] =
+					 {
+							"top"                  => top.to_s,
+							"left"                 => "80",
+							"multipleLinksOnInput" => "true",
+							"properties"           => {
+								 "title"   => "Campaign",
+								 "inputs"  => {},
+								 "outputs" => {
+										"output_1" => {
+											 "label" => campaign.name + " Jobs:",
+										}
+								 }
+							}
+					 }
+				top                       = top + top_increment
+				count                     += 1
+			end
+		end
+
+		top  = 0
+		left = 180
+
+		left_increment = 180
+
+		count = 0
+		@hooks.each do |hook|
+			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
+				Job.where(app_id: appid, campaign_identifier: campaign.hook_identifier).each do |j|
+					operator_title            = ("job_" + j.id.to_s).to_s
+					operators[operator_title] =
+						 {
+								"top"                  => top.to_s,
+								"left"                 => left_increment.to_s,
+								"multipleLinksOnInput" => "false",
+								"properties"           => {
+									 "title"   => "Email Job",
+									 "inputs"  => {
+											"input_1" => {
+												 "label" => j.name
+											}
+									 },
+									 "outputs" => {
+											"output_1" => {
+												 "label" => "Next Job:",
+											}
+									 }
+								}
+						 }
+					left                      = left + left_increment
+					count                     += 1
+				end
+				top = top + top_increment
+			end
+		end
+
+
+		connections    = Hash.new
+		link_count     = 0
+		campaign_count = 0
+		job_count      = 0
+		last_job_id    = 0
+		@hooks.each do |hook|
+			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
+				firstjob = true
+				Job.where(app_id: appid, hook_identifier: campaign.hook_identifier).each do |j|
+					connector_title = ("link_" + link_count.to_s).to_s
+					if firstjob
+						connections[connector_title] =
+							 {
+									"fromOperator"  => "campaign_" + campaign_count.to_s,
+									"fromConnector" => "output_1",
+									"toOperator"    => "job_" + j.id.to_s,
+									"toConnector"   => "input_1"
+							 }
+						campaign_count             += 1
+						firstjob                   = false
+					else
+						connections[connector_title] =
+							 {
+									"fromOperator"  => "job_" + last_job_id.to_s,
+									"fromConnector" => "output_1",
+									"toOperator"    => "job_" + j.id.to_s,
+									"toConnector"   => "input_1"
+							 }
+					end
+					last_job_id = j.id
+					link_count  += 1
+				end
+			end
+		end
+
+
+		json_data = Hash.new
+		json_data = {
+			 "operators"   => operators,
+			 "links" => connections
+		}
+
+
+		object = JSON.pretty_generate({
+			                               "operators" =>
+					                              json_data
+		                              })
+		@json  = object
+
+	end
+
+	def index_mermaid
 
 		appid = App.where(name: 'bluehelmet-dev').first.id
 		# appid = App.myId() # TODO: Implement App-Name Here
@@ -11,7 +185,7 @@ class FunnelBuilderController < ApplicationController
 		if request.get?
 			if params.include?(:hook_type)
 				hook_type = params[:hook_type]
-				@hooks = HooksConstant.where(hook_type: hook_type)
+				@hooks    = HooksConstant.where(hook_type: hook_type)
 			else
 				@hooks = HooksConstant.all
 			end
@@ -78,4 +252,5 @@ class FunnelBuilderController < ApplicationController
 		# @chartdata << chartdata.string
 		# @chardata << HTMLEntities.new.encode(chardata.string)
 	end
+
 end
