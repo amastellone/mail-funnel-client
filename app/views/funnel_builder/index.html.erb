@@ -17,6 +17,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		console.log(<%=raw @json %>);
+		
 		var flowchart_data = <%=raw @json %>;
 		
 		// Apply the plugin on a standard, empty div...

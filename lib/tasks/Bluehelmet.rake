@@ -1,26 +1,32 @@
 namespace :Bluehelmet do
 
+	desc "Generate Jobs"
+	task :seed_jobs => :environment do
+		app       = App.where(name: "bluehelmet-dev").first
+		Campaign.all.find_each do |campaign|
+			$x = 0
+			while $x <= 4 do
+				job = Job.create(execute_frequency:   "execute_once",
+				                 execute_time:        "1330",
+				                 subject:             "Email subject",
+				                 content:             "Email Contents",
+				                 name:                Faker::Commerce.product_name,
+				                 app_id:              app.id,
+				                 campaign_identifier: campaign.hook_identifier,
+				                 hook_identifier:     campaign.hook_identifier,
+				                 client_campaign:     campaign.id,
+				                 executed:            false,
+				                 email_list_id:       1
+				)
+				# EmailList.offset(rand(EmailList.count)).first
+				puts "OURS: Job Created for " + job.hook_identifier.to_s
+				$x += 1
+			end
+		end
+	end
 
 	desc "Seed REST Data"
 	task :seed_server => :environment do
-		# Create
-		app         = App.where(name: "bluehelmet-dev").first.id
-
-		# Generate default Email_List
-		defaultlist = EmailList.create(name:        "Default",
-		                               description: "The default Mail-Funnel email list",
-		                               app_id:      app);
-
-
-		# until $x > Random.rand(3...15) do
-		email       = Email.create(email:         Faker::Internet.email,
-		                           name:          Faker::Name.name,
-		                           app_id:        app,
-		                           email_list_id: defaultlist.id);
-		# puts list.name.to_s + ": Email Created " + email.email.to_s
-		# end
-
-
 		# GENERATE TEST DATA
 		generate_dummy_data = true
 		if generate_dummy_data
