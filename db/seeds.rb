@@ -1,9 +1,16 @@
 #Seeding
 
 # TODO: Finish the Config Model
-security_key       = MailFunnelConfig.create(name: "security_key", value: "56156a1sdf0a3s55d0f3as5")
-server_url_config  = MailFunnelConfig.create(name: "server_url", value: "http://localhost:3001")
-app_config         = MailFunnelConfig.create(name: "app_name", value: "bluehelmet-dev")
+MailFunnelConfig.create(name: "app_key", value: ENV['APP_KEY'])
+MailFunnelConfig.create(name: "app_secret", value: ENV['APP_SECRET'])
+MailFunnelConfig.create(name: "app_url", value: ENV['APP_URL'])
+MailFunnelConfig.create(name: "app_scope", value: ENV['APP_SCOPE'])
+MailFunnelConfig.create(name: "app_name", value: ENV['mail-funnel-client'])
+
+MailFunnelConfig.create(name: "server_url", value: ENV['SERVER_URL'])
+
+MailFunnelConfig.create(name: "dev_shop_name", value: "bluehelmet-dev")
+MailFunnelConfig.create(name: "app_name", value: "bluehelmet-dev")
 
 # Cart
 cart_hooks = HookType.create(name: 'Cart')
