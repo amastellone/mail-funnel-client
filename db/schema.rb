@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216063403) do
+ActiveRecord::Schema.define(version: 20161216231641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20161216063403) do
   end
 
   create_table "mail_funnel_configs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       :index=>{:name=>"index_mail_funnel_configs_on_name", :unique=>true, :using=>:btree}
     t.string   "value"
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false

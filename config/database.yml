@@ -3,8 +3,8 @@ development: &default
   host: localhost
   adapter: postgresql
   pool: 10
-  username: vkaloidis
-  password: vkaloidis
+  username: postgres
+  password: postgres
 
 development:
   <<: *default

@@ -104,7 +104,7 @@ class FunnelBuilderController < ApplicationController
 			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
 				left = 180
 				# TODO: Replace this with Job.where(local_campaign_id: campaign.id)
-				Job.where(app_id: appid, campaign_identifier: campaign.hook_identifier).each do |j|
+				Job.where(app_id: appid, client_campaign:campaign.id).each do |j|
 					operator_title            = ("job_" + j.id.to_s).to_s
 					operators[operator_title] =
 						 {
@@ -141,7 +141,7 @@ class FunnelBuilderController < ApplicationController
 		@hooks.each do |hook|
 			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
 				firstjob = true
-				Job.where(app_id: appid, campaign_identifier: campaign.hook_identifier).each do |j|
+				Job.where(app_id: appid, client_campaign:campaign.id).each do |j|
 					connector_title = ("link_" + link_count.to_s).to_s
 					if firstjob
 						connections[connector_title] =
