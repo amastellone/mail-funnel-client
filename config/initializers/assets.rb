@@ -15,6 +15,13 @@ Rails.application.config.assets.precompile += %w( modals.js )
 Rails.application.config.assets.precompile += %w( jquery.flowchart.css )
 Rails.application.config.assets.precompile += %w( funnelstyle.css )
 Rails.application.config.assets.precompile += %w( jquery.flowchart.js )
-Rails.application.config.assets.precompile += %w( mermaid.css )
-Rails.application.config.assets.precompile += %w( mermaidAPI.js )
-Rails.application.config.assets.precompile += %w( mermaid.js )
+
+
+# MermaidJS
+# Rails.application.config.assets.precompile += %w( mermaid.css )
+# Rails.application.config.assets.precompile += %w( mermaidAPI.js )
+# Rails.application.config.assets.precompile += %w( mermaid.js )
+
+
+# Rails.application.config.assets.precompile += %w( jquery.popdown.js )
+# Rails.application.config.assets.precompile += %w( jquery.popdown.css )
