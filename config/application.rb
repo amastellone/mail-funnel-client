@@ -23,14 +23,14 @@ module MailFunnelClient
 
 		# config.middleware.insert_before ActionDispatch::ParamsParser, "CatchJsonParseErrors"
 
-		config.active_record.raise_in_transactional_callbacks = true
+		# config.active_record.raise_in_transactional_callbacks = false
 
 		config.generators do |g|
 			g.orm :active_record
 
-			g.factory_girl false #  Automatic Replaces Fixtures
+			g.factory_girl true #  Automatic Replaces Fixtures
 			g.test_framework :rspec
-			g.test_framework :test_unit, fixture: true
+			# g.test_framework :test_unit, fixture: true
 			# g.test_framework :test_unit, fixture: false
 
 			g.template_engine :erb

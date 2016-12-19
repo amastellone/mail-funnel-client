@@ -1,0 +1,17 @@
+<%= render 'layouts/navbar' %>
+
+<div class="container">
+	<h3><%= @app.name %></h3>
+	
+	<b><%= link_to "Create New List", root_url + "/newlist"  %></b>
+	
+	<ul class="list-group">
+		<% @list.each do |el| %>
+				<li class="list-group-item">
+					<a href="<%= root_url %>email/<%= el.id %>"><%= el.name %></a><hr>
+					<%= el.description %>
+				</li>
+		<% end %>
+	</ul>
+	
+</div>

@@ -1,5 +1,4 @@
 class App < RestModel
-
 has_many :jobs, :class_name => "Job"
 has_many :emails_lists, :class_name => "EmailsList"
 has_many :email, :class_name => "Email"

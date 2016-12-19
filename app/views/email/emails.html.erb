@@ -6,11 +6,9 @@
 	<ul class="list-group">
 		<% @emails.each do |e| %>
 				<li class="list-group-item">
-					<%= e.email %>
+					<b><%= e.name %></b> - <%= e.email_address %>
 				</li>
 		<% end %>
 	</ul>
 	
-	<b>Create New List</b>
-
 </div>

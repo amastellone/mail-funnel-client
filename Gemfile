@@ -1,6 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'foreman'
+
 # CLIENT
+
+gem 'json'
+gem 'jsonify'
+
+gem 'faker'
 
 # gem 'activerecord-session_store'
 # gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
@@ -33,10 +40,6 @@ gem 'netrc'
 gem 'http-cookie'
 gem 'rest-client'
 
-#TODO: Remvoe Spyke
-gem 'spyke'
-
-# Her
 # Faraday Middleware for Her
 gem 'faraday_middleware'
 gem 'faraday', '~> 0.9.2'

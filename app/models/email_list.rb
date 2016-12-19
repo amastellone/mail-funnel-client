@@ -1,8 +1,8 @@
 class EmailList < RestModel
-
+	# protect_from_forgery with: :null_session
 	# include_root_in_json :emails_list
 	# include_root_in_json false
 
-	has_many :email, :class_name => "Email"
-	belongs_to :app, :class_name => "App"
+	has_many :emails
+	belongs_to :app
 end

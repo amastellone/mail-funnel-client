@@ -1,5 +1,6 @@
 development: &default
   database: mail-funnel-client-dev
+  host: localhost
   adapter: postgresql
   pool: 10
   username: postgres

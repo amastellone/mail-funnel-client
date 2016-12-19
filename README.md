@@ -1,6 +1,13 @@
 # Mail-Funnel-Client
 Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify App Store). It uses Her ORM to connect to it's REST Server.
 
+### App Store Config
+Development - .env
+```
+APP_URL=http://localhost:3000/
+REDIRECTION_URL=http://localhost:3000/auth/shopify/callback
+```
+
 ### Client Security Method  
 We are using JWT, automaticaly added to the header on the Client, and added in the Rack on the server
 
@@ -30,6 +37,8 @@ http://localhost:3000
 ### Testing
 
 ```bash
+rake
+# or
 rake test
 
 # Test Individual Client-API Tests

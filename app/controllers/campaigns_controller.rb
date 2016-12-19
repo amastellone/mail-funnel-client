@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :viewcampaignjobs]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   # GET /campaigns
   # GET /campaigns.json
@@ -10,16 +10,11 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-    @jobs = CampaignJob.where(campaign_id: @campaign.id)
   end
 
   # GET /campaigns/new
   def new
     @campaign = Campaign.new
-  end
-
-  def viewcampaignjobs
-    @jobs = CampaignJob.where(campaign_id: @campaign.id)
   end
 
   # GET /campaigns/1/edit
