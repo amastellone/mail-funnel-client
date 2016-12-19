@@ -2,6 +2,9 @@
 
 <div class="container">
 	<h3><%= @app.name %></h3>
+	
+	<b><%= link_to "Create New List", root_url + "/newlist"  %></b>
+	
 	<ul class="list-group">
 		<% @list.each do |el| %>
 				<li class="list-group-item">
@@ -11,6 +14,4 @@
 		<% end %>
 	</ul>
 	
-	<b>Create New List</b>
-
 </div>
