@@ -1,42 +1,18 @@
 require 'htmlentities'
 require 'JobLocal'
 
+# TODO: Funnel-Builer: Account for empty data here
+
 class FunnelBuilderController < ApplicationController
-
-
-	# var flowchart_data = {
-	# 	 operators: {
-	# 			operator1: {
-	# 				 top: 20,
-	# 				 left: 20,
-	# 				 multipleLinksOnInput: true,
-	# 				 properties: {
-	# 						title: 'Cart Trigger',
-	# 						inputs: {},
-	# 						outputs: {
-	# 							 output_1: {
-	# 									label: 'cart/create',
-	# 							 },
-	# 							 output_2: {
-	# 									label: 'cart/update',
-	# 							 }
-	# 						}
-	# 				 }
-	# 			},
-	# },
-	# 	 links: {
-	# 		 link_1: {
-	# 				fromOperator: 'operator1',
-	# 				fromConnector: 'output_1',
-	# 				toOperator: 'operator2',
-	# 				toConnector: 'input_2',
-	# 		 },
-	# }
 
 	def index
 		# Build this information as JSON
 
-		appid        = App.where(name: 'bluehelmet-dev').first.id
+		app = App.where(name: 'bluehelmet-dev').first
+		appid = app.id
+		@local_jobs  = Array.new
+
+		@email_lists = EmailList.where(app_id: appid)
 
 		# hook_type_id = params[:id]
 		hook_type_id = 1
@@ -48,13 +24,13 @@ class FunnelBuilderController < ApplicationController
 			@hook_type = HookType.all
 		end
 
-				# hook_type_id = params[:id]
+		# hook_type_id = params[:id]
 		hook_type_id = 1
 
 		hook_request = 'first'
 		if hook_request != 'all'
 			first_hook = HooksConstant.where(hook_type_id: @hook_type.id).first
-			@hooks = HooksConstant.where(id: first_hook.id).all
+			@hooks     = HooksConstant.where(id: first_hook.id).all
 		else
 			@hooks = HooksConstant.where(hook_type_id: @hook_type.id).all
 		end
@@ -95,21 +71,37 @@ class FunnelBuilderController < ApplicationController
 			end
 		end
 
-		top  = 0
-
-		left_increment = 200
+		top            = 175
+		left_increment = 160
 
 		count = 0
 		@hooks.each do |hook|
 			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
-				left = 180
-				# TODO: Replace this with Job.where(local_campaign_id: campaign.id)
-				Job.where(app_id: appid, client_campaign:campaign.id).each do |j|
-					operator_title            = ("job_" + j.id.to_s).to_s
+
+				left = 0
+				Job.where(app_id: appid, client_campaign: campaign.id).each do |j|
+					if count % 5 == 0 && count != 0
+						left = 0
+						top = top + top_increment
+					end
+					p "Adding Job ID " + appid.to_s
+
+					jl                  = JobLocal.new
+					jl.local_identifier = "job_" + j.id.to_s
+					jl.hook_identifier  = campaign.hook_identifier
+					jl.subject          = j.subject
+					jl.content          = j.content
+					jl.email_list_id    = j.email_list_id
+					jl.app_id           = j.app_id
+					jl.name             = j.name
+					jl.client_campaign  = j.client_campaign
+					@local_jobs << jl
+
+					operator_title            = (jl.local_identifier).to_s
 					operators[operator_title] =
 						 {
 								"top"                  => top.to_s,
-								"left"                 => left_increment.to_s,
+								"left"                 => left.to_s,
 								"multipleLinksOnInput" => "false",
 								"properties"           => {
 									 "title"   => "Email Job",
@@ -141,7 +133,7 @@ class FunnelBuilderController < ApplicationController
 		@hooks.each do |hook|
 			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
 				firstjob = true
-				Job.where(app_id: appid, client_campaign:campaign.id).each do |j|
+				Job.where(app_id: appid, client_campaign: campaign.id).each do |j|
 					connector_title = ("link_" + link_count.to_s).to_s
 					if firstjob
 						connections[connector_title] =
@@ -151,8 +143,8 @@ class FunnelBuilderController < ApplicationController
 									"toOperator"    => "job_" + j.id.to_s,
 									"toConnector"   => "input_1"
 							 }
-						campaign_count             += 1
-						firstjob                   = false
+						campaign_count               += 1
+						firstjob                     = false
 					else
 						connections[connector_title] =
 							 {
@@ -169,9 +161,9 @@ class FunnelBuilderController < ApplicationController
 		end
 
 		object = JSON.pretty_generate({
-										 "operators"   => operators,
-										 "links" => connections
-									})
+			                               "operators" => operators,
+			                               "links"     => connections
+		                              })
 		@json  = object
 
 	end

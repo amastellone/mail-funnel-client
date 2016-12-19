@@ -1,0 +1,19 @@
+<%= render 'layouts/navbar' %>
+
+<div class="container">
+	<h4><%= @campaign.name %> List - Jobs</h4>
+	<b><%= link_to "Create New Job", root_url + "/newjob"  %></b>
+	<ul class="list-group">
+		<% @jobs.each do |j| %>
+				<li class="list-group-item">
+					<a href="<%= root_url %>email/<%= j.id %>"><%= j.name %></a><hr>
+					<b>Email:</b><br>
+					<b>Subject:</b><%= j.subject %><br>
+					<b>Content:</b><%= j.content %><br>
+					<hr>
+					<b>Hook:</b><%= j.hook_identifier %>
+				</li>
+		<% end %>
+	</ul>
+
+</div>

@@ -13,7 +13,7 @@ class EmailListsController < ApplicationController
   end
 
   # GET /email_lists/new
-  def new
+  def newlist
     @email_list = EmailList.new
   end
 
@@ -23,7 +23,7 @@ class EmailListsController < ApplicationController
 
   # POST /email_lists
   # POST /email_lists.json
-  def create
+  def createlist
     @email_list = EmailList.new(email_list_params)
 
     respond_to do |format|
