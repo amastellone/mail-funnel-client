@@ -103,6 +103,7 @@ RSpec.describe EmailsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
+        # TODO: TESTING: Create a hash of Email Attributes here, IE: email_address, name, etc..
         skip("Add a hash of attributes valid for your model")
       }
 

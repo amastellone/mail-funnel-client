@@ -4,7 +4,8 @@ class JobLocal
 	              :name, :hook_identifier,
 	              :email_list_id, :subject,
 	              :content, :execute_frequency,
-	              :executed, :execute_time
+	              :executed, :execute_time,
+	              :app_id, :client_campaign
 
 
 	def self.all_instances
