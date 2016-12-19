@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'foreman'
+
 # CLIENT
 
 gem 'json'

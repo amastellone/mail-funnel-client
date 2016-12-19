@@ -16,7 +16,10 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-database.yml
+config/database.yml
+*/*/database.yml
+*/database.yml
+
 
 .idea
 .idea/
