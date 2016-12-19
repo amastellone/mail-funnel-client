@@ -15,6 +15,7 @@ module ShopifyApp
 
     def webhook_params
       params.except(:controller, :action, :type)
+
     end
 
     def webhook_job_klass
