@@ -1,11 +1,12 @@
 class JobLocal
 	@@array = Array.new
-	attr_accessor :id, :local_identifier,
+	attr_accessor :job_id, :local_identifier,
 	              :name, :hook_identifier,
 	              :email_list_id, :subject,
 	              :content, :execute_frequency,
 	              :executed, :execute_time,
 	              :app_id, :client_campaign
+
 
 
 	def self.all_instances

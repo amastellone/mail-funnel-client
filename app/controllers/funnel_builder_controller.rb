@@ -11,6 +11,7 @@ class FunnelBuilderController < ApplicationController
 		app = App.where(name: 'bluehelmet-dev').first
 		appid = app.id
 		@local_jobs  = Array.new
+		@local_jobs_json = Hash.new
 
 		@email_lists = EmailList.where(app_id: appid)
 
@@ -35,6 +36,7 @@ class FunnelBuilderController < ApplicationController
 			@hooks = HooksConstant.where(hook_type_id: @hook_type.id).all
 		end
 
+		@local_jobs_json = Array.new
 		@local_jobs = Array.new
 		first       = true
 
@@ -73,15 +75,19 @@ class FunnelBuilderController < ApplicationController
 
 		top            = 175
 		left_increment = 160
+		right_increment = 160
+		@left_decrement = right_increment
 
 		count = 0
 		@hooks.each do |hook|
 			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
 
 				left = 0
+				right = 0
 				Job.where(app_id: appid, client_campaign: campaign.id).each do |j|
 					if count % 5 == 0 && count != 0
 						left = 0
+						right = 0
 						top = top + top_increment
 					end
 					p "Adding Job ID " + appid.to_s
@@ -96,6 +102,10 @@ class FunnelBuilderController < ApplicationController
 					jl.name             = j.name
 					jl.client_campaign  = j.client_campaign
 					@local_jobs << jl
+					@local_jobs_json = jl.as_json
+
+					# jl.job_id           = j.id.to_s
+					# "left"                 => "left_replace_job_" + j.id.to_s,
 
 					operator_title            = (jl.local_identifier).to_s
 					operators[operator_title] =
@@ -118,6 +128,7 @@ class FunnelBuilderController < ApplicationController
 								}
 						 }
 					left                      = left + left_increment
+					right                      = right + right_increment
 					count                     += 1
 				end
 				top = top + top_increment
@@ -165,6 +176,8 @@ class FunnelBuilderController < ApplicationController
 			                               "links"     => connections
 		                              })
 		@json  = object
+
+		# @local_jobs_parsed = JSON.generate(@local_jobs_json)
 
 	end
 

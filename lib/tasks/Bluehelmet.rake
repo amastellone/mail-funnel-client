@@ -3,27 +3,31 @@ namespace :Bluehelmet do
 	desc "Generate Jobs"
 	task :seed_jobs => :environment do
 		app       = App.where(name: "bluehelmet-dev").first
-		Campaign.all.find_each do |campaign|
-			$x = 0
-			while $x <= 4 do
+		list = EmailList.where(name: "Default", app_id: app.id)
+		Campaign.all.each do |c|
+			puts "Generating Jobs for Campaign: " + c.id.to_s
+			$x = 0 # Generate Jobs
+			while $x <= 5 do
+
 				job = Job.create(execute_frequency:   "execute_once",
 				                 execute_time:        "1330",
-				                 subject:             "Email subject",
-				                 content:             "Email Contents",
+				                 executed:            false,
+				                 subject:             Faker::Lorem.sentence,
+				                 content:             Faker::Lorem.paragraphs(1),
 				                 name:                Faker::Commerce.product_name,
 				                 app_id:              app.id,
-				                 campaign_identifier: campaign.hook_identifier,
-				                 hook_identifier:     campaign.hook_identifier,
-				                 client_campaign:     campaign.id,
-				                 executed:            false,
-				                 email_list_id:       1
+				                 campaign_identifier: c.hook_identifier,
+				                 hook_identifier:     c.hook_identifier,
+				                 client_campaign:     c.id,
+				                 email_list_id:       list.id
 				)
-				# EmailList.offset(rand(EmailList.count)).first
-				puts "OURS: Job Created for " + job.hook_identifier.to_s
+
 				$x += 1
 			end
 		end
 	end
+
+
 
 	desc "Seed REST Data"
 	task :seed_server => :environment do
