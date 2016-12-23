@@ -16,14 +16,66 @@
 </div>
 
 <script type="text/javascript">
+	$('#ajax-messages').on('ajax:error', function (event, xhr, status, error) {
+		ShopifyApp.flashError(xhr.responseText);
+		$(this).append(xhr.responseText)
+	});
+	
 	$(document).ready(function () {
-		console.log(<%=raw @json %>);
+		var csrf_token = $('meta[name=csrf-token]').attr('content');
+		var csrf_param = $('meta[name=csrf-param]').attr('content');
 		
-		var flowchart_data = <%=raw @json %>;
+		$.ajaxSetup({
+			headers:
+			{ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+		});
+		
+		
+		console.log("CSRF Token / CSRF Param");
+		console.log(csrf_token);
+		console.log(csrf_param);
+		
+		var docWidth = $(document).width();
+		
+		$.ajax.bind("ajaxSend", function(elm, xhr, s){
+			if (s.type == "POST") {
+				xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+			}
+		});
+		
+		var ajaxCall = $.ajax({
+			method: "POST",
+			data: {
+				width: $(document).width(),
+				app_id: <%= @app_id %>,
+				hook_id: <%= @hook_id %>,
+				campaign_id: <%= @campaign_id %>,
+				CSRF: csrf_token,
+			},
+			dataType: "json",
+			url: "/build_fb_json",
+			cache: false,
+			success: function (response) {
+//				$("#divID").append(html);
+				
+				console.log("AJAX Success");
+				
+				console.log(response);
+				
+				var $canvas = $('#funnel-builder-canvas');
+				
+				var data = JSON.parse(response);
+				
+				console.log(data);
+				
+				$canvas.flowchart('setData', data);
+			}
+		});
 		
 		var $canvas = $('#funnel-builder-canvas');
+		
 		$canvas.flowchart({
-			data: flowchart_data
+			data: "{ }"
 		});
 		
 		var windowHeight = $(window).height();   // Browser Viewport Height

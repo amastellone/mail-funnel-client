@@ -116,6 +116,7 @@ GEM
       thor (~> 0.19.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hash_dot (2.0.3)
     hashie (3.4.6)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
@@ -352,6 +353,7 @@ DEPENDENCIES
   faraday_middleware
   font-awesome-rails
   foreman
+  hash_dot
   htmlentities
   http-cookie
   jbuilder (~> 2.5)

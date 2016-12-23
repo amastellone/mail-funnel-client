@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'foreman'
-
 # CLIENT
+
+gem 'foreman'
+gem 'hash_dot'
 
 gem 'json'
 gem 'jsonify'

@@ -53,18 +53,16 @@
 	</script>
 	
 	<script>var editor = new MediumEditor('.mediumEditable');</script>
+
 	
 	<title>Mail-Funnel</title>
-	<%#= stylesheet_link_tag 'shopify', media: 'all', 'data-turbolinks-track': 'reload' %>
-	<%#= stylesheet_link_tag 'application', "data-turbolinks-track" => true %>
-	<%#= javascript_include_tag 'modals', "data-turbolinks-track" => true %>
-	<%#= javascript_include_tag 'application', "data-turbolinks-track" => true %>
-	
 	
 	<%= csrf_meta_tags %>
 </head>
 
 <%= render 'layouts/navbar' %>
+
+<div id="ajax-messages"></div>
 
 <body>
 <div class="app-wrapper">

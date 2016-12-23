@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   root :to => 'home#index'
 
   get '/funnel', to: 'funnel_builder#index'
+  post '/build_fb_json' => 'funnel_builder#build_json'
+
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
 
   get '/lists', to: 'email#lists'
