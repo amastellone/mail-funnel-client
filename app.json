@@ -1,0 +1,15 @@
+{
+  "name": "mail-funnel-client",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
