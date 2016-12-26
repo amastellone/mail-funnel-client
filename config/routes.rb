@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
 
   get '/lists', to: 'email#lists'
-  get '/email/:list_id', to: 'email#emails'
-  get '/newlist', to: 'email#newlist'
-  match '/createlist' => 'email#createlist', via: [:post]
+  get '/emails/:list_id', to: 'email#emails'
+  get '/new_list', to: 'email#new_list'
+  match '/create_list' => 'email#create_list', via: [:post]
   get '/jobs/:id', to: 'jobs_local#view'
 
   # email_lists GET    /email_lists(.:format)                 email_lists#index

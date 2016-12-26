@@ -1,6 +1,8 @@
 <%= render 'layouts/navbar' %>
 
-<h3><%= @app.name %></h3>
+<h3>Email List <%= @list.name %></h3>
+<hr>
+<h6><%= @list.description %></h6>
 
 <div class="container">
 	<ul class="list-group">
@@ -10,5 +12,5 @@
 				</li>
 		<% end %>
 	</ul>
-	
+
 </div>

@@ -4,9 +4,11 @@ class EmailController < ApplicationController
 	protect_from_forgery with: :null_session
 
 	def lists
+
 		# appname = BluehelmetUtil.get_shopify_session_app_name
 		@app    = App.where(name: "bluehelmet-dev").first
 		@list = EmailList.where(app_id: @app.id)
+
 	end
 
 
@@ -20,26 +22,32 @@ class EmailController < ApplicationController
 
 	# GET /newlist
 	def newlist
-		@email_list = EmailList.new
 	end
 
-	# POST /email_lists
-	# POST /email_lists.json
-	def createlist
+	# POST /create_list
+	def create_list
+
+		logger.debug 'We made it to create_list'
+
 		app = App.where(name: "bluehelmet-dev").first
+
 		@email_list = EmailList.new(name: params[:name], description: params[:description], app_id: app.id)
 
 		if @email_list.save
-			redirect_to root_url + "lists", notice: 'Email list was successfully created.'
+			@message = 'Email list was successfully created.'
 		else
-			redirect_to root_url + "lists", notice: 'Email list was successfully created.'
+			@message = 'Email list was NOT created.'
 		end
+
 	end
 
 	def emails
+
 		# appname = BluehelmetUtil.get_shopify_session_app_name
 		@app    = App.where(name: "bluehelmet-dev").first
 		@emails = Email.where(email_list_id: @list.id)
+
+
 	end
 
 	def newemail

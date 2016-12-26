@@ -1,0 +1,16 @@
+<% external_url = MailFunnelConfig.where(name: 'server_url').first.value + 'email_lists' %>
+<% internal_url = root_url + 'create_list' %>
+
+
+<% logger.debug "Internal URL: " + internal_url %>
+<% logger.debug "External URL: " + external_url %>
+
+
+<%= bootstrap_form_tag url: create_list_path, method: "post" do %>
+		<%= label_tag(:name, "Name:") %>
+		<%= text_field_tag(:name) %>
+		
+		<%= label_tag(:decsription, "Description:") %>
+		<%= text_field_tag(:description) %>
+		<%= submit_tag("Create List") %>
+<% end %>
