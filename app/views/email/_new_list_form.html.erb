@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	ShopifyApp.ready(function () {
+		ShopifyApp.Bar.initialize({
+			buttons: {
+				primary: {
+					label: 'Save',
+					message: 'new_email_list',
+					loading: true
+				}
+			}
+		});
+	});
+</script>
+
+<% external_url = MailFunnelConfig.where(name: 'server_url').first.value + 'email_lists' %>
+<% internal_url = root_url + 'create_list' %>
+
+
+<% logger.debug "Internal URL: " + internal_url %>
+<% logger.debug "External URL: " + external_url %>
+
+
+<script>
+	$(document).ready(function () {
+		var csrf_token = $('meta[name=csrf-token]').attr('content');
+		var csrf_param = $('meta[name=csrf-param]').attr('content');
+	});
+</script>
+
+<form method="POST" action="create_list" data-shopify-app-submit="new_email_list">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<h5>Create New List:</h5>
+	<b>Name:</b>
+	<input type="text" name="name"/>
+	
+	<b>Description:</b>
+	<input type="text" name="description"/><br>
+	
+	<input type="submit" name="submit" value="submit" />
+</form>

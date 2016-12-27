@@ -1,3 +1,17 @@
+<script type="text/javascript">
+	ShopifyApp.ready(function () {
+		ShopifyApp.Bar.initialize({
+			buttons: {
+				primary: {
+					label: 'Save',
+					message: 'new_email_list',
+					loading: true
+				}
+			}
+		});
+	});
+</script>
+
 <%= render 'layouts/navbar' %>
 
 <h3>Email List <%= @email_list.name %></h3>

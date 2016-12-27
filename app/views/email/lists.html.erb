@@ -2,9 +2,9 @@
 
 <h2>Email Lists</h2>
 
-<%= render 'create_list' %>
+<%= render 'new_list_form' %>
 
-<b><%= link_to "Create New List", root_url + "newlist" %></b>
+<b><%= link_to "Create New List", root_url + "new_list" %></b>
 
 <ul class="list-group">
 	<% @list.each do |el| %>

@@ -18,6 +18,8 @@ module MailFunnelClient
 			 'X-Frame-Options' => 'ALLOWALL'
 		}
 
+		# config.active_job.queue_adapter = :delayed_job
+
 		# config.middleware.use, Rack::JWT::Auth,
 		# config.middleware.use Magical::Unicorns
 
