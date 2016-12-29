@@ -95,7 +95,7 @@ if rest_server_interaction
 		$x = 0 # Generate Jobs
 		while $x <= Random.rand(5...10) do
 			job = Job.create(execute_frequency:   "execute_once",
-			                 execute_time:        Random.rand(0...23),
+			                 execute_time:        20,
 			                 executed:            false,
 			                 subject:             Faker::Lorem.sentence,
 			                 content:             Faker::Lorem.paragraphs(1),
@@ -104,10 +104,9 @@ if rest_server_interaction
 			                 campaign_identifier: c.hook_identifier,
 			                 hook_identifier:     c.hook_identifier,
 			                 client_campaign:     c.id,
-			                 email_list_id:       list.id
-			)
-			# EmailList.offset(rand(EmailList.count)).first
-			puts "OURS: Job Created for " + job.client_campaign.to_s
+			                 email_list_id:       list.id)
+
+			puts "Job Created " + job.id.to_s
 			$x += 1
 		end
 	end
