@@ -77,8 +77,6 @@ if rest_server_interaction
 	end
 
 
-
-
 	# CLIENT TEST DATA
 	$x = 0 # Generate Emails
 	until $x > Random.rand(3...15) do
@@ -97,7 +95,7 @@ if rest_server_interaction
 		$x = 0 # Generate Jobs
 		while $x <= Random.rand(5...10) do
 			job = Job.create(execute_frequency:   "execute_once",
-			                 execute_time:        "1330",
+			                 execute_time:        Random.rand(0...23),
 			                 executed:            false,
 			                 subject:             Faker::Lorem.sentence,
 			                 content:             Faker::Lorem.paragraphs(1),
