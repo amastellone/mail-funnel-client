@@ -1,5 +1,15 @@
 # Mail-Funnel-Client
+[![Coverage Status](https://circleci.com/gh/vaskaloidis/mail-funnel-server-api.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/vaskaloidis/mail-funnel-server-api.svg?style=shield&circle-token=:circle-token) [![Coverage Status](https://coveralls.io/repos/github/vaskaloidis/mail-funnel-server-api/badge.svg?branch=master)](https://coveralls.io/github/vaskaloidis/mail-funnel-server-api?branch=master)[![Stories in Ready](https://badge.waffle.io/vaskaloidis/mail-funnel-client.svg?label=ready&title=Ready)](http://waffle.io/vaskaloidis/mail-funnel-client)
+
 Mail-Funnel is a Ruby on Rails Embedded Shopify App (Available in the Shopify App Store). It uses Her ORM to connect to it's REST Server.
+
+View the architecture documentation here - https://github.com/vaskaloidis/mail-funnel-client/wiki
+
+
+
+Tickets:  
+Waffle: https://waffle.io/vaskaloidis/mail-funnel-client  
+Github: https://github.com/vaskaloidis/mail-funnel-client/issues
 
 ### App Store Config
 Development - .env
