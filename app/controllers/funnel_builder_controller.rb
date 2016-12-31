@@ -5,7 +5,7 @@ require 'JobLocal'
 
 class FunnelBuilderController < ApplicationController
 
-	def build_json
+	def api_index
 
 		width       = params[:width]
 
@@ -144,13 +144,18 @@ class FunnelBuilderController < ApplicationController
 			end
 		end
 
-		object = JSON.pretty_generate({
-			                               "operators" => operators,
-			                               "links"     => connections
-		                              })
-		@json  = object
+		data = {
+			 "operators" => operators,
+			 "links"     => connections
+		}
 
-		render json: @json, status: Rack::Utils.status_code("OK")
+		final_json = JSON.pretty_generate({
+			                               "data" => data
+		                              })
+
+		logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
+
+		render json: final_json
 
 	end
 
@@ -188,6 +193,15 @@ class FunnelBuilderController < ApplicationController
 			end
 		end
 
+	end
+
+	def api_update
+	end
+	def api_view
+	end
+	def api_create
+	end
+	def api_delete
 	end
 
 

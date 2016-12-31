@@ -9,7 +9,14 @@ Rails.application.routes.draw do
   root :to => 'home#index'
 
   get '/funnel', to: 'funnel_builder#index'
-  post '/build_fb_json' => 'funnel_builder#build_json'
+
+  post '/build_fb_json' => 'funnel_builder#api_index'
+
+  post '/fbapi_index' => 'funnel_builder#api_index'
+  post '/fbapi_update' => 'funnel_builder#api_update'
+  post '/fbapi_view' => 'funnel_builder#api_view'
+  post '/fbapi_create' => 'funnel_builder#api_create'
+  post '/fbapi_delete' => 'funnel_builder#api_delete'
 
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
 

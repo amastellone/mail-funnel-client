@@ -43,8 +43,6 @@
 			}
 		});
 		
-//		jy7RJkDxF14XPAOdXA6XC1HcVqyUpq+zJ+zmv+WCNeNzxyPXohdxvRG/oyroE52iYlLbuTjgwQoC/OwjV4MzOw==
-		
 		var ajaxCall = $.ajax({
 			method: "POST",
 			data: {
@@ -53,6 +51,7 @@
 				hook_id: <%= @hook_id %>,
 				campaign_id: <%= @campaign_id %>,
 				CSRF: csrf_token,
+				authenticity_token: csrf_token
 			},
 			dataType: "json",
 			url: "/build_fb_json",
@@ -66,19 +65,28 @@
 				
 				var $canvas = $('#funnel-builder-canvas');
 				
-				var data = JSON.parse(response);
+				console.log("Checkpoint 1");
 				
-				console.log(data);
+//				var data = JSON.parse(response);
 				
-				$canvas.flowchart('setData', data);
+				console.log("Checkpoint 2");
+				
+//				console.log(data);
+				
+				console.log("Checkpoint 3");
+				
+				console.log($canvas);
+				
+//				$canvas.flowchart('setData', response);
+				
+				$canvas.flowchart(response);
+
+				
+				console.log("Checkpoint 4");
 			}
 		});
 		
 		var $canvas = $('#funnel-builder-canvas');
-		
-		$canvas.flowchart({
-			data: "{ }"
-		});
 		
 		var windowHeight = $(window).height();   // Browser Viewport Height
 		var docHeight = $(document).height(); // HTML Doc height
