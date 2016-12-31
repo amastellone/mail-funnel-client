@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   post '/fbapi_index' => 'funnel_builder#api_index'
   post '/fbapi_update' => 'funnel_builder#api_update'
-  post '/fbapi_view' => 'funnel_builder#api_view'
+  post '/fbapi_read' => 'funnel_builder#api_read'
   post '/fbapi_create' => 'funnel_builder#api_create'
   post '/fbapi_delete' => 'funnel_builder#api_delete'
 

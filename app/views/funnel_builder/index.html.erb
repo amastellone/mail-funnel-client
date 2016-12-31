@@ -10,8 +10,6 @@
 	<button class="btn btn-danger" id="delete_selected_button">Delete Selected Job</button>
 	<button class="btn btn-success" id="edit_selected_button">Edit Selected Job</button>
 	
-	<h2>Campaigns (Hooks)</h2>
-	
 	<div class="canvas-class" id="funnel-builder-canvas"></div>
 </div>
 
@@ -21,15 +19,15 @@
 		$(this).append(xhr.responseText)
 	});
 	
+	
+	//	INDEX NODES
 	$(document).ready(function () {
 		var csrf_token = $('meta[name=csrf-token]').attr('content');
 		var csrf_param = $('meta[name=csrf-param]').attr('content');
 		
 		$.ajaxSetup({
-			headers:
-			{ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
 		});
-		
 		
 		console.log("CSRF Token / CSRF Param");
 		console.log(csrf_token);
@@ -37,52 +35,9 @@
 		
 		var docWidth = $(document).width();
 		
-		$.ajax.bind("ajaxSend", function(elm, xhr, s){
-			if (s.type == "POST") {
+		$.ajax.bind("ajaxSend", function (elm, xhr, s) {
+			if(s.type == "POST") {
 				xhr.setRequestHeader('X-CSRF-Token', csrf_token);
-			}
-		});
-		
-		var ajaxCall = $.ajax({
-			method: "POST",
-			data: {
-				width: $(document).width(),
-				app_id: <%= @app_id %>,
-				hook_id: <%= @hook_id %>,
-				campaign_id: <%= @campaign_id %>,
-				CSRF: csrf_token,
-				authenticity_token: csrf_token
-			},
-			dataType: "json",
-			url: "/build_fb_json",
-			cache: false,
-			success: function (response) {
-//				$("#divID").append(html);
-				
-				console.log("AJAX Success");
-				
-				console.log(response);
-				
-				var $canvas = $('#funnel-builder-canvas');
-				
-				console.log("Checkpoint 1");
-				
-//				var data = JSON.parse(response);
-				
-				console.log("Checkpoint 2");
-				
-//				console.log(data);
-				
-				console.log("Checkpoint 3");
-				
-				console.log($canvas);
-				
-//				$canvas.flowchart('setData', response);
-				
-				$canvas.flowchart(response);
-
-				
-				console.log("Checkpoint 4");
 			}
 		});
 		
@@ -94,90 +49,256 @@
 		
 		$canvas.height(docHeight);
 		
-		var operatorI = 0;
-		$canvas.siblings('.create_operator').click(function () {
-			var operatorId = 'created_operator_' + operatorI;
-			var operatorData = {
-				top: 60,
-				left: 500,
-				properties: {
-					title: 'Operator ' + (operatorI + 3),
-					inputs: {
-						input_1: {
-							label: 'Input 1',
-						}
-					},
-					outputs: {
-						output_1: {
-							label: 'Output 1',
-						}
-					}
+		function reloadCanvas() {
+			$.ajax.bind("ajaxSend", function (elm, xhr, s) {
+				if(s.type == "POST") {
+					xhr.setRequestHeader('X-CSRF-Token', csrf_token);
 				}
-			};
-		});
+			});
+			
+			var ajaxCall = $.ajax({
+				method: "POST",
+				data: {
+					width: $(document).width(),
+					app_id: <%= @app_id %>,
+					hook_id: <%= @hook_id %>,
+					campaign_id: <%= @campaign_id %>,
+					CSRF: csrf_token,
+					authenticity_token: csrf_token
+				},
+				dataType: "json",
+				url: "/fbapi_index",
+				cache: false,
+				success: function (response) {
+					console.log("AJAX Success");
+//				console.log(response);
+					var $canvas = $('#funnel-builder-canvas');
+					$canvas.flowchart(response);
+				}
+			});
+		}
+		
+		reloadCanvas();
 		
 		
 		$('#submit_rules').click(function () {
 		});
 		
+		// DELETE NODE
 		$('#delete_selected_button').click(function () {
 			$('#funnel-builder-canvas').flowchart('deleteSelected');
 		});
 		
+		// UPDATE NODE
 		$('#edit_selected_button').click(function (event) {
-			var operatorId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-
-//			event.preventDefault();
-//			$.get(, function(html) {
-//				$(html).appendTo('body').modal();
-//			});
-			$('#modal_'.concat(operatorId)).modal('show');
+			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
 			
-			console.log('OperatorID: '.concat(operatorId));
-		});
-		
-		var operatorI = 0;
-		$canvas.siblings('.create_operator').click(function () {
-			var operatorId = 'created_job_' + operatorI;
-			var operatorData = {
-				top: 60,
-				left: 500,
-				properties: {
-					title: 'New Job ' + (operatorI + 3),
-					inputs: {
-						input_1: {
-							label: 'Previous Job',
-						}
-					},
-					outputs: {
-						output_1: {
-							label: 'Next Job 1',
-						}
-					}
+			var jobId = nodeId.split("_")[1];
+			
+			var ajaxCall = $.ajax({
+				method: "POST",
+				data: {
+					job_id: jobId,
+					authenticity_token: csrf_token
+				},
+				dataType: "json",
+				url: "/fbapi_read",
+				cache: false,
+				success: function (response) {
+					console.log("AJAX READ Success");
+					console.log(response);
+					$('node_job_id').val(response['id']);
+					$('node_job_name').val(response['name']);
+					
+					$('node_email_list_id').val(response['email_list_id']);
+					
+					$('node_job_subject').val(response['subject']);
+					$('node_job_content').val(response['content']);
+					
+					$('node_hook_identifier').val(response['hook_identifier']);
+					$('node_hook_id').val(response['hook_id']);
+					
+					$('node_job_executed').val(response['executed']);
+//					$('node_job_execute_time').val(response['execute_time']);
+//					$('node_job_execute_frequency').val(response['execute_frequency']);
+					
+					$('node_app_id').val(response['app_id']);
+					$('node_campaign_id').val(response['client_campaign']);
+					$('node_local_identifier').val(response['local_identifier']);
 				}
-			};
-			
-			operatorI++;
-			
-			$canvas.flowchart('createOperator', operatorId, operatorData);
+			});
+			$('#modal_node_update').modal('show');
+			console.log('OperatorID: '.concat(nodeId));
 		});
 		
+		
+		// CREATE NODE
+		$canvas.siblings('.create_operator').click(function () {
+			
+			$('#modal_node_create').modal('show');
+			
+			var ajaxCall = $.ajax({
+				method: "POST",
+				data: {
+					authenticity_token: csrf_token
+				},
+				dataType: "json",
+				url: "/fbapi_create",
+				cache: false,
+				success: function (response) {
+					console.log("AJAX DELETE Success");
+				}
+			});
+			
+			reloadCanvas();
+			
+		});
+		
+		// DELETE NODE
 		$canvas.siblings('.delete_selected_button').click(function () {
+			
+			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
+			var jobId = nodeId.split("_")[1];
+			
+			var ajaxCall = $.ajax({
+				method: "POST",
+				data: {
+					job_id: jobId,
+					authenticity_token: csrf_token
+				},
+				dataType: "json",
+				url: "/fbapi_delete",
+				cache: false,
+				success: function (response) {
+					console.log("AJAX DELETE Success");
+				}
+			});
+			
 			$canvas.flowchart('deleteSelected');
 		});
 		
+		// TO_STRING
 		$canvas.siblings('.get_data').click(function () {
 			var data = $canvas.flowchart('getData');
 			$('#flowchart_data').val(JSON.stringify(flowchart_data, null, 2));
 		});
 		
-		$canvas.siblings('.set_data').click(function () {
-			var data = JSON.parse($('#flowchart_data').val());
-			$canvas.flowchart('setData', flowchart_data);
-		});
-		
 	});
 </script>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#modal_node_delete">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="delete_job_label">Delete Job</h4>
+		</div>
+		<div class="modal-content">
+			Are you sure you would like to delete Job <span id="node_delete_job_name"></span> ID
+			<span id="node_delete_job_id"></span>?
+			<input type="btn btn-success" id="node_delete_job_yes" value="Delete"/>
+			<input type="btn btn-danger" id="node_delete_job_no" value="Cancel"/>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_create" aria-labelledby="#modal_node_create">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="create_new_job_title">Create New Job</h4>
+		</div>
+		<div class="modal-content">
+			<div class="form-group">
+				<label for="recipient-name" class="control-label"><b>Name:</b></label>
+				<input type="text" class="form-control" id="node_job_name" value="">
+			</div>
+			<input type="btn btn-success" id="node_delete_job_yes" value="Delete"/>
+			<input type="btn btn-danger" id="node_delete_job_no" value="Cancel"/>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_update" aria-labelledby="#modal_node_update">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Update Job</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="recipient-name" class="control-label"><b>Name:</b></label>
+						<input type="text" class="form-control" id="node_job_name" value="">
+					</div>
+					<b>Email Lists</b>
+					<div class="form-group">
+						<!--TODO: Choose a selected email-list dynamically-->
+						<select class="form-control">
+							<% first = true %>
+							<% @email_lists.each do |el| %>
+									<% if first %>
+											<option><%= el.name %></option>
+											<% first = false %>
+									<% else %>
+											<option><%= el.name %></option>
+									<% end %>
+							<% end %>
+						</select>
+					</div>
+					<hr>
+					<h5>Execute Time</h5>
+					<div class="form-group">
+						<b>Execute Frequency</b>
+						<select id="node_job_execute_frequency" class="form-control">
+							<option>Execute Once</option>
+							<option>Execute Twice</option>
+							<option>Execute Thrice</option>
+						</select>
+						<b>Execute-Time (24-hour)</b>
+						<select id="node_job_execute_time" class="form-control">
+							<% $x = 1 %>
+							<% while $x <= 24 do %>
+									<option> <%= $x.to_s %>:00</option>
+									<% $x += 1 %>
+							<% end %>
+							<% $x = 1 %>
+						</select>
+					</div>
+					<hr>
+					<h5>Email</h5>
+					<div class="form-group">
+						<span class="input-group-addon">Subject</span>
+						<input type="text" class="form-control" id="node_job_subject" value="">
+					</div>
+					<div class="form-group">
+						<span class="input-group-addon">Content</span>
+						<textarea class="form-control mediumEditable" rows=5 id="node_job_conent"></textarea>
+					</div>
+					<hr>
+					<div class="form-group">
+						<!-- TODO: Dynamically query these values from ID's -->
+						<b>Campaign ID: </b><span id="node_campaign_id"></span>
+						<b>Hook ID:</b><span id="node_hook_id"></span>
+						<b>Hook Identifier:</b><span id="node_hook_identifier"></span>
+						<b>App ID:</b><span id="node_app_id"></span>
+						<b>Job ID:</b><span id="node_job_id"></span>
+						<b>Executed:</b><span id="node_job_executed"></span>
+						<b>Email List ID:</b><span id="node_email_list_id"></span>
+						<b>Job Local Identifier:</b><span id="node_local_identifier"></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!--$(function() {-->
 <!--// this initializes the dialog (and uses some common options that I do)-->

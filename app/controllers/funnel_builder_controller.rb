@@ -5,6 +5,34 @@ require 'JobLocal'
 
 class FunnelBuilderController < ApplicationController
 
+	def api_read
+
+		id = params[:job_id]
+
+		j = Job.find(id)
+
+		job                  = JobLocal.new
+		job.local_identifier = 'job_' + j.id.to_s
+		job.hook_identifier  = j.hook_identifier
+		job.subject          = j.subject
+		job.content          = j.content
+		job.email_list_id    = j.email_list_id
+		job.app_id           = j.app_id
+		job.name             = j.name
+		job.client_campaign  = j.client_campaign
+
+		result = job.to_json
+
+		# final_json = JSON.pretty_generate(result)
+
+		logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
+
+		render json: result
+
+
+	end
+
+
 	def api_index
 
 		width       = params[:width]
@@ -153,7 +181,7 @@ class FunnelBuilderController < ApplicationController
 			                               "data" => data
 		                              })
 
-		logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
+		# logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
 
 		render json: final_json
 
@@ -197,8 +225,7 @@ class FunnelBuilderController < ApplicationController
 
 	def api_update
 	end
-	def api_view
-	end
+
 	def api_create
 	end
 	def api_delete
