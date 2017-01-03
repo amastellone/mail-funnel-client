@@ -81,5 +81,12 @@
 			<%= yield :javascript %>
 		</div>
 <% end %>
+
+<%# Timecop Console %>
+<%# if Rails.env.development? || Rails.env.staging? %>
+		<%#= timecop_console_layout %>
+<%# end %>
+<%#= time_travel_to App.launch_date %>
+
 </body>
 </html>

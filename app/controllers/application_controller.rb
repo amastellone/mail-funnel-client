@@ -4,5 +4,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
 
   # TODO Security - Enable forgery protection in controller that was temp. disabled for AJAX Calls
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
+
+  # around_filter timecop??
 end

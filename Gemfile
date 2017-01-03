@@ -86,6 +86,11 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :development, :staging do
+	gem 'timecop'
+	gem 'timecop-console', :require => 'timecop_console'
+end
+
 group :production do
 	gem 'rollbar'
 end
@@ -118,7 +123,6 @@ group :test do
 	gem "database_cleaner"
 	gem "shoulda-matchers"
 	gem 'capybara'
-
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
