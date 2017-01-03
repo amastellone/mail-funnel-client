@@ -1,19 +1,79 @@
-<%= render 'layouts/navbar' %>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<%= root_url %>">Mail Funnel</a>
+		</div>
 
-<h2>Email Lists</h2>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="<%= root_url %>">Home <span class="sr-only">(current)</span></a></li>
+				<li><a href="<%= funnel_path %>">Mail-Funnel-Builder</a></li>
+				<li class="active"><a href="<%= root_url %>lists">Email Lists</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#">Link</a></li>-->
+			</ul>
+		</div>
+	</div>
+</nav>
 
-<%= render 'new_list_form' %>
 
-<b><%= link_to "Create New List", root_url + "new_list" %></b>
+<div class="col-xs-12">
 
-<ul class="list-group">
-	<% @list.each do |el| %>
-			<li class="list-group-item">
-				<a href="<%= root_url %>emails/<%= el.id %>"><%= el.name %></a>
-				<hr>
-				<%= el.description %>
-			</li>
-	<% end %>
-</ul>
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Create New List Form -->
+		<%= render 'new_list_form' %>
+		<!-- END Create New List Form -->
+	</div>
+</div>
+
+	<!-- Email Lists -->
+<div class="row">
+<div class="col-xs-12">
+
+	<legend>Email Lists</legend>
+
+<!--<b><%= link_to "Create New List", root_url + "new_list" %></b>-->
+
+	<!-- Emails Lists Table -->
+	<table class="table table-striped">
+
+		<!-- Emails List Table Headers -->
+		<tr class="active">
+			<th><h4>Name</h4></th>
+			<th><h4>Description</h4></th>
+		</tr>
+		<!-- END Emails List Table Headers -->
+
+		<!-- Emails List Table BODY -->
+		<tbody>
+		<% @list.each do |el| %>
+				<tr>
+					<td>
+						<h6 class="text-primary"><a href="<%= root_url %>emails/<%= el.id %>"><%= el.name %></a></h6>
+					</td>
+
+					<td>
+						<p><%= el.description %></p>
+					</td>
+
+				</tr>
+		<% end %>
+		</tbody>
+		<!-- END Emails List Table BODY -->
+
+	</table>
+	<!-- END Email Lists Table -->
+
+</div>
+</div>
+	<!-- END Email Lists -->
 
 </div>
