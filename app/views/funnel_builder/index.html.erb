@@ -1,3 +1,22 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
@@ -15,6 +34,7 @@
 
 <script type="text/javascript">
 	$('#ajax-messages').on('ajax:error', function (event, xhr, status, error) {
+		// TODO: SECURITY - Aadd Token here for secure ajax calls + add before_filter to controller
 		ShopifyApp.flashError(xhr.responseText);
 		$(this).append(xhr.responseText)
 	});
@@ -24,7 +44,7 @@
 	$(document).ready(function () {
 		var csrf_token = $('meta[name=csrf-token]').attr('content');
 		var csrf_param = $('meta[name=csrf-param]').attr('content');
-		
+		// TODO: clean up this useless auth code + figure out which ones are being used
 		$.ajaxSetup({
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
 		});
@@ -71,7 +91,7 @@
 				cache: false,
 				success: function (response) {
 					console.log("AJAX Success");
-//				console.log(response);
+					console.log(response);
 					var $canvas = $('#funnel-builder-canvas');
 					$canvas.flowchart(response);
 				}
@@ -93,6 +113,8 @@
 		$('#edit_selected_button').click(function (event) {
 			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
 			
+//			job_345
+			
 			var jobId = nodeId.split("_")[1];
 			
 			var ajaxCall = $.ajax({
@@ -106,25 +128,30 @@
 				cache: false,
 				success: function (response) {
 					console.log("AJAX READ Success");
+					
+					console.log(response['name']);
+					
 					console.log(response);
-					$('node_job_id').val(response['id']);
-					$('node_job_name').val(response['name']);
 					
-					$('node_email_list_id').val(response['email_list_id']);
+					$('#node_update_job_id').val(response['job_id']);
+					$('#node_update_job_name').val(response['name']);
 					
-					$('node_job_subject').val(response['subject']);
-					$('node_job_content').val(response['content']);
+					$('#node_update_email_list_id').val(response['email_list_id']);
 					
-					$('node_hook_identifier').val(response['hook_identifier']);
-					$('node_hook_id').val(response['hook_id']);
+					$('#node_update_job_subject').val(response['subject']);
+					$('#node_update_job_content').val(response['content']);
 					
-					$('node_job_executed').val(response['executed']);
-//					$('node_job_execute_time').val(response['execute_time']);
-//					$('node_job_execute_frequency').val(response['execute_frequency']);
+					$('#node_update_hook_identifier').text(response['hook_identifier']);
 					
-					$('node_app_id').val(response['app_id']);
-					$('node_campaign_id').val(response['client_campaign']);
-					$('node_local_identifier').val(response['local_identifier']);
+					console.log('executed: ' + response['executed']);
+					
+					$('#node_update_job_executed').text(response['executed']);
+					$('#node_update_job_execute_time').text(response['execute_time']);
+					$('#node_update_job_execute_frequency').val(response['execute_frequency']);
+					
+					$('#node_update_app_id').text(response['app_id']);
+					$('#node_update_campaign_id').text(response['client_campaign']);
+					$('#node_update_local_identifier').text(response['local_identifier']);
 				}
 			});
 			$('#modal_node_update').modal('show');
@@ -212,7 +239,7 @@
 		<div class="modal-content">
 			<div class="form-group">
 				<label for="recipient-name" class="control-label"><b>Name:</b></label>
-				<input type="text" class="form-control" id="node_job_name" value="">
+				<input type="text" class="form-control" id="node_create_job_name" value="">
 			</div>
 			<input type="btn btn-success" id="node_delete_job_yes" value="Delete"/>
 			<input type="btn btn-danger" id="node_delete_job_no" value="Cancel"/>
@@ -231,13 +258,13 @@
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label for="recipient-name" class="control-label"><b>Name:</b></label>
-						<input type="text" class="form-control" id="node_job_name" value="">
+						<label for="job-name" class="control-label"><b>Name:</b></label>
+						<input type="text" class="form-control" id="node_update_job_name" value="Enter a name for the job"/>
 					</div>
 					<b>Email Lists</b>
 					<div class="form-group">
 						<!--TODO: Choose a selected email-list dynamically-->
-						<select class="form-control">
+						<select id="node_update_email_list_id" class="form-control">
 							<% first = true %>
 							<% @email_lists.each do |el| %>
 									<% if first %>
@@ -249,11 +276,10 @@
 							<% end %>
 						</select>
 					</div>
-					<hr>
-					<h5>Execute Time</h5>
+					<br>
 					<div class="form-group">
 						<b>Execute Frequency</b>
-						<select id="node_job_execute_frequency" class="form-control">
+						<select id="node_update_job_execute_frequency" class="form-control">
 							<option>Execute Once</option>
 							<option>Execute Twice</option>
 							<option>Execute Thrice</option>
@@ -272,23 +298,42 @@
 					<h5>Email</h5>
 					<div class="form-group">
 						<span class="input-group-addon">Subject</span>
-						<input type="text" class="form-control" id="node_job_subject" value="">
+						<input type="text" class="form-control" id="node_update_job_subject" value="">
 					</div>
 					<div class="form-group">
 						<span class="input-group-addon">Content</span>
-						<textarea class="form-control mediumEditable" rows=5 id="node_job_conent"></textarea>
+						<textarea class="form-control mediumEditable" rows=5 id="node_update_job_conent"></textarea>
 					</div>
 					<hr>
-					<div class="form-group">
-						<!-- TODO: Dynamically query these values from ID's -->
-						<b>Campaign ID: </b><span id="node_campaign_id"></span>
-						<b>Hook ID:</b><span id="node_hook_id"></span>
-						<b>Hook Identifier:</b><span id="node_hook_identifier"></span>
-						<b>App ID:</b><span id="node_app_id"></span>
-						<b>Job ID:</b><span id="node_job_id"></span>
-						<b>Executed:</b><span id="node_job_executed"></span>
-						<b>Email List ID:</b><span id="node_email_list_id"></span>
-						<b>Job Local Identifier:</b><span id="node_local_identifier"></span>
+					<div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Campaign ID: </h6>
+							<span class="list-group-item-text" id="node_update_campaign_id"></span>
+							</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Hook Identifier:</h6>
+							<span class="list-group-item-text" id="node_update_hook_identifier"></span>
+						</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">App ID:</h6>
+							<span id="node_update_app_id"></span>
+						</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Job ID:</h6>
+							<span class="list-group-item-text" id="node_update_job_id"></span>
+						</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Executed:</h6>
+							<span class="list-group-item-text" id="node_update_job_executed"></span>
+						</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Email List ID:</h6>
+							<span class="list-group-item-text" id="node_update_email_list_id"></span>
+						</span>
+						<span class="list-group-item">
+							<h6 class="list-group-item-heading">Job Local Identifier:</h6>
+							<span class="list-group-item-text" id="node_update_local_identifier"></span>
+						</span>
 					</div>
 				</form>
 			</div>
@@ -299,119 +344,3 @@
 		</div>
 	</div>
 </div>
-
-<!--$(function() {-->
-<!--// this initializes the dialog (and uses some common options that I do)-->
-<!--$("#dialog").dialog({-->
-<!--autoOpen : false, modal : true, show : "blind", hide : "blind"-->
-<!--});-->
-
-<div style="display:none" id="job_editors">
-	<% @local_jobs.each do |job| %>
-			<button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-			        data-target="#modal_<%= job.local_identifier %>">
-				Modal
-			</button>
-	<% end %>
-</div>
-<% @local_jobs.each do |job| %>
-		<div class="modal fade" tabindex="-1" role="dialog" id="modal_<%= job.local_identifier %>"
-		     aria-labelledby="#modal_<%= job.local_identifier %>">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="recipient-name" class="control-label"><b>Name:</b></label>
-								<input type="text" class="form-control" id="recipient-name" value="<%= job.name %>">
-							</div>
-							<b>Email Lists</b>
-							<div class="form-group">
-								<select class="form-control">
-									<% first = true %>
-									<% @email_lists.each do |el| %>
-											<% if first %>
-													<option><%= el.name %></option>
-													<% first = false %>
-											<% else %>
-													<option><%= el.name %></option>
-											<% end %>
-									<% end %>
-								</select>
-							</div>
-							<hr>
-							<h5>Execute Time</h5>
-							<div class="form-group">
-								<b>Execute Frequency</b>
-								<select class="form-control">
-									<option>Execute Once</option>
-									<option>Execute Twice</option>
-									<option>Execute Thrice</option>
-								</select>
-								<b>Execute Day</b>
-								<select class="form-control">
-									<option>Next Ocurrence</option>
-									<option>Second Ocurrence</option>
-									<option>Third Ocurrence</option>
-								</select>
-								<b>Execute-Time</b>
-								<select class="form-control">
-									<% $x = 1 %>
-									<% while $x <= 12 do %>
-											<option> <%= $x.to_s %>:00 AM</option>
-											<% $x += 1 %>
-									<% end %>
-									<% $x = 1 %>
-									<% while $x <= 12 do %>
-											<option> <%= $x.to_s %>:00 PM</option>
-											<% $x += 1 %>
-									<% end %>
-								</select>
-							</div>
-							<hr>
-							<h5>Email</h5>
-							<div class="form-group">
-								<span class="input-group-addon">Subject</span>
-								<input type="text" class="form-control" id="recipient-name" value="<%= job.subject %>">
-							</div>
-							<div class="form-group">
-								<span class="input-group-addon">Content</span>
-								<textarea class="form-control mediumEditable" rows=5 id="message-text"><%= job.content %></textarea>
-							</div>
-							<hr>
-							<div class="form-group">
-								<b>Campaign:</b><%= Campaign.find(job.client_campaign).name %>
-								<b>Hook:</b><%= HooksConstant.where(identifier: job.hook_identifier).first.name %>
-								<b>App ID:</b><%= job.app_id %>
-								<b>Executed:</b><%= job.executed %>
-								<b>App ID:</b><%= job.app_id %>
-								<b>Executed:</b><%= job.executed %>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!--job = Job.create(execute_frequency:   "execute_once",-->
-		<!--execute_time:        "1330",-->
-		<!--executed:            false,-->
-		<!--subject:             Faker::Lorem.sentence,-->
-		<!--content:             Faker::Lorem.paragraphs(3),-->
-		<!--name:                Faker::Commerce.product_name,-->
-		<!--app_id:              app.id,-->
-		<!--campaign_identifier: c.hook_identifier,-->
-		<!--hook_identifier:     c.hook_identifier,-->
-		<!--client_campaign:     c.id,-->
-		<!--email_list_id:       list.id-->
-
-<% end %>

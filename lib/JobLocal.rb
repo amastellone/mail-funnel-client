@@ -2,7 +2,7 @@ class JobLocal
 	include ActiveModel::Serializers::JSON
 
 	@@array = Array.new
-	attr_accessor :job_id, :local_identifier,
+	attr_accessor :id, :job_id, :local_identifier,
 	              :name, :hook_identifier,
 	              :email_list_id, :subject,
 	              :content, :execute_frequency,
@@ -12,10 +12,9 @@ class JobLocal
 
 	def attributes
 		{
-			 'id' => job_id,
+			 'job_id' => job_id,
 			 'local_identifier' => local_identifier,
 			 'name' => name,
-			 'hook_id' => hook_id,
 			 'hook_identifier' => hook_identifier,
 			 'email_list_id' => email_list_id,
 			 'subject' => subject,

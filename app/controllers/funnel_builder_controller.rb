@@ -11,15 +11,20 @@ class FunnelBuilderController < ApplicationController
 
 		j = Job.find(id)
 
-		job                  = JobLocal.new
-		job.local_identifier = 'job_' + j.id.to_s
-		job.hook_identifier  = j.hook_identifier
-		job.subject          = j.subject
-		job.content          = j.content
-		job.email_list_id    = j.email_list_id
-		job.app_id           = j.app_id
-		job.name             = j.name
-		job.client_campaign  = j.client_campaign
+		job                   = JobLocal.new
+		# job.id                = j.id #TOOD: Figure out why the id method does not work for ActiveModel classes
+		# job.job_id                = j.job_id
+		job.local_identifier  = 'job_' + j.id.to_s
+		job.hook_identifier   = j.hook_identifier
+		job.subject           = j.subject
+		job.content           = j.content
+		job.email_list_id     = j.email_list_id
+		job.app_id            = j.app_id
+		job.name              = j.name
+		job.client_campaign   = j.client_campaign
+		# job.executed          = j.excuted
+		job.execute_frequency = j.execute_frequency
+		job.execute_time      = j.execute_time
 
 		result = job.to_json
 
@@ -178,8 +183,8 @@ class FunnelBuilderController < ApplicationController
 		}
 
 		final_json = JSON.pretty_generate({
-			                               "data" => data
-		                              })
+			                                   "data" => data
+		                                  })
 
 		# logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
 
@@ -190,35 +195,55 @@ class FunnelBuilderController < ApplicationController
 	def index
 		# Build this information as JSON
 
-		app = App.where(name: 'bluehelmet-dev').first
+		app     = App.where(name: 'bluehelmet-dev').first
 		@app_id = app.id
 
-		@email_lists = EmailList.where(app_id: app.id)
+		testing = true
 
-		hook_id_new = params[:hook_id]
-		hook = HooksConstant.all.second
-		@hook_id = hook.id
+		# if params.has_key?(:campaign_id).present?
+		if testing
 
-		@local_jobs = Array.new
-		Campaign.where(hooks_constant_id: hook.id).each do |campaign|
+			@email_lists = EmailList.where(app_id: app.id)
 
-			@campaign_id = campaign.id
+			hook_id_new = params[:hook_id]
+			hook        = HooksConstant.all.second
+			@hook_id    = hook.id
 
-			Job.where(app_id: app.id, client_campaign: campaign.id).each do |j|
-				p 'Adding Job ID ' + j.id.to_s
+			@local_jobs = Array.new
+			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
 
-				jl                  = JobLocal.new
-				jl.local_identifier = 'job_' + j.id.to_s
-				jl.hook_identifier  = campaign.hook_identifier
-				jl.subject          = j.subject
-				jl.content          = j.content
-				jl.email_list_id    = j.email_list_id
-				jl.app_id           = j.app_id
-				jl.name             = j.name
-				jl.client_campaign  = j.client_campaign
-				@local_jobs << jl
+				@campaign_id = campaign.id
 
+				Job.where(app_id: app.id, client_campaign: campaign.id).each do |j|
+					p 'Adding Job ID ' + j.id.to_s
+
+					jl                  = JobLocal.new
+					jl.local_identifier = 'job_' + j.id.to_s
+					jl.hook_identifier  = campaign.hook_identifier
+					jl.subject          = j.subject
+					jl.content          = j.content
+					jl.email_list_id    = j.email_list_id
+					jl.app_id           = j.app_id
+					jl.name             = j.name
+					jl.client_campaign  = j.client_campaign
+					@local_jobs << jl
+
+				end
 			end
+
+		elsif
+
+			@campaigns = Array.new
+
+			# TODO: #6 Add App param to this query also
+			campaigns = Campaign.all
+
+			campaigns.each do |c|
+				@campaigns << c.name
+			end
+
+			render :_campaign_select_dropdown
+
 		end
 
 	end
@@ -228,6 +253,7 @@ class FunnelBuilderController < ApplicationController
 
 	def api_create
 	end
+
 	def api_delete
 	end
 

@@ -1,29 +1,25 @@
 namespace :Bluehelmet do
 
 	desc "Generate Jobs"
-	task :seed_jobs => :environment do
-		app       = App.where(name: "bluehelmet-dev").first
-		list = EmailList.where(name: "Default", app_id: app.id)
-		Campaign.all.each do |c|
-			puts "Generating Jobs for Campaign: " + c.id.to_s
-			$x = 0 # Generate Jobs
-			while $x <= 5 do
+	task :seed_job => :environment do
+		app      = App.where(name: "bluehelmet-dev").first
 
-				job = Job.create(execute_frequency:   "execute_once",
-				                 execute_time:        "1330",
-				                 executed:            false,
-				                 subject:             Faker::Lorem.sentence,
-				                 content:             Faker::Lorem.paragraphs(1),
-				                 name:                Faker::Commerce.product_name,
-				                 app_id:              app.id,
-				                 campaign_identifier: c.hook_identifier,
-				                 hook_identifier:     c.hook_identifier,
-				                 client_campaign:     c.id,
-				                 email_list_id:       list.id
-				)
+		hook     = HooksConstant.all.second
 
-				$x += 1
-			end
+		list = EmailList.where(name: 'Default', app_id: app.id)
+
+		Campaign.where(hooks_constant_id: hook.id).each do |c|
+			Job.create(execute_frequency:   "execute_thrice",
+			           execute_time:        20,
+			           executed:            false,
+			           subject:             Faker::Lorem.sentence,
+			           content:             Faker::Lorem.paragraphs(1),
+			           name:                Faker::Commerce.product_name,
+			           app_id:              app.id,
+			           campaign_identifier: c.hook_identifier,
+			           hook_identifier:     c.hook_identifier,
+			           client_campaign:     c.id,
+			           email_list_id:       list.id)
 		end
 	end
 
@@ -40,7 +36,6 @@ namespace :Bluehelmet do
 
 		MailFunnelConfig.create(name: "dev_shop_name", value: "bluehelmet-dev")
 	end
-
 
 
 	desc "Seed REST Data"
@@ -205,7 +200,7 @@ namespace :Bluehelmet do
 	end
 
 
-	# Database
+# Database
 	desc "Reset Database"
 	task :reset => :environment do
 		Rake::Task["db:drop"].invoke
@@ -230,7 +225,7 @@ namespace :Bluehelmet do
 		end
 	end
 
-	#  Clear Cache
+#  Clear Cache
 	desc "Clear Cache"
 	task :clear_cache => :environment do
 		Rake::Task["tmp:clear"].invoke
