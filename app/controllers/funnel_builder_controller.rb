@@ -198,19 +198,17 @@ class FunnelBuilderController < ApplicationController
 		app     = App.where(name: 'bluehelmet-dev').first
 		@app_id = app.id
 
-		testing = true
+		if params.has_key?(:campaign_id).present?
 
-		# if params.has_key?(:campaign_id).present?
-		if testing
+			campaign_id = params[:campaign_id]
 
 			@email_lists = EmailList.where(app_id: app.id)
 
-			hook_id_new = params[:hook_id]
 			hook        = HooksConstant.all.second
 			@hook_id    = hook.id
 
 			@local_jobs = Array.new
-			Campaign.where(hooks_constant_id: hook.id).each do |campaign|
+			Campaign.find(campaign_id).each do |campaign|
 
 				@campaign_id = campaign.id
 

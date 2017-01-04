@@ -1,4 +1,4 @@
-class MainInterface < ShopifyApp::AuthenticatedController
+class MainInterfaceControllerf < ShopifyApp::AuthenticatedController
 
   def index
     app = App.where(name: "bluehelmet-dev").first
