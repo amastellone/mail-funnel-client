@@ -1,14 +1,90 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>MailFunnelClient</title>
-    <%= csrf_meta_tags %>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8 ;">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <% application_name = ShopifyApp.configuration.application_name %>
 
-  <body>
-    <%= yield %>
-  </body>
+  <!--SHOPIFY EMBEDDED API -->
+  <script src="https://cdn.shopify.com/s/assets/external/app.js?<%= Time.now.strftime('%Y%m%d%H') %>"></script>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <!--MODAL-->
+  <!--<link rel="stylesheet" href="<%#= stylesheet_path "jquery.popdown.css" %>" type="text/css" media="screen" />-->
+
+
+  <!-- BOOTSWATCH PAPER -->
+  <!--<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">-->
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+  <!-- Optional theme -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+  <!-- Latest compiled and minified JavaScript -->
+
+  <!--JQUERY FLOWCHART-->
+  <link href="<%= stylesheet_path "jquery.vertical.flowchart.css" %>" rel="stylesheet" type="text/css">
+  <link href="<%= stylesheet_path "funnelstyle.css" %>" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="<%= javascript_path "jquery.vertical.flowchart.js" %>"></script>
+
+  <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+  <!--BOOTSTRAP JS-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
+  <script type="text/javascript">
+      ShopifyApp.init({
+          apiKey: "<%= ShopifyApp.configuration.api_key %>",
+          shopOrigin: "<%= "https://#{ @shop_session.url }" if @shop_session %>",
+          debug: true,
+          forceRedirect: true
+      });
+  </script>
+
+  <script>var editor = new MediumEditor('.mediumEditable');</script>
+
+
+  <title>Mail-Funnel</title>
+
+  <%= csrf_meta_tags %>
+</head>
+
+<div id="ajax-messages"></div>
+
+<body>
+<div class="app-wrapper">
+  <div class="app-content">
+    <main role="main">
+      <%= yield %>
+    </main>
+  </div>
+</div>
+
+
+<% if content_for?(:javascript) %>
+    <div id="ContentForJavascript" data-turbolinks-temporary>
+      <%= yield :javascript %>
+    </div>
+<% end %>
+
+<%# Timecop Console %>
+<%# if Rails.env.development? || Rails.env.staging? %>
+<%#= timecop_console_layout %>
+<%# end %>
+<%#= time_travel_to App.launch_date %>
+
+</body>
 </html>
