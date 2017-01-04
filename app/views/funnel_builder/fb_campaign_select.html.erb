@@ -33,8 +33,15 @@ main div {
 <main>
 	
 	<div>
-		<h2>Select a Campaign</h2>
-		<%= render partial: "main_interface/campaign_select", collection: @campaigns, as: :campaigns %>
+
+		<!-- Campaign Selector Partial -->
+		<div class="col-xs-12">
+			<legend>
+				<h2>Select a Campaign</h2>
+			</legend>
+			<%= render 'campaign_select' %>
+		</div>
+		<!-- END Campaign Selector Partial-->
 	</div>
 
 </main>
