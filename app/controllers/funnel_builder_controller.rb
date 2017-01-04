@@ -205,28 +205,25 @@ class FunnelBuilderController < ApplicationController
 			@email_lists = EmailList.where(app_id: app.id)
 
 			@local_jobs = Array.new
-			Campaign.find(campaign_id).each do |campaign|
+			campaign    = Campaign.find(campaign_id)
 
-				Job.where(app_id: app.id, campaign_id: campaign_id).each do |j|
-					p 'Adding Job ID ' + j.id.to_s
+			Job.where(app_id: app.id, campaign_id: campaign_id).each do |j|
+				p 'Adding Job ID ' + j.id.to_s
 
-					jl                  = JobLocal.new
-					jl.local_identifier = 'job_' + j.id.to_s
-					# jl.hook_identifier  = campaign.hook_identifier
-					jl.subject          = j.subject
-					jl.content          = j.content
-					jl.email_list_id    = j.email_list_id
-					jl.app_id           = j.app_id
-					jl.name             = j.name
-					jl.client_campaign  = j.client_campaign
-					@local_jobs << jl
+				jl                  = JobLocal.new
+				jl.local_identifier = 'job_' + j.id.to_s
+				# jl.hook_identifier  = campaign.hook_identifier
+				jl.subject          = j.subject
+				jl.content          = j.content
+				jl.email_list_id    = j.email_list_id
+				jl.app_id           = j.app_id
+				jl.name             = j.name
+				jl.client_campaign  = j.client_campaign
+				@local_jobs << jl
 
-				end
 			end
 
-		elsif
-
-			app = App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
+		elsif app = App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
 
 			@array = Array.new
 
