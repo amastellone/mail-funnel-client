@@ -1,0 +1,64 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+<div class="container">
+	
+	<div class="col-xs-12">
+		
+		<legend>
+			<h1>Hooks Constants</h1>
+		</legend>
+		
+		<div class="col-xs-12">
+			<%= render 'email_list_select', collection: @lists %>
+			
+			<table class="table table-striped">
+				
+				<tr class="active">
+					<th><h4>Campaign Name</h4></th>
+					<th><h4>Hook</h4></th>
+					<th></th>
+				</tr>
+				
+				<tbody>
+				<% @jobs.each do |c| %>
+						<tr>
+							<td style="width:85%;">
+								<h6><%= c.name %></h6>
+							</td>
+							<td>
+								<h6>
+									<%= Hook.find(c.hook_id).identifier %>
+								</h6>
+							</td>
+							<td>
+								<a href="<%= root_url %>jobs/<%= c.id %>" class="btn btn-info btn-block">View></a>
+							</td>
+						</tr>
+				<% end %>
+				</tbody>
+			
+			</table>
+			
+			<br>
+		
+		</div>
+	
+	
+	</div>
+</div>

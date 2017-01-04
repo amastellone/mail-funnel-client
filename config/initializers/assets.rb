@@ -12,10 +12,11 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w( shopify.css )
 Rails.application.config.assets.precompile += %w( modals.js )
-Rails.application.config.assets.precompile += %w( jquery.flowchart.css )
+Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.css )
 Rails.application.config.assets.precompile += %w( funnelstyle.css )
-Rails.application.config.assets.precompile += %w( jquery.flowchart.js )
+Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.js )
 
+# TODO: DEPLOYMENT - Production, Swap these out for minified versions when we go to production
 
 # MermaidJS
 # Rails.application.config.assets.precompile += %w( mermaid.css )

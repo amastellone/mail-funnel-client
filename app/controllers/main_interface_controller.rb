@@ -1,30 +1,19 @@
-class HomeController < ShopifyApp::AuthenticatedController
+class MainInterface < ShopifyApp::AuthenticatedController
 
   def index
-    # @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
-    @hooks_constants = HooksConstant.all
-
+    app = App.where(name: "bluehelmet-dev").first
+    @campaigns = Campaign.where(app_id: app.id)
   end
 
-  def modal
-  end
+  def campaign
+    app = App.where(name: "bluehelmet-dev").first
 
-  def modal_buttons
-  end
+    campaign_id = params[:campaign_id]
 
-  def regular_app_page
-  end
+    @jobs = Job.where(campaign_id: campaign_id)
 
-  def buttons
+    @lists = EmailList.where(app_id: app.id)
   end
-
-  def help
-  end
-
-  def error
-    raise "An error page"
-  end
-
 
   def form_page
     if request.post?

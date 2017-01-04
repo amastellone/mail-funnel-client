@@ -66,36 +66,37 @@ if rest_server_interaction
 	# EMAIL + EMAIL_LISTS
 
 	# Default List
-	defaultlist = EmailList.where(name: "Default", app_id: app.id)
+	default_list_check = EmailList.where(name: "Default", app_id: app.id)
 
-	if defaultlist.empty?
-		defaultlist = EmailList.create(name:        "Default",
-		                               description: "The default Mail-Funnel email list",
-		                               app_id:      app.id)
-		list        = defaultlist
-		puts "Default list does not exist, create it, id: " + list.id.to_s
+	if default_list_check.empty?
+		default_list_check = EmailList.create(name:        "Default",
+		                                      description: "The default Mail-Funnel email list",
+		                                      app_id:      app.id)
+		defaultlist        = default_list_check
+		puts "Default list does not exist, create it, id: " + defaultlist.id.to_s
 	else
-		list = defaultlist.first
-		puts "Default list exists already, id: " + list.id.to_s
+		defaultlist = default_list_check.first
+		puts "Default list exists already, id: " + defaultlist.id.to_s
 	end
 	$x = 0 # Generate Emails for Default List
 	until $x > Random.rand(3...15) do
 		email = Email.create(email_address: Faker::Internet.email,
 		                     name:          Faker::Name.name,
 		                     app_id:        app,
-		                     email_list_id: list.id)
-		puts "Emails Created for List " + list.name + " - " + email.email_address
-		puts list.name.to_s + ": Email Created " + email.email_address.to_s
+		                     email_list_id: defaultlist.id)
+		puts "Emails Created for List " + defaultlist.name + " - " + email.email_address
+		puts defaultlist.name.to_s + ": Email Created " + email.email_address.to_s
 		$x += 1
 	end
 
 	# Other Email Lists and Emails
-	$x = 0
+	lists = Array.new
+	$x    = 0
 	until $x > Random.rand(2...3) do
-		list = EmailList.create(name:        "Email List some Name " + $x.to_s,
+		list = EmailList.create(name:        Faker::Lorem.sentence,
 		                        description: Faker::Lorem.sentence,
 		                        app_id:      app.id)
-
+		lists << list.id
 		$y = 0
 		until $y > Random.rand(1...10) do
 			email = Email.create(email_address: Faker::Internet.email,
@@ -109,9 +110,10 @@ if rest_server_interaction
 	end
 
 
-	Hook.each do |h|
+	Hook.all.each do |h|
 		$x = 0
 		until $x >= Random.rand(2...5) do
+			this_list       = lists.fetch(Random.rand(0...(lists.size-1)))
 			c               = Campaign.new
 			c.hook_id       = h.id
 			c.name          = Faker::Lorem.sentence
@@ -146,15 +148,16 @@ if rest_server_interaction
 					j.execute_frequency = "execute_date"
 					j.execute_time      = 20170104
 				end
-				j.executed          = false
+				j.executed = false
+				$y         += 1
 			end
+			$x += 1
 		end
+		# Execute_Frequency_Types
+		# execute_now
+		# execute_once
+		# execute_twice
+		# execute_thrice
+		# execute_date 2015-01-10 = 20150110
 	end
-	# Execute_Frequency_Types
-	# execute_now
-	# execute_once
-	# execute_twice
-	# execute_thrice
-	# execute_date 2015-01-10 = 20150110
-
 end

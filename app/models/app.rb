@@ -1,7 +1,8 @@
 class App < RestModel
-has_many :jobs, :class_name => "Job"
-has_many :email_lists, :class_name => "EmailList"
-has_many :email, :class_name => "Email"
+	has_many :jobs
+	has_many :email_lists
+	has_many :emails
+	has_many :campaigns
 
 	def myId()
 		# TODO: Verify this works / get it working
@@ -11,4 +12,5 @@ has_many :email, :class_name => "Email"
 		return App.where(name: name).first.id
 	end
 
+	# accepts_nested_attributes_for :campaigns
 end

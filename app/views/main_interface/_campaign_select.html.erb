@@ -1,0 +1,13 @@
+<form class="form-horizontal">
+	<div class="row text-center">
+		<div class="form-group">
+			<div class="col-xs-10">
+				<select class="form-control" id="select">
+					<% @campaigns.each do |el| %>
+							<option value="<%= el.id %>"><%= el.name %>></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
+	</div>
+</form>

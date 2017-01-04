@@ -1,16 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :mail_funnel_configs
-  # resources :email_lists
+  # Main
+  root :to => 'main_interface#index'
+  get '/campaign/:campaign_id', to: 'main_interface#campaign'
 
-  mount ShopifyApp::Engine, at: '/'
+  # Funnel-Builder
+  get '/funnel/:id', to: 'funnel_builder#index'
 
-  root :to => 'home#index'
-
-  get '/funnel', to: 'funnel_builder#index'
-
-  post '/build_fb_json' => 'funnel_builder#api_index'
-
+  # Funnel-Builder JSON API
   post '/fbapi_index' => 'funnel_builder#api_index'
   post '/fbapi_update' => 'funnel_builder#api_update'
   post '/fbapi_read' => 'funnel_builder#api_read'
@@ -19,22 +16,17 @@ Rails.application.routes.draw do
 
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
 
+  # Email Controller
   get '/lists', to: 'email#lists'
   get '/emails/:list_id', to: 'email#emails'
   get '/new_list', to: 'email#new_list'
   match '/create_list' => 'email#create_list', via: [:post]
-  get '/jobs/:id', to: 'jobs_local#view'
 
-  # email_lists GET    /email_lists(.:format)                 email_lists#index
-  # POST   /email_lists(.:format)                             email_lists#create
-  # new_email_list GET    /email_lists/new(.:format)          email_lists#new
-  # edit_email_list GET    /email_lists/:id/edit(.:format)    email_lists#edit
-  # email_list GET    /email_lists/:id(.:format)              email_lists#show
-  # PATCH  /email_lists/:id(.:format)                         email_lists#update
-  # PUT    /email_lists/:id(.:format)                         email_lists#update
-  # DELETE /email_lists/:id(.:format)                         email_lists#destroy
+  # Scaffolds
+  # resources :mail_funnel_configs
+  # resources :email_lists
 
-
+  # Shopify Routes
   get 'modal' => "home#modal", :as => :modal
   get 'modal_buttons' => "home#modal_buttons", :as => :modal_buttons
   get 'regular_app_page' => "home#regular_app_page"
@@ -45,6 +37,8 @@ Rails.application.routes.draw do
   get 'form_page' => "home#form_page"
   post 'form_page' => "home#form_page"
   get 'error' => 'home#error'
+
+  mount ShopifyApp::Engine, at: '/'
 
   # namespace :app_proxy do
   #   root action: 'index'
