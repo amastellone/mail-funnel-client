@@ -194,7 +194,13 @@ class FunnelBuilderController < ApplicationController
 
 			campaign_id = params[:campaign_id]
 
+			@campaign = Campaign.find(campaign_id)
+
+			@hook = Hook.where(campaign_id: campaign_id).first
+
 			@email_lists = EmailList.where(app_id: app.id)
+
+			@lists = @email_lists
 
 			@local_jobs = Array.new
 			campaign    = Campaign.find(campaign_id)

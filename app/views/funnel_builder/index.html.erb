@@ -28,7 +28,7 @@
 			</button>
 			<a class="navbar-brand" href="<%= root_url %>">Mail Funnel</a>
 		</div>
-
+		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="<%= root_url %>">Home <span class="sr-only">(current)</span></a></li>
@@ -45,14 +45,24 @@
 <!--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
 
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"-->
-      <!--integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">-->
+<!--integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">-->
 
 <div class="container">
 	<h2>Mail Funnel Builder</h2>
-	<button class="btn btn-success create_operator" id="create_operator">New Job</button>
-	<button class="btn btn-primary" id="save_funnel-builder">Save Rules</button>
-	<button class="btn btn-danger" id="delete_selected_button">Delete Selected Job</button>
-	<button class="btn btn-success" id="edit_selected_button">Edit Selected Job</button>
+	
+	<div class="row">
+		<h3><%= @campaign.name %></h3> - <h5><%= @hook.name %></h5>
+		<div class="col-xs-8">
+			<button class="btn btn-success create_operator" id="create_operator">New Job</button>
+			<button class="btn btn-primary" id="save_funnel-builder">Save Rules</button>
+			<button class="btn btn-danger" id="delete_selected_button">Delete Selected Job</button>
+			<button class="btn btn-success" id="edit_selected_button">Edit Selected Job</button>
+		</div>
+		<div class="col-xs-4">
+			<label>Campaign Email List</label>
+			<%= render 'main_interface/email_list_select' %>
+		</div>
+	</div>
 	
 	<div class="canvas-class" id="funnel-builder-canvas"></div>
 </div>
@@ -136,7 +146,7 @@
 		// UPDATE NODE
 		$('#edit_selected_button').click(function (event) {
 			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-			
+
 //			job_345
 			
 			var jobId = nodeId.split("_")[1];

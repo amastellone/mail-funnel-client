@@ -3,6 +3,7 @@
 		<div class="form-group">
 			<div class="col-xs-10 col-xs-offset-1">
 				<select class="form-control" id="campaignDropdown">
+					<option selected="selected">Please Select a Campaign</option>
 					<% @campaigns.each do |el| %>
 							<option value="<%= el.id %>"><%= el.name %></option>
 					<% end %>

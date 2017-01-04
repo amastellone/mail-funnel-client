@@ -8,9 +8,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   def campaign
     app = App.where(name: "bluehelmet-dev").first
 
-    campaign_id = params[:campaign_id]
+    @campaign_id = params[:campaign_id]
 
-    @jobs = Job.where(campaign_id: campaign_id)
+    @jobs = Job.where(campaign_id: @campaign_id)
 
     @lists = EmailList.where(app_id: app.id)
   end
