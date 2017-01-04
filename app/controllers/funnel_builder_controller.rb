@@ -204,20 +204,15 @@ class FunnelBuilderController < ApplicationController
 
 			@email_lists = EmailList.where(app_id: app.id)
 
-			hook        = HooksConstant.all.second
-			@hook_id    = hook.id
-
 			@local_jobs = Array.new
 			Campaign.find(campaign_id).each do |campaign|
 
-				@campaign_id = campaign.id
-
-				Job.where(app_id: app.id, client_campaign: campaign.id).each do |j|
+				Job.where(app_id: app.id, campaign_id: campaign_id).each do |j|
 					p 'Adding Job ID ' + j.id.to_s
 
 					jl                  = JobLocal.new
 					jl.local_identifier = 'job_' + j.id.to_s
-					jl.hook_identifier  = campaign.hook_identifier
+					# jl.hook_identifier  = campaign.hook_identifier
 					jl.subject          = j.subject
 					jl.content          = j.content
 					jl.email_list_id    = j.email_list_id
@@ -231,16 +226,17 @@ class FunnelBuilderController < ApplicationController
 
 		elsif
 
-			@campaigns = Array.new
+			app = App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
 
-			# TODO: #6 Add App param to this query also
-			campaigns = Campaign.all
+			@array = Array.new
 
-			campaigns.each do |c|
-				@campaigns << c.name
+			@campaigns = Campaign.where(app_id: app.id)
+
+			@campaigns.each do |c|
+				@array << c.name
 			end
 
-			render :_campaign_select_dropdown
+			render :fb_campaign_select
 
 		end
 
