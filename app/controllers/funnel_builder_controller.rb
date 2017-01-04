@@ -204,15 +204,10 @@ class FunnelBuilderController < ApplicationController
 
 			@email_lists = EmailList.where(app_id: app.id)
 
-			hook        = HooksConstant.all.second
-			@hook_id    = hook.id
-
 			@local_jobs = Array.new
 			Campaign.find(campaign_id).each do |campaign|
 
-				@campaign_id = campaign.id
-
-				Job.where(app_id: app.id, client_campaign: campaign.id).each do |j|
+				Job.where(app_id: app.id, campaign_id: campaign_id).each do |j|
 					p 'Adding Job ID ' + j.id.to_s
 
 					jl                  = JobLocal.new
