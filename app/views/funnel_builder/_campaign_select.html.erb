@@ -1,17 +1,25 @@
-
 <form class="form-horizontal">
-
-  <div class="row">
-    <div class="form-group text-center">
-      <div class="col-xs-10">
-        <select class="form-control" id="select">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+  <div class="row text-center">
+    <div class="form-group">
+      <div class="col-xs-10 col-xs-offset-1">
+        <select class="form-control" id="campaignDropdown">
+          <% @campaigns.each do |el| %>
+              <option value="<%= el.id %>"><%= el.name %></option>
+          <% end %>
         </select>
       </div>
     </div>
   </div>
 </form>
+
+<script>
+    $(function() {
+
+        var campaignDropdown = $('#campaignDropdown');
+
+        campaignDropdown.on('change', function() {
+            window.location.href = "funnel/" + campaignDropdown.val();
+        })
+
+    });
+</script>
