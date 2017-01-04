@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :campaigns
   resources :mail_funnel_configs
   # resources :email_lists
 

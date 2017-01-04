@@ -88,7 +88,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :staging do
 	gem 'timecop'
-	gem 'timecop-console', :require => 'timecop_console'
+	# gem 'timecop-console', :require => 'timecop_console'
 end
 
 group :production do
