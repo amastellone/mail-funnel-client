@@ -131,6 +131,7 @@ if rest_server_interaction
 				j.content         = Faker::Lorem.paragraphs(1)
 				j.app_id          = app.id
 				j.campaign_id     = c.id
+				j.app_id          = app.id
 				execute_scheme    = Random.rand(1...5)
 				if execute_scheme == 1
 					j.execute_frequency = "execute_now"
@@ -149,6 +150,7 @@ if rest_server_interaction
 					j.execute_time      = 20170104
 				end
 				j.executed = false
+				j.save
 				$y         += 1
 			end
 			$x += 1

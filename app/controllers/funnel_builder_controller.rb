@@ -21,22 +21,17 @@ class FunnelBuilderController < ApplicationController
 		job.email_list_id     = j.email_list_id
 		job.app_id            = j.app_id
 		job.name              = j.name
-		job.client_campaign   = j.client_campaign
+		# job.client_campaign   = j.client_campaign
 		# job.executed          = j.excuted
 		job.execute_frequency = j.execute_frequency
 		job.execute_time      = j.execute_time
 
 		result = job.to_json
 
-		# final_json = JSON.pretty_generate(result)
-
 		logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
 
 		render json: result
-
-
 	end
-
 
 	def api_index
 
@@ -51,22 +46,20 @@ class FunnelBuilderController < ApplicationController
 
 		@local_jobs = Array.new
 
+		left          = (width.to_i - 138) / 2
 		top           = 0
-		top_increment = 150 #Top Increment
+		top_increment = 200 #Top Increment
 
-		count     = 0
 		operators = Hash.new
 
 		# TODO: Convert all Hash Keys to :key format and change from " to ' single quotes
 
 		campaign  = Campaign.find(campaign_id)
 
-		operator_title = ("campaign_" + count.to_s).to_s
-
-		operators[operator_title] =
+		operators["campaign_node"] =
 			 {
 					"top"                  => top.to_s,
-					"left"                 => "80",
+					"left"                 => left.to_s,
 					"multipleLinksOnInput" => "true",
 					"properties"           => {
 						 "title"   => "Campaign",
@@ -78,38 +71,29 @@ class FunnelBuilderController < ApplicationController
 						 }
 					}
 			 }
-		top                       = top + top_increment
-		count                     += 1
 
-		top             = 175
-		left_increment  = 160
-		right_increment = 160
-		@left_decrement = right_increment
+		top   += top_increment
 
 		# TODO: Dynamically calculate a column-count from page-width param
-		column_count    = 5
 
-		count = 0
-		left  = 0
-		right = 0
-
-		Job.where(app_id: appid, client_campaign: campaign.id).each do |j|
-			if count % column_count == 0 && count != 0
-				left  = 0
-				right = 0
-				top   = top + top_increment
-			end
+		count = 0 # TODO: Add app_id again - app_id: appid,
+		Job.where(campaign_id: campaign.id).each do |j|
 			p 'Adding Job ID ' + appid.to_s
 
 			jl                  = JobLocal.new
 			jl.local_identifier = 'job_' + j.id.to_s
-			jl.hook_identifier  = campaign.hook_identifier
-			jl.subject          = j.subject
-			jl.content          = j.content
-			jl.email_list_id    = j.email_list_id
-			jl.app_id           = j.app_id
 			jl.name             = j.name
-			jl.client_campaign  = j.client_campaign
+
+			jl.hook_identifier = campaign.hook_identifier
+			jl.hook_id         = j.hook_id
+			jl.campaign_id     = j.campaign_id
+
+			jl.subject = j.subject
+			jl.content = j.content
+
+			jl.email_list_id = j.email_list_id
+			jl.app_id        = j.app_id
+
 			@local_jobs << jl
 
 			operator_title            = (jl.local_identifier).to_s
@@ -132,29 +116,25 @@ class FunnelBuilderController < ApplicationController
 							 }
 						}
 				 }
-			left                      = left + left_increment
-			right                     = right + right_increment
 			count                     += 1
+			top                       = top + top_increment
 		end
-		top = top + top_increment
 
 		connections    = Hash.new
 		link_count     = 0
-		campaign_count = 0
 		last_job_id    = 0
 		firstjob       = true
-		
-		Job.where(app_id: appid, client_campaign: campaign.id).each do |j|
+
+		Job.where(campaign_id: campaign.id).each do |j|
 			connector_title = ("link_" + link_count.to_s).to_s
 			if firstjob
 				connections[connector_title] =
 					 {
-							"fromOperator"  => "campaign_" + campaign_count.to_s,
+							"fromOperator"  => "campaign_node",
 							"fromConnector" => "output_1",
 							"toOperator"    => "job_" + j.id.to_s,
 							"toConnector"   => "input_1"
 					 }
-				campaign_count               += 1
 				firstjob                     = false
 			else
 				connections[connector_title] =
@@ -175,6 +155,7 @@ class FunnelBuilderController < ApplicationController
 		}
 
 		final_json = JSON.pretty_generate({
+			                                   "verticalConnection" => "true",
 			                                   "data" => data
 		                                  })
 
@@ -192,20 +173,17 @@ class FunnelBuilderController < ApplicationController
 
 		if params.has_key?(:campaign_id).present?
 
-			campaign_id = params[:campaign_id]
+			@campaign_id = params[:campaign_id]
+			@campaign    = Campaign.find(@campaign_id)
 
-			@campaign = Campaign.find(campaign_id)
+			@hook = Hook.where(campaign_id: @campaign_id).first
 
-			@hook = Hook.where(campaign_id: campaign_id).first
-
-			@email_lists = EmailList.where(app_id: app.id)
-
-			@lists = @email_lists
+			@email_list = EmailList.find(@campaign.email_list_id)
+			@lists      = EmailList.where(app_id: app.id)
 
 			@local_jobs = Array.new
-			campaign    = Campaign.find(campaign_id)
 
-			Job.where(app_id: app.id, campaign_id: campaign_id).each do |j|
+			Job.where(app_id: app.id, campaign_id: @campaign_id).each do |j|
 				p 'Adding Job ID ' + j.id.to_s
 
 				jl                  = JobLocal.new
@@ -216,20 +194,14 @@ class FunnelBuilderController < ApplicationController
 				jl.email_list_id    = j.email_list_id
 				jl.app_id           = j.app_id
 				jl.name             = j.name
-				jl.client_campaign  = j.client_campaign
 				@local_jobs << jl
 
 			end
 
-		elsif app = App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
-
-			@array = Array.new
+		else
+			app == App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
 
 			@campaigns = Campaign.where(app_id: app.id)
-
-			@campaigns.each do |c|
-				@array << c.name
-			end
 
 			render :fb_campaign_select
 

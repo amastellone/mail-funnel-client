@@ -7,7 +7,9 @@ class JobLocal
 	              :email_list_id, :subject,
 	              :content, :execute_frequency,
 	              :executed, :execute_time,
-	              :app_id, :client_campaign
+	              :app_id, :client_campaign,
+	              :campaign_id, :hook_id,
+	              :another_one
 
 
 	def attributes
@@ -16,6 +18,7 @@ class JobLocal
 			 'local_identifier' => local_identifier,
 			 'name' => name,
 			 'hook_identifier' => hook_identifier,
+			 'hook_id' => hook_id,
 			 'email_list_id' => email_list_id,
 			 'subject' => subject,
 		   'content' => content,
@@ -23,7 +26,8 @@ class JobLocal
 		   'executed' => executed,
 		   'execute_time' => execute_time,
 		   'app_id' => app_id,
-		   'client_campaign' => client_campaign
+		   'client_campaign' => client_campaign,
+			 'campaign_id' => campaign_id
 		}
 	end
 

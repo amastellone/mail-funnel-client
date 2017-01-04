@@ -10,6 +10,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @campaign_id = params[:campaign_id]
 
+    @campaign = Campaign.find(@campaign_id)
+
     @jobs = Job.where(campaign_id: @campaign_id)
 
     @lists = EmailList.where(app_id: app.id)

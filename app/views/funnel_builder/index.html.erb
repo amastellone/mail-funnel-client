@@ -50,8 +50,7 @@
 <div class="container">
 	<h2>Mail Funnel Builder</h2>
 	
-	<div class="row">
-		<h3><%= @campaign.name %></h3> - <h5><%= @hook.name %></h5>
+	<div style="float:right" class="row">
 		<div class="col-xs-8">
 			<button class="btn btn-success create_operator" id="create_operator">New Job</button>
 			<button class="btn btn-primary" id="save_funnel-builder">Save Rules</button>
@@ -59,6 +58,13 @@
 			<button class="btn btn-success" id="edit_selected_button">Edit Selected Job</button>
 		</div>
 		<div class="col-xs-4">
+			<div class="well">
+				<div clas="col-xs-12">
+					<h5><b>Campaign: </b><%= @campaign.name %></h5>
+					<h5><b>Hook: </b><%= @hook.name %></h5>
+					<h5><b>Email-List: </b><%= @email_list.name %></h5>
+				</div>
+			</div>
 			<label>Campaign Email List</label>
 			<%= render 'main_interface/email_list_select' %>
 		</div>
@@ -300,7 +306,7 @@
 						<!--TODO: Choose a selected email-list dynamically-->
 						<select id="node_update_email_list_id" class="form-control">
 							<% first = true %>
-							<% @email_lists.each do |el| %>
+							<% @lists.each do |el| %>
 									<% if first %>
 											<option><%= el.name %></option>
 											<% first = false %>
