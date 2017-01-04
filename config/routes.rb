@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # Funnel-Builder
   get '/funnel/:campaign_id', to: 'funnel_builder#index'
+  get '/funnel', to: 'funnel_builder#index'
 
   # Funnel-Builder JSON API
   post '/fbapi_index' => 'funnel_builder#api_index'

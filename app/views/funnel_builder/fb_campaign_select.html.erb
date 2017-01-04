@@ -1,0 +1,40 @@
+<script type="text/css">
+body {
+	  background: #f06d06;
+  font-size: 80%;
+  padding: 20px;
+}
+
+main {
+  background: white;
+  height: 200px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  resize: both;
+  overflow: auto;
+}
+
+main div {
+  background: black;
+  color: white;
+  width: 50%;
+  padding: 20px;
+  resize: both;
+  overflow: auto;
+}
+
+
+</script>
+
+<main>
+	
+	<div>
+		<h2>Select a Campaign</h2>
+		<%= render partial: "main_interface/campaign_select", collection: @campaigns, as: :campaigns %>
+	</div>
+
+</main>
