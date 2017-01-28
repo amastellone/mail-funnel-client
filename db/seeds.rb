@@ -1,5 +1,6 @@
 # MAIL FUNNEL - CLIENT SEEDS
 
+
 # TODO: Finish the Config Model
 MailFunnelConfig.create(name: "app_installed", value: "true")
 MailFunnelConfig.create(name: "app_key", value: ENV['APP_KEY'])
@@ -132,23 +133,8 @@ if rest_server_interaction
 				j.app_id          = app.id
 				j.campaign_id     = c.id
 				j.app_id          = app.id
-				execute_scheme    = Random.rand(1...5)
-				if execute_scheme == 1
-					j.execute_frequency = "execute_now"
-					j.execute_time      = 0
-				elsif execute_scheme == 2
-					j.execute_frequency = "execute_once"
-					j.execute_time      = Random.rand(0...23)
-				elsif execute_scheme == 3
-					j.execute_frequency = "execute_twice"
-					j.execute_time      = Random.rand(0...23)
-				elsif execute_scheme == 4
-					j.execute_frequency = "execute_thrice"
-					j.execute_time      = Random.rand(0...23)
-				elsif execute_scheme == 4
-					j.execute_frequency = "execute_date"
-					j.execute_time      = 20170104
-				end
+				j.execute_frequency = "execute_now"
+				j.execute_time      = Random.rand(3...5)
 				j.executed = false
 				j.save
 				$y         += 1

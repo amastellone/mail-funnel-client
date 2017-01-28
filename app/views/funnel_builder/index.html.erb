@@ -50,14 +50,8 @@
 <div class="container">
 	<h2>Mail Funnel Builder</h2>
 	
-	<div style="float:right" class="row">
-		<div class="col-xs-8">
-			<button class="btn btn-success create_operator" id="create_operator">New Job</button>
-			<button class="btn btn-primary" id="save_funnel-builder">Save Rules</button>
-			<button class="btn btn-danger" id="delete_selected_button">Delete Selected Job</button>
-			<button class="btn btn-success" id="edit_selected_button">Edit Selected Job</button>
-		</div>
-		<div class="col-xs-4">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 pull-right">
 			<div class="well">
 				<div clas="col-xs-12">
 					<h5><b>Campaign: </b><%= @campaign.name %></h5>
@@ -65,12 +59,30 @@
 					<h5><b>Email-List: </b><%= @email_list.name %></h5>
 				</div>
 			</div>
-			<label>Campaign Email List</label>
-			<%= render 'main_interface/email_list_select' %>
+			<hr>
+			<label>Job Actions</label><br>
+			<div class="form-horizontal">
+				<div class="row text-center">
+					<div class="form-group">
+						<div class="col-xs-10 text-center">
+							<button class="btn btn-primary" id="create_button">New Job</button>
+							<button class="btn btn-danger" style="" id="delete_selected_button">Delete Selected Job</button>
+							<button class="btn btn-success" style="" id="edit_selected_button">Edit Selected Job</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="well">
+				<label>Campaign Email List</label>
+				<%= render 'main_interface/email_list_select' %>
+			</div>
 		</div>
+		
+		<div class="col-xs-12 col-sm-6" id="funnel-builder-canvas"></div>
 	</div>
-	
-	<div class="canvas-class" id="funnel-builder-canvas"></div>
+</div>
+
 </div>
 
 <script type="text/javascript">
@@ -106,9 +118,37 @@
 		
 		var windowHeight = $(window).height();   // Browser Viewport Height
 		var docHeight = $(document).height(); // HTML Doc height
+		
 		var height = window.innerHeight;
 		
-		$canvas.height(docHeight);
+		$canvas.height(<%= @height %>);
+//		$canvas.width($(document).height() / 4);
+		
+		function populateModal(response) {
+			console.log(response['name']);
+			
+			console.log(response);
+			
+			$('#node_update_job_id').val(response['job_id']);
+			$('#node_update_job_name').val(response['name']);
+			
+			$('#node_update_email_list_id').val(response['email_list_id']);
+			
+			$('#node_update_job_subject').val(response['subject']);
+			$('#node_update_job_content').val(response['content']);
+			
+			$('#node_update_hook_identifier').text(response['hook_identifier']);
+			
+			console.log('executed: ' + response['executed']);
+			
+			$('#node_update_job_executed').text(response['executed']);
+			$('#node_update_job_execute_time').text(response['execute_time']);
+			$('#node_update_job_execute_frequency').val(response['execute_frequency']);
+			
+			$('#node_update_app_id').text(response['app_id']);
+			$('#node_update_campaign_id').text(response['client_campaign']);
+			$('#node_update_local_identifier').text(response['local_identifier']);
+		}
 		
 		function reloadCanvas() {
 			$.ajax.bind("ajaxSend", function (elm, xhr, s) {
@@ -139,150 +179,229 @@
 		}
 		
 		reloadCanvas();
+	});
+	
+	// UPDATE NODE
+	$('#edit_selected_button').click(function (event) {
+		var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
+		var jobId = nodeId.split("_")[1];
 		
+		$('#modal_node_update').modal('show');
 		
-		$('#submit_rules').click(function () {
-		});
-		
-		// DELETE NODE
-		$('#delete_selected_button').click(function () {
-			$('#funnel-builder-canvas').flowchart('deleteSelected');
-		});
-		
-		// UPDATE NODE
-		$('#edit_selected_button').click(function (event) {
-			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-
-//			job_345
-			
-			var jobId = nodeId.split("_")[1];
-			
-			var ajaxCall = $.ajax({
-				method: "POST",
-				data: {
-					job_id: jobId,
-					authenticity_token: csrf_token
-				},
-				dataType: "json",
-				url: "/fbapi_read",
-				cache: false,
-				success: function (response) {
-					console.log("AJAX READ Success");
-					
-					console.log(response['name']);
-					
-					console.log(response);
-					
-					$('#node_update_job_id').val(response['job_id']);
-					$('#node_update_job_name').val(response['name']);
-					
-					$('#node_update_email_list_id').val(response['email_list_id']);
-					
-					$('#node_update_job_subject').val(response['subject']);
-					$('#node_update_job_content').val(response['content']);
-					
-					$('#node_update_hook_identifier').text(response['hook_identifier']);
-					
-					console.log('executed: ' + response['executed']);
-					
-					$('#node_update_job_executed').text(response['executed']);
-					$('#node_update_job_execute_time').text(response['execute_time']);
-					$('#node_update_job_execute_frequency').val(response['execute_frequency']);
-					
-					$('#node_update_app_id').text(response['app_id']);
-					$('#node_update_campaign_id').text(response['client_campaign']);
-					$('#node_update_local_identifier').text(response['local_identifier']);
-				}
-			});
-			$('#modal_node_update').modal('show');
-			console.log('OperatorID: '.concat(nodeId));
-		});
-		
-		
-		// CREATE NODE
-		$canvas.siblings('.create_operator').click(function () {
-			
-			$('#modal_node_create').modal('show');
-			
-			var ajaxCall = $.ajax({
-				method: "POST",
-				data: {
-					authenticity_token: csrf_token
-				},
-				dataType: "json",
-				url: "/fbapi_create",
-				cache: false,
-				success: function (response) {
-					console.log("AJAX DELETE Success");
-				}
-			});
-			
-			reloadCanvas();
-			
-		});
-		
-		// DELETE NODE
-		$canvas.siblings('.delete_selected_button').click(function () {
-			
-			var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-			var jobId = nodeId.split("_")[1];
-			
-			var ajaxCall = $.ajax({
-				method: "POST",
-				data: {
-					job_id: jobId,
-					authenticity_token: csrf_token
-				},
-				dataType: "json",
-				url: "/fbapi_delete",
-				cache: false,
-				success: function (response) {
-					console.log("AJAX DELETE Success");
-				}
-			});
-			
-			$canvas.flowchart('deleteSelected');
-		});
-		
-		// TO_STRING
-		$canvas.siblings('.get_data').click(function () {
-			var data = $canvas.flowchart('getData');
-			$('#flowchart_data').val(JSON.stringify(flowchart_data, null, 2));
+		var ajaxCall = $.ajax({
+			method: "POST",
+			data: {
+				job_id: jobId,
+				authenticity_token: csrf_token
+			},
+			dataType: "json",
+			url: "/fbapi_read",
+			cache: false,
+			success: function (response) {
+				console.log("AJAX READ Success");
+				
+				$('#node_update_job_id').val(response['job_id']);
+				$('#node_update_job_name').val(response['name']);
+				
+				$('#node_update_email_list_id').val(response['email_list_id']);
+				
+				$('#node_update_job_subject').val(response['subject']);
+				$('#node_update_job_content').val(response['content']);
+				
+				$('#node_update_hook_identifier').text(response['hook_identifier']);
+				
+				console.log('executed: ' + response['executed']);
+				
+				$('#node_update_job_executed').text(response['executed']);
+				$('#node_update_job_execute_time').text(response['execute_time']);
+				$('#node_update_job_execute_frequency').val(response['execute_frequency']);
+				
+				$('#node_update_app_id').text(response['app_id']);
+				$('#node_update_campaign_id').text(response['client_campaign']);
+				$('#node_update_local_identifier').text(response['local_identifier']);
+				
+				console.log('OperatorID: '.concat(nodeId));
+			}
 		});
 		
 	});
+	
+	// CREATE NODE
+	$('#create_button').click(function (event) {
+		
+		$('#modal_node_create').modal('show');
+		
+		var ajaxCall = $.ajax({
+			method: "POST",
+			data: {
+				app_id: <%= @app_id %>,
+				campaign_id: <%= @campaign_id %>,
+				authenticity_token: csrf_token
+			},
+			dataType: "json",
+			url: "/fbapi_read",
+			cache: false,
+			success: function (response) {
+				console.log("AJAX CREATE Success");
+				
+				$('#node_update_job_id').val(response['job_id']);
+				$('#node_update_job_name').val(response['name']);
+				
+				$('#node_update_email_list_id').val(response['email_list_id']);
+				
+				$('#node_update_job_subject').val(response['subject']);
+				$('#node_update_job_content').val(response['content']);
+				
+				$('#node_update_hook_identifier').text(response['hook_identifier']);
+				
+				console.log('executed: ' + response['executed']);
+				
+				$('#node_update_job_executed').text(response['executed']);
+				$('#node_update_job_execute_time').text(response['execute_time']);
+				$('#node_update_job_execute_frequency').val(response['execute_frequency']);
+				
+				$('#node_update_app_id').text(response['app_id']);
+				$('#node_update_campaign_id').text(response['client_campaign']);
+				$('#node_update_local_identifier').text(response['local_identifier']);
+				
+				$('#create_job_submit').hide();
+				$('#update_job_submit').show();
+			}
+		});
+	});
+	
+	// CREATE NODE
+	$('#create_button_submit').click(function (event) {
+		
+		var ajaxCall = $.ajax({
+			method: "POST",
+			data: {
+				app_id: <%= @app_id %>,
+				campaign_id: <%= @campaign_id %>,
+				authenticity_token: csrf_token
+			},
+			dataType: "json",
+			url: "/fbapi_create",
+			cache: false,
+			success: function (response) {
+				console.log("AJAX CREATE Success");
+				
+				$('#node_update_job_id').val(response['job_id']);
+				$('#node_update_job_name').val(response['name']);
+				
+				$('#node_update_email_list_id').val(response['email_list_id']);
+				
+				$('#node_update_job_subject').val(response['subject']);
+				$('#node_update_job_content').val(response['content']);
+				
+				$('#node_update_hook_identifier').text(response['hook_identifier']);
+				
+				console.log('executed: ' + response['executed']);
+				
+				$('#node_update_job_executed').text(response['executed']);
+				$('#node_update_job_execute_time').text(response['execute_time']);
+				$('#node_update_job_execute_frequency').val(response['execute_frequency']);
+				
+				$('#node_update_app_id').text(response['app_id']);
+				$('#node_update_campaign_id').text(response['client_campaign']);
+				$('#node_update_local_identifier').text(response['local_identifier']);
+				$('#update_job_submit').hide();
+				$('#create_job_submit').show();
+				
+			}
+		});
+	});
+	
+	// DELETE NODE
+	$('#delete_selected_button').click(function () {
+		
+		var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
+		var split = nodeId.split("_");
+		var nodeType = split[0];
+		var jobId = split[1];
+		
+		if(nodeType === 'campaign') {
+			console.log("This is a campaign")
+		}
+		
+		var ajaxCall = $.ajax({
+			method: "POST",
+			data: {
+				job_id: jobId,
+				authenticity_token: csrf_token
+			},
+			dataType: "json",
+			url: "/fbapi_delete",
+			cache: false,
+			success: function (response) {
+				console.log("AJAX DELETE Success");
+			}
+		});
+		$canvas.flowchart('deleteSelected');
+	});
+	
+	$canvas.siblings('.get_data').click(function () {
+		var data = $canvas.flowchart('getData');
+		$('#flowchart_data').val(JSON.stringify(flowchart_data, null, 2));
+	});
+	
+	$('#node_delete_job_ok').click(function () {
+		
+	});
+	
+	function isJob() {
+		var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
+		var split = nodeId.split("_");
+		var nodeType = split[0];
+		var jobId = split[1];
+		
+		if(nodeType === 'job') {
+			return true;
+		}
+	}
+	
+	function isCampaign() {
+		var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
+		var split = nodeId.split("_");
+		var nodeType = split[0];
+		var jobId = split[1];
+		
+		if(nodeType === 'campaign') {
+			return true;
+		}
+	}
+	
+	
+	//		// Apply the plugin on a standard, empty div...
+	//		$('#funnel-builder-canvas').flowchart({
+	//			onOperatorSelect: function (operatorId) {
+	//				if(isJob()) {
+	//					$('#delete_selected_button').show();
+	//					$('#delete_selected_button').show();
+	//				}
+	//				return true;
+	//			},
+	//			onOperatorUnselect: function () {
+	//				if(isJob()) {
+	//					$('#delete_selected_button').hide();
+	//					$('#delete_selected_button').hide();
+	//				}
+	//				return true;
+	//			}
+	//		});
+
+
 </script>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#modal_node_delete">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span></button>
 			<h4 class="modal-title" id="delete_job_label">Delete Job</h4>
 		</div>
 		<div class="modal-content">
-			Are you sure you would like to delete Job <span id="node_delete_job_name"></span> ID
+			Job deleted succesfully!
 			<span id="node_delete_job_id"></span>?
-			<input type="btn btn-success" id="node_delete_job_yes" value="Delete"/>
-			<input type="btn btn-danger" id="node_delete_job_no" value="Cancel"/>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_create" aria-labelledby="#modal_node_create">
-	<div class="modal-dialog modal-sm" role="document">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="create_new_job_title">Create New Job</h4>
-		</div>
-		<div class="modal-content">
-			<div class="form-group">
-				<label for="recipient-name" class="control-label"><b>Name:</b></label>
-				<input type="text" class="form-control" id="node_create_job_name" value="">
-			</div>
-			<input type="btn btn-success" id="node_delete_job_yes" value="Delete"/>
-			<input type="btn btn-danger" id="node_delete_job_no" value="Cancel"/>
+			<input type="btn btn-success" id="node_delete_job_ok" value="Ok"/>
 		</div>
 	</div>
 </div>
@@ -296,91 +415,96 @@
 				<h4 class="modal-title" id="myModalLabel">Update Job</h4>
 			</div>
 			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<label for="job-name" class="control-label"><b>Name:</b></label>
-						<input type="text" class="form-control" id="node_update_job_name" value="Enter a name for the job"/>
-					</div>
-					<b>Email Lists</b>
-					<div class="form-group">
-						<!--TODO: Choose a selected email-list dynamically-->
-						<select id="node_update_email_list_id" class="form-control">
-							<% first = true %>
-							<% @lists.each do |el| %>
-									<% if first %>
-											<option><%= el.name %></option>
-											<% first = false %>
-									<% else %>
-											<option><%= el.name %></option>
-									<% end %>
-							<% end %>
-						</select>
-					</div>
-					<br>
-					<div class="form-group">
-						<b>Execute Frequency</b>
-						<select id="node_update_job_execute_frequency" class="form-control">
-							<option>Execute Now</option>
-							<option>Execute Once</option>
-							<option>Execute Twice</option>
-							<option>Execute Thrice</option>
-						</select>
-						<b>Execute-Time (24-hour)</b>
-						<select id="node_job_execute_time" class="form-control">
-							<% $x = 1 %>
-							<% while $x <= 24 do %>
-									<option> <%= $x.to_s %>:00</option>
-									<% $x += 1 %>
-							<% end %>
-							<% $x = 1 %>
-						</select>
-					</div>
-					<hr>
-					<h5>Email</h5>
-					<div class="form-group">
-						<span class="input-group-addon">Subject</span>
-						<input type="text" class="form-control" id="node_update_job_subject" value="">
-					</div>
-					<div class="form-group">
-						<span class="input-group-addon">Content</span>
-						<textarea class="form-control mediumEditable" rows=5 id="node_update_job_conent"></textarea>
-					</div>
-					<hr>
-					<div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
-						<span class="list-group-item">
+				<%#= render partial: "node_modal_form" %>
+				<div id="node_form_partial">
+					<form>
+						<div class="form-group">
+							<label for="job-name" class="control-label"><b>Name:</b></label>
+							<input type="text" class="form-control" id="node_update_job_name" value="Enter a name for the job"/>
+						</div>
+						<b>Email Lists</b>
+						<div class="form-group">
+							<!--TODO: Choose a selected email-list dynamically-->
+							<select id="node_update_email_list_id" class="form-control">
+								<% first = true %>
+								<% @lists.each do |el| %>
+										<% if first %>
+												<option><%= el.name %></option>
+												<% first = false %>
+										<% else %>
+												<option><%= el.name %></option>
+										<% end %>
+								<% end %>
+							</select>
+						</div>
+						<br>
+						<div class="form-group">
+							<b>Execute Frequency</b>
+							<select id="node_update_job_execute_frequency" class="form-control">
+								<option SELECTED>Execute Now</option>
+								<option>Execute Once</option>
+								<option>Execute Twice</option>
+								<option>Execute Thrice</option>
+							</select>
+							<b>Execute-Time (24-hour)</b>
+							<select id="node_job_execute_time" class="form-control">
+								<% $x = 1 %>
+								<% while $x <= 24 do %>
+										<option> <%= $x.to_s %>:00</option>
+										<% $x += 1 %>
+								<% end %>
+								<% $x = 1 %>
+							</select>
+						</div>
+						<hr>
+						<h5>Email</h5>
+						<div class="form-group">
+							<span class="input-group-addon">Subject</span>
+							<input type="text" class="form-control" id="node_update_job_subject" value="">
+						</div>
+						<div class="form-group">
+							<span class="input-group-addon">Content</span>
+							<textarea class="form-control mediumEditable" rows=5 id="node_update_job_conent"></textarea>
+						</div>
+						<hr>
+						<div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Campaign ID: </h6>
 							<span class="list-group-item-text" id="node_update_campaign_id"></span>
 							</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Hook Identifier:</h6>
 							<span class="list-group-item-text" id="node_update_hook_identifier"></span>
 						</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">App ID:</h6>
 							<span id="node_update_app_id"></span>
 						</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Job ID:</h6>
 							<span class="list-group-item-text" id="node_update_job_id"></span>
 						</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Executed:</h6>
 							<span class="list-group-item-text" id="node_update_job_executed"></span>
 						</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Email List ID:</h6>
 							<span class="list-group-item-text" id="node_update_email_list_id"></span>
 						</span>
-						<span class="list-group-item">
+							<span class="list-group-item">
 							<h6 class="list-group-item-heading">Job Local Identifier:</h6>
 							<span class="list-group-item-text" id="node_update_local_identifier"></span>
 						</span>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" id="update_job_submit" class="btn btn-primary">Update Job</button>
+					<button type="button" id="new_job_submit" class="btn btn-primary">Create Job</button>
+				
+				</div>
 			</div>
 		</div>
 	</div>

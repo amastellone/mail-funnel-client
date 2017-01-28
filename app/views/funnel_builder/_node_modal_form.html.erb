@@ -1,0 +1,83 @@
+<div id="node_form_partial">
+	<form>
+		<div class="form-group">
+			<label for="job-name" class="control-label"><b>Name:</b></label>
+			<input type="text" class="form-control" id="node_update_job_name" value="Enter a name for the job"/>
+		</div>
+		<b>Email Lists</b>
+		<div class="form-group">
+			<!--TODO: Choose a selected email-list dynamically-->
+			<select id="node_update_email_list_id" class="form-control">
+				<% first = true %>
+				<% @lists.each do |el| %>
+						<% if first %>
+								<option><%= el.name %></option>
+								<% first = false %>
+						<% else %>
+								<option><%= el.name %></option>
+						<% end %>
+				<% end %>
+			</select>
+		</div>
+		<br>
+		<div class="form-group">
+			<b>Execute Frequency</b>
+			<select id="node_update_job_execute_frequency" class="form-control">
+				<option SELECTED>Execute Now</option>
+				<option>Execute Once</option>
+				<option>Execute Twice</option>
+				<option>Execute Thrice</option>
+			</select>
+			<b>Execute-Time (24-hour)</b>
+			<select id="node_job_execute_time" class="form-control">
+				<% $x = 1 %>
+				<% while $x <= 24 do %>
+						<option> <%= $x.to_s %>:00</option>
+						<% $x += 1 %>
+				<% end %>
+				<% $x = 1 %>
+			</select>
+		</div>
+		<hr>
+		<h5>Email</h5>
+		<div class="form-group">
+			<span class="input-group-addon">Subject</span>
+			<input type="text" class="form-control" id="node_update_job_subject" value="">
+		</div>
+		<div class="form-group">
+			<span class="input-group-addon">Content</span>
+			<textarea class="form-control mediumEditable" rows=5 id="node_update_job_conent"></textarea>
+		</div>
+		<hr>
+		<div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Campaign ID: </h6>
+							<span class="list-group-item-text" id="node_update_campaign_id"></span>
+							</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Hook Identifier:</h6>
+							<span class="list-group-item-text" id="node_update_hook_identifier"></span>
+						</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">App ID:</h6>
+							<span id="node_update_app_id"></span>
+						</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Job ID:</h6>
+							<span class="list-group-item-text" id="node_update_job_id"></span>
+						</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Executed:</h6>
+							<span class="list-group-item-text" id="node_update_job_executed"></span>
+						</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Email List ID:</h6>
+							<span class="list-group-item-text" id="node_update_email_list_id"></span>
+						</span>
+			<span class="list-group-item">
+							<h6 class="list-group-item-heading">Job Local Identifier:</h6>
+							<span class="list-group-item-text" id="node_update_local_identifier"></span>
+						</span>
+		</div>
+	</form>
+</div>

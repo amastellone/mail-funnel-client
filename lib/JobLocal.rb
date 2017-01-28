@@ -9,7 +9,8 @@ class JobLocal
 	              :executed, :execute_time,
 	              :app_id, :client_campaign,
 	              :campaign_id, :hook_id,
-	              :another_one
+	              :another_one, :created_at,
+	              :updated_at
 
 
 	def attributes
@@ -27,7 +28,9 @@ class JobLocal
 		   'execute_time' => execute_time,
 		   'app_id' => app_id,
 		   'client_campaign' => client_campaign,
-			 'campaign_id' => campaign_id
+			 'campaign_id' => campaign_id,
+		   'created_at' => created_at,
+		   'updated_at' => updated_at
 		}
 	end
 
