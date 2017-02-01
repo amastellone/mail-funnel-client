@@ -3,7 +3,7 @@
 		<div class="form-group">
 			<div class="col-xs-10 col-xs-offset-1">
 				<select class="form-control" id="campaignDropdown">
-					<option selected="selected">Please Select a Campaign Load it in Funnel Builder</option>
+					<option selected="selected">Please Select a Campaign to load it in the Funnel Builder</option>
 					<% @campaigns.each do |el| %>
 							<option value="<%= el.id %>"><%= el.name %></option>
 					<% end %>

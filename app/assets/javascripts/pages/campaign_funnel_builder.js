@@ -53,7 +53,6 @@ $(function() {
             url: "/fbapi_update_email_list",
             cache: false,
             success: function(response) {
-                alert("Email List Updated")
                 console.log(response);
                 var $canvas = $('#funnel-builder-canvas');
                 $canvas.flowchart(response);
