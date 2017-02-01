@@ -232,12 +232,13 @@ class FunnelBuilderController < ApplicationController
 		job = Job.new
 		p 'Creating Job ID ' + appid.to_s
 
+		job.id = params[:job_id]
+
 		job.name = params[:name]
 
 		job.subject = params[:subject]
 		job.content = params[:content]
 
-		job.email_list_id = params[:email_list_id]
 		job.executed      = params[:executed]
 		job.updated_at    = DateTime.now
 		job.execute_time  = params[:execute_time]
@@ -268,10 +269,14 @@ class FunnelBuilderController < ApplicationController
 		job.updated_at    = DateTime.now
 		job.created_at    = DateTime.now
 		job.execute_time  = params[:execute_time]
-		job.save
+		newjob = job.save!
+
+		# if job.save! == true the respond with status = true and id = newjob.id, else respond status = false
+		# TODO: Check if the job was created succesfully
 
 		final_json = JSON.pretty_generate(result = {
 			 "status" => "true"
+		   # "id" => newjob.id #TODO: Make this return the job ID once created correctly
 		})
 
 		render json: final_json
@@ -291,8 +296,9 @@ class FunnelBuilderController < ApplicationController
 	def api_delete
 		job_id = params[:job_id]
 		@job   = Job.delete(job_id)
-
 		# @job.destroy!
+
+		# TODO: Make sure the delete works, and responds true or false status if it worked
 
 		if true
 			final_json = JSON.pretty_generate(result = {
