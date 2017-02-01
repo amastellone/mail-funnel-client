@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/fbapi_read' => 'funnel_builder#api_read'
   post '/fbapi_create' => 'funnel_builder#api_create'
   post '/fbapi_delete' => 'funnel_builder#api_delete'
+  post '/fbapi_update_email_list' => 'funnel_builder#api_update_list' #API Route to update Campaigns Email List
 
   get '/campaignjobs/:id', to: 'campaigns#viewcampaignjobs'
 

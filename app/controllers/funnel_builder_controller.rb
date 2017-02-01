@@ -108,7 +108,7 @@ class FunnelBuilderController < ApplicationController
 			end
 
 			# executetimestring = jl.created_at.in.(jl.execute_time.to_i).hours
-			label = "<b>Next Job:</b> " + jl.created_at.to_s + " + " + jl.execute_time.to_s + " hrs"
+			label = "Next Job: " + jl.created_at.to_s + " + " + jl.execute_time.to_s + " hrs"
 
 			if operator_title = (jl.local_identifier).to_s
 				operators[operator_title] =
@@ -117,7 +117,7 @@ class FunnelBuilderController < ApplicationController
 							"left"                 => left.to_s,
 							"multipleLinksOnInput" => "false",
 							"properties"           => {
-								 "title"   => "<b>Job:</b>" + j.name,
+								 "title"   => "<b>Job: </b>" + j.name,
 								 "inputs"  => {
 										"input_1" => {
 											 "label" => j.name

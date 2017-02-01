@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require pages/campaign_funnel_builder
