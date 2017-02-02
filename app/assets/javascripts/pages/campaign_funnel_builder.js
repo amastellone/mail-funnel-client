@@ -9,17 +9,43 @@
 
 $(function() {
 
-	//Static Values
-	var campaign_id = $('#campaign_id_holder').val(); //Current Campaign ID
-	var current_email_list_id = $('#current_email_list_id_holder').val(); //Current Email List ID
-	var csrf_token = $('meta[name=csrf-token]').attr('content'); //CSRF TOKEN 
+    //Static Values
+    var app_id = $('#current_app_id').val();
+    var campaign_id = $('#campaign_id_holder').val(); //Current Campaign ID
+    var current_email_list_id = $('#current_email_list_id_holder').val(); //Current Email List ID
+    var csrf_token = $('meta[name=csrf-token]').attr('content'); //CSRF TOKEN 
 
-	//Components
+    //Components
+    var $canvas = $('#funnel-builder-canvas');
     var campaign_email_list_text = $('#email_list_name'); //Email List Text Output under Campaign Info
     var campaign_email_select = $('#email_list_select'); //Campaign Email List Select Dropdown
+    var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
+    var edit_selected_job = $('#edit_selected_button'); //Campaign Job Edit Button
 
     //Set Value of Select dropdown to current email list
     campaign_email_select.val(current_email_list_id);
+
+    /*
+    //Setup the initial flowchart
+    $.ajax({
+        method: "POST",
+        data: {
+            width: $(document).width(),
+            app_id: app_id,
+            campaign_id: campaign_id,
+            CSRF: csrf_token,
+            authenticity_token: csrf_token
+        },
+        dataType: "json",
+        url: "/fbapi_index",
+        cache: false,
+        success: function(response) {
+            console.log("AJAX Success");
+            console.log(response);
+            $canvas.flowchart(response);
+        }
+    });
+    */
 
 
     /*
@@ -60,7 +86,7 @@ $(function() {
 
         });
 
-       
+
 
     });
 

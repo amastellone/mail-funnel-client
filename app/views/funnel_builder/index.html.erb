@@ -71,6 +71,7 @@
           	<h5><b>Email-List: </b><span id="email_list_name"><%= @email_list.name %></span></h5>
             <!-- Hidden Div to hold IDs -->
             <div class="hidden">
+              <input type="number" id="current_app_id" value="<%= @app_id %>" />
               <input type="number" id="current_email_list_id_holder" value="<%= @email_list.id %>" />
               <input type="number" id="campaign_id_holder" value="<%= @campaign.id %>"/>
             </div>
@@ -205,7 +206,7 @@
               					xhr.setRequestHeader('X-CSRF-Token', csrf_token);
               				}
               			});
-  
+
               			var ajaxCall = $.ajax({
               				method: "POST",
               				data: {
