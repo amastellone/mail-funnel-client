@@ -2,21 +2,23 @@
   <%= javascript_include_tag 'campaign_funnel_builder_manifest' %>  
   <script type="text/javascript">
     window.mainPageTitle = 'Main Page';
-                            			ShopifyApp.ready(function () {
-                            				ShopifyApp.Bar.initialize({
-                            					title: window.mainPageTitle,
-                            					icon: '/shopify.png',
-                            					buttons: {
-                            						secondary: {
-                            							label: "Mail-Funnel Home",
-                            							href: "http://docs.shopify.com/embedded-app-sdk",
-                            							target: 'new'
-                            						}
-                            					}
-                            				});
-                            			});
+    ShopifyApp.ready(function () {
+      ShopifyApp.Bar.initialize({
+        title: window.mainPageTitle,
+        icon: '/shopify.png',
+        buttons: {
+          secondary: {
+            label: "Mail-Funnel Home",
+            href: "http://docs.shopify.com/embedded-app-sdk",
+            target: 'new'
+          }
+        }
+      });
+    });
   </script>
 <% end %>
+
+<!-- NAV BAR -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -40,17 +42,22 @@
     </div>
   </div>
 </nav>
+<!-- END NAV BAR -->
+
+
 <!--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"-->
 <!--integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">-->
+
+
 <div class="container">
 	<div class="col-xs-12">
 
-	<!-- Mail Funnel Builder Title -->
+	  <!-- Mail Funnel Builder Title -->
 		<legend>
 			<h2>Mail Funnel Builder</h2>
 		</legend>
-	<!-- END Mail Funnel Builder Title -->
+	  <!-- END Mail Funnel Builder Title -->
 
   	<div class="row">
 
@@ -84,7 +91,7 @@
     	<!-- END Campaign Info Panel -->
     	
     	<!-- Job Actions Panel -->
-		<div class="panel panel-primary">
+		  <div class="panel panel-primary">
 
       		<!-- Campaign Info Title -->
         	<div class="panel-heading">
@@ -100,10 +107,10 @@
 
       	</div>	
       	<hr>
-		<!-- END Job Actions Panel -->
+		  <!-- END Job Actions Panel -->
 		
-		<!-- Select Campaign Email List Panel -->
-		<div class="panel panel-primary">
+		  <!-- Select Campaign Email List Panel -->
+		  <div class="panel panel-primary">
 
       		<!-- Campaign Info Title -->
         	<div class="panel-heading">
@@ -118,36 +125,30 @@
         	</div>
 
       	</div>	
-		<!-- END Selest Campaign Email List Panel -->
+		  <!-- END Selest Campaign Email List Panel -->
+
+      </div>
+      <!-- END RIGHT SIDE PANELS -->
+
+      <!-- START Campaign Funnel Builder Flow Chart -->
+      <style>
+       .flowchart-operator-title {
+          background-color: #008cba !important;
+          color: #ffffff;
+        }
+      </style>
+      <div class="col-xs-12 col-sm-6" id="funnel-builder-canvas">
+       <input type="number" id="canvas_height_holder" class="hidden" value="<%= @height %>" />
+      </div>
+      <!-- END Campaign Funnel Builder Flow Chart -->
 
     </div>
-    <!-- END RIGHT SIDE PANELS -->
-
-    <!-- START Campaign Funnel Builder Flow Chart -->
-    <style>
-      .flowchart-operator-title {
-        background-color: #008cba !important;
-        color: #ffffff;
-      }
-    </style>
-    <div class="col-xs-12 col-sm-6" id="funnel-builder-canvas">
-      <input type="number" id="canvas_height_holder" class="hidden" value="<%= @height %>" />
-    </div>
-    <!-- END Campaign Funnel Builder Flow Chart -->
-
   </div>
-</div>
 </div>
 
 <!-- REMOVED ALL JS THAT WAS HERE AND PUT IT IN SEPERATE FILE -->
-<script type="text/javascript">
-  
-  
-              	
-  
-  
-              	
-</script>
+
+<!-- RESULT MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#result_modal">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-header">
@@ -161,6 +162,9 @@
     </div>
   </div>
 </div>
+<!-- END RESULT MODAL -->
+
+<!-- DELETE NODE MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#modal_node_delete">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-header">
@@ -173,6 +177,9 @@
     </div>
   </div>
 </div>
+<!-- END DELETE NODE MODAL -->
+
+<!-- NEW JOB MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_create" aria-labelledby="#modal_node_create">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -182,26 +189,26 @@
         <h4 class="modal-title" id="myModalLabel">Create New Job</h4>
       </div>
       <div class="modal-body">
-        <%= render partial: "node_modal_form" %>
+
+        
         <div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
           <span class="list-group-item">
             <h6 class="list-group-item-heading">Campaign ID: </h6>
-            <span class="list-group-item-text" id="node_update_campaign_id"></span>
+            <span class="list-group-item-text" id=""></span>
           </span>
           <span class="list-group-item">
             <h6 class="list-group-item-heading">Hook Identifier:</h6>
-            <span class="list-group-item-text" id="node_update_hook_identifier"></span>
+            <span class="list-group-item-text" id=""></span>
           </span>
           <span class="list-group-item">
             <h6 class="list-group-item-heading">App ID:</h6>
-            <span id="node_update_app_id"></span>
+            <span id=""></span>
           </span>
           <span class="list-group-item">
             <h6 class="list-group-item-heading">Email List ID:</h6>
-            <span class="list-group-item-text" id="node_update_email_list_id"></span>
+            <span class="list-group-item-text" id=""></span>
           </span>
         </div>
-      </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -211,45 +218,94 @@
 </div>
 </div>
 </div>
+<!-- END NEW JOB MODAL -->
+
+<!-- UPDATE JOB MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_update" aria-labelledby="#modal_node_update">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #008cba; color: #ffffff;">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Update Job</h4>
       </div>
       <div class="modal-body">
-        <span class="list-group-item">
-          <h6 class="list-group-item-heading">Executed:</h6>
-          <span class="list-group-item-text" id="node_update_job_executed"></span>
-        </span>
-        <%= render partial: "node_modal_form" %>
-        <div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
+    
+        <form>
+          <div class="well">
+            <legend>Job</legend>
+            <div class="form-group">
+              <label for="node_update_job_name" class="control-label"><b>Name:</b></label>
+              <input type="text" class="form-control" id="node_update_job_name" placeholder="Enter a name for the job"/>
+            </div>
+
+            <div class="form-group">
+              <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
+              <input type="text" name="execute_time" class="form-control" id="node_update_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="well">
+            <legend>Email</legend>
+            <div class="form-group">
+              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Subject</span>
+              <input type="text" class="form-control" id="node_update_job_subject" value="">
+            </div>
+            <div class="form-group">
+              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Content</span>
+              <textarea class="form-control mediumEditable" rows=5 id="node_update_job_content"></textarea>
+            </div>
+          </div>
+          <hr>
+        </form>
+
+        <div class="list-group">
+         <!-- TODO: Dynamically fetch the value names from their ID's below -->
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Campaign ID: </h6>
-            <span class="list-group-item-text" id="node_update_campaign_id"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">App ID:</strong> <span id="node_update_app_id"></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Hook Identifier:</h6>
-            <span class="list-group-item-text" id="node_update_hook_identifier"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Campaign ID:</strong> <span class="list-group-item-text" id="node_update_campaign_id"></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">App ID:</h6>
-            <span id="node_update_app_id"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job ID:</strong> <span class="list-group-item-text" id="node_update_job_id"></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Job ID:</h6>
-            <span class="list-group-item-text" id="node_update_job_id"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job Local Identifier:</strong> <span class="list-group-item-text" id="node_update_local_identifier"></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Email List ID:</h6>
-            <span class="list-group-item-text" id="node_update_email_list_id"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email List ID:</strong> <span class="list-group-item-text" id="node_update_email_list_id"></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Job Local Identifier:</h6>
-            <span class="list-group-item-text" id="node_update_local_identifier"></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Hook Identifier:</strong> <span class="list-group-item-text" id="node_update_hook_identifier"></span>
+            </h6>
           </span>
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Executed:</strong> <span class="list-group-item-text" id="node_update_job_executed"></span>
+            </h6>
+          </span>
+
         </div>
       </form>
     </div>
@@ -261,3 +317,4 @@
 </div>
 </div>
 </div>
+<!-- END UPDATE JOB MODAL -->

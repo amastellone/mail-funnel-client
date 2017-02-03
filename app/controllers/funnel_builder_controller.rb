@@ -1,5 +1,6 @@
 require 'htmlentities'
 require 'JobLocal'
+require 'date'
 
 # TODO: Funnel-Builer: Account for empty data here
 
@@ -11,22 +12,11 @@ class FunnelBuilderController < ApplicationController
 
 		j = Job.find(id)
 
-		job                   = JobLocal.new
-		# job.id                = j.id #TOOD: Figure out why the id method does not work for ActiveModel classes
-		# job.job_id                = j.job_id
-		job.local_identifier  = 'job_' + j.id.to_s
-		job.hook_identifier   = j.hook_identifier
-		job.subject           = j.subject
-		job.content           = j.content
-		job.email_list_id     = j.email_list_id
-		job.app_id            = j.app_id
-		job.name              = j.name
-		# job.client_campaign   = j.client_campaign
-		job.executed          = j.executed
-		job.execute_frequency = j.execute_frequency
-		job.execute_time      = j.execute_time
+		# No Need to create a new local Job, just return a json array of the job
+		# and print them out in the modal, then you can just call a function update 
+		# with the new inputs
 
-		result = job.to_json
+		result = j.to_json
 
 		logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
 
@@ -49,7 +39,7 @@ class FunnelBuilderController < ApplicationController
 		left1         = (width.to_i - 138) / 4
 		left          = 0
 		top           = 0
-		top_increment = 200 #Top Increment
+		top_increment = 125 #Top Increment
 
 		operators = Hash.new
 
@@ -73,7 +63,7 @@ class FunnelBuilderController < ApplicationController
 					}
 			 }
 
-		top   += top_increment
+		top   += (top_increment - 28) #First Link doesn't have all boxes so adjust the first link by size of box (28px)
 
 		# TODO: Dynamically calculate a column-count from page-width param
 
@@ -107,8 +97,11 @@ class FunnelBuilderController < ApplicationController
 				executedstring = "Unexecuted"
 			end
 
-			# executetimestring = jl.created_at.in.(jl.execute_time.to_i).hours
-			label = "Next Job: " + jl.created_at.to_s + " + " + jl.execute_time.to_s + " hrs"
+			# Add the execute time to the time it was created to find the next execute time
+			date = DateTime.parse(jl.created_at) # Convert Timestamp to DateTime Object
+			add_time = jl.execute_time # Get jobs execute time
+			date = date + add_time.hours # Add jobs execute time to DateTime Object
+			label = "Next Job: " + date.strftime('%c') 
 
 			if operator_title = (jl.local_identifier).to_s
 				operators[operator_title] =
@@ -120,7 +113,7 @@ class FunnelBuilderController < ApplicationController
 								 "title"   => "<b>Job: </b>" + j.name,
 								 "inputs"  => {
 										"input_1" => {
-											 "label" => j.name
+											 "label" => "Job ID: " + j.id.to_s
 										}
 								 },
 								 "outputs" => {
@@ -131,7 +124,7 @@ class FunnelBuilderController < ApplicationController
 							}
 					 }
 				count                     += 1
-				top                       = top + top_increment
+				top                       += top_increment
 			end
 		end
 
@@ -174,6 +167,8 @@ class FunnelBuilderController < ApplicationController
 			                                   "data"               => data,
 			                                   "linkWidth"          => "20",
 			                                   "grid"               => "25",
+			                                   "canUserEditLinks" => false,
+      										   "canUserMoveOperators" => false
 		                                  })
 
 		# logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s

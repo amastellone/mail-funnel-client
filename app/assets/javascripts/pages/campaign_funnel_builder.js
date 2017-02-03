@@ -129,8 +129,6 @@ $(function() {
         var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
         var jobId = nodeId.split("_")[1];
 
-        $('#modal_node_update').modal('show');
-
         var ajaxCall = $.ajax({
             method: "POST",
             data: {
@@ -141,29 +139,28 @@ $(function() {
             url: "/fbapi_read",
             cache: false,
             success: function(response) {
+                $('#modal_node_update').modal('show');
                 console.log("AJAX READ Success");
+                console.log(response);
 
-                $('#node_update_job_id').val(response['job_id']);
+                $('#node_update_job_id').html(response['id']);
                 $('#node_update_job_name').val(response['name']);
 
-                $('#node_update_email_list_id').val(response['email_list_id']);
+                $('#node_update_email_list_id').text(response['email_list_id']);
 
                 $('#node_update_job_subject').val(response['subject']);
                 $('#node_update_job_content').val(response['content']);
 
                 $('#node_update_hook_identifier').text(response['hook_identifier']);
 
-                console.log('executed: ' + response['executed']);
-
                 $('#node_update_job_executed').text(response['executed']);
                 $('#node_update_job_execute_time').text(response['execute_time']);
                 $('#node_update_job_execute_frequency').val(response['execute_frequency']);
 
-                $('#node_update_app_id').text(response['app_id']);
-                $('#node_update_campaign_id').text(response['client_campaign']);
-                $('#node_update_local_identifier').text(response['local_identifier']);
+                $('#node_update_app_id').html(response['app_id']);
+                $('#node_update_campaign_id').html(response['campaign_id']);
+                $('#node_update_local_identifier').html('job_' + response['id']);
 
-                console.log('OperatorID: '.concat(nodeId));
             }
         });
 
