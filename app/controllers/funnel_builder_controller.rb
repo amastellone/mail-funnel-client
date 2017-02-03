@@ -162,16 +162,18 @@ class FunnelBuilderController < ApplicationController
 			 "links"     => connections
 		}
 
+
+		# This is unecessarry, just return the data as a json and set the options in 
+		# the JS file so that you can add callback functions to it
 		final_json = JSON.pretty_generate({
 			                                   "verticalConnection" => "true",
 			                                   "data"               => data,
 			                                   "linkWidth"          => "20",
 			                                   "grid"               => "25",
 			                                   "canUserEditLinks" => false,
-      										   "canUserMoveOperators" => false
-		                                  })
-
-		# logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
+      										   "canUserMoveOperators" => false 
+		                                 })
+		logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
 
 		render json: final_json
 	end
@@ -224,19 +226,14 @@ class FunnelBuilderController < ApplicationController
 
 	def api_update
 
-		job = Job.new
-		p 'Creating Job ID ' + appid.to_s
-
-		job.id = params[:job_id]
+		job = Job.find(params[:job_id])
 
 		job.name = params[:name]
 
 		job.subject = params[:subject]
 		job.content = params[:content]
 
-		job.executed      = params[:executed]
 		job.updated_at    = DateTime.now
-		job.execute_time  = params[:execute_time]
 		job.save
 
 		final_json = JSON.pretty_generate(result = {

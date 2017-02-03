@@ -30,8 +30,12 @@ $(function() {
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
     var edit_selected_job = $('#edit_selected_button'); //Campaign Job Edit Button
 
+    //Modals
+    var update_modal_success = $('#update_modal_success');
+
     //Modal Components
-    var edit_modal_submit_button = $('#edit_selected_button_submit');
+    var edit_modal_submit_button = $('#update_job_submit');
+
 
     //Set Value of Select dropdown to current email list
     campaign_email_select.val(current_email_list_id);
@@ -144,6 +148,7 @@ $(function() {
                 console.log(response);
 
                 $('#node_update_job_id').html(response['id']);
+                $('#node_id_hidden').val(response['id']);
                 $('#node_update_job_name').val(response['name']);
 
                 $('#node_update_email_list_id').text(response['email_list_id']);
@@ -161,6 +166,7 @@ $(function() {
                 $('#node_update_campaign_id').html(response['campaign_id']);
                 $('#node_update_local_identifier').html('job_' + response['id']);
 
+      
             }
         });
 
@@ -173,35 +179,28 @@ $(function() {
         // TODO: Verify we are not trying to modify a campaign (example below in delete submit)
 
         // TODO: Get the value of these, and set them to the data for the AJAX Call in data section below
+        
+        id = $('#node_id_hidden').val();
+        name = $('#node_update_job_name').val();
+        subject = $('#node_update_job_subject').val();
+        content = $('#node_update_job_content').val();
 
-        $('#node_update_email_list_id').val(response['email_list_id']);
-
-        console.log('executed: ' + response['executed']);
-
-        $('#node_update_job_executed').text(response['executed']);
-        $('#node_update_job_execute_time').text(response['execute_time']);
-
-
-        console.log('OperatorID: '.concat(nodeId));
-
-        $('#modal_node_update').modal('show');
 
         var ajaxCall = $.ajax({
             method: "POST",
             data: {
-                job_id: $('#node_update_job_id').val(),
-                name: $('#node_update_job_name').val(),
-                subject: $('#node_update_job_subject').val(),
-                content: $('#node_update_job_content').val(),
+                job_id: id,
+                name: name,
+                subject: subject,
+                content: content,
                 authenticity_token: csrf_token
             },
             dataType: "json",
-            url: "/fbapi_read",
+            url: "/fbapi_update",
             cache: false,
             success: function(response) {
-                console.log("AJAX READ Success");
-
-
+                $('#modal_node_update').modal('hide');
+                update_modal_success.modal('show');
             }
         });
 
