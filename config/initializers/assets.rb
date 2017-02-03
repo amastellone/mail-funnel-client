@@ -15,6 +15,8 @@ Rails.application.config.assets.precompile += %w( modals.js )
 Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.css )
 Rails.application.config.assets.precompile += %w( funnelstyle.css )
 Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.js )
+Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
+
 
 # TODO: DEPLOYMENT - Production, Swap these out for minified versions when we go to production
 
