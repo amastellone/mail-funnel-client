@@ -157,25 +157,25 @@ class FunnelBuilderController < ApplicationController
 			link_count  += 1
 		end
 
-		data = {
+		data = JSON.pretty_generate({
 			 "operators" => operators,
 			 "links"     => connections
-		}
+		})
 
 
 		# This is unecessarry, just return the data as a json and set the options in 
 		# the JS file so that you can add callback functions to it
-		final_json = JSON.pretty_generate({
-			                                   "verticalConnection" => "true",
-			                                   "data"               => data,
-			                                   "linkWidth"          => "20",
-			                                   "grid"               => "25",
-			                                   "canUserEditLinks" => false,
-      										   "canUserMoveOperators" => false 
-		                                 })
-		logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
+		#final_json = JSON.pretty_generate({
+		#	                                   "verticalConnection" => "true",
+		#	                                   "data"               => data,
+		#	                                   "linkWidth"          => "20",
+		#	                                   "grid"               => "25",
+		#	                                   "canUserEditLinks" => false,
+      	#									   "canUserMoveOperators" => false 
+		#                                 })
+		#logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
 
-		render json: final_json
+		render json: data
 	end
 
 	def index
@@ -226,18 +226,21 @@ class FunnelBuilderController < ApplicationController
 
 	def api_update
 
+		#Find the Job from the DB
 		job = Job.find(params[:job_id])
 
+		#Update the Job with the new values
 		job.name = params[:name]
-
 		job.subject = params[:subject]
 		job.content = params[:content]
+		job.execute_time = params[:execute_time]
 
+		#Set Job updated_at to now and save to DB
 		job.updated_at    = DateTime.now
 		job.save
 
 		final_json = JSON.pretty_generate(result = {
-			 "status" => "true"
+			 "status" => true
 		})
 
 		render json: final_json
@@ -245,32 +248,37 @@ class FunnelBuilderController < ApplicationController
 
 	def api_create
 
+		#Create a new Job Object
 		job = Job.new
-		p 'Creating Job ID ' + appid.to_s
 
+		# Set Job values to values passed from AJAX call
+		job.app_id      = params[:app_id]
+		job.campaign_id = params[:campaign_id]
 		job.name = params[:name]
-
 		job.subject = params[:subject]
 		job.content = params[:content]
-
-		job.app_id      = 1 # TODO: Update the app ID
-		job.campaign_id = params[:campaign_id]
-
 		job.email_list_id = params[:email_list_id]
-		job.executed      = params[:executed]
+		job.executed      = false
 		job.updated_at    = DateTime.now
 		job.created_at    = DateTime.now
 		job.execute_time  = params[:execute_time]
-		newjob = job.save!
 
-		# if job.save! == true the respond with status = true and id = newjob.id, else respond status = false
-		# TODO: Check if the job was created succesfully
+		# Save the job in the DB
+		newJobSaved = job.save!
 
-		final_json = JSON.pretty_generate(result = {
-			 "status" => "true"
-		   # "id" => newjob.id #TODO: Make this return the job ID once created correctly
-		})
 
+		# Check to see if the job was saved and return correct JSON response
+		if newJobSaved 
+			final_json = JSON.pretty_generate(result = {
+			 "status" => true
+			})
+		else 
+			final_json = JSON.pretty_generate(result = {
+			 "status" => false
+			})
+		end
+
+		# Return JSON response
 		render json: final_json
 	end
 
@@ -288,17 +296,16 @@ class FunnelBuilderController < ApplicationController
 	def api_delete
 		job_id = params[:job_id]
 		@job   = Job.delete(job_id)
-		# @job.destroy!
 
 		# TODO: Make sure the delete works, and responds true or false status if it worked
 
 		if true
 			final_json = JSON.pretty_generate(result = {
-				 "status" => "true"
+				 "status" => true
 			})
 		else
 			final_json = JSON.pretty_generate(result = {
-				 "status" => "false"
+				 "status" => false
 			})
 		end
 

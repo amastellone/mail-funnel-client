@@ -27,18 +27,30 @@ $(function() {
     var $canvas = $('#funnel-builder-canvas');
     var campaign_email_list_text = $('#email_list_name'); //Email List Text Output under Campaign Info
     var campaign_email_select = $('#email_list_select'); //Campaign Email List Select Dropdown
+
+    //Buttons
+    var new_job_button = $('#create_button'); //Create New Job Button
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
-    var edit_selected_job = $('#edit_selected_button'); //Campaign Job Edit Button
+    var edit_selected_job_button = $('#edit_selected_button'); //Campaign Job Edit Button
 
     //Modals
-    var update_modal_success = $('#update_modal_success');
+    var create_new_job_modal = $('#modal_node_create'); //New Job Modal
+    var update_job_modal = $('#modal_node_update'); //Update Job Modal
+    var delete_job_modal = $('#modal_node_delete'); //Delete Job Modal
+    var result_modal = $('#result_modal'); //Result Modal 
+    var update_modal_success = $('#update_modal_success'); //Job Created Successfully Modal
 
     //Modal Components
-    var edit_modal_submit_button = $('#update_job_submit');
+    var edit_modal_submit_button = $('#update_job_submit'); //Edit Job Modal Submit Button
+    var new_job_modal_submit_button = $('#new_job_submit'); //New Job Modal Submit Button
+    var delete_job_modal_confirm_button = $('#modal_node_delete_confirm'); //Delete Job Modal Confirm Button
 
 
     //Set Value of Select dropdown to current email list
     campaign_email_select.val(current_email_list_id);
+
+    //Hide the delete and edit selected buttons
+    hideButtons();
 
     //Setup AJAX Headers
     $.ajaxSetup({
@@ -68,10 +80,13 @@ $(function() {
 
         //Get the id and name of new email list
         var email_list_id = campaign_email_select.val();
-        var email_list_name = $("option:selected", campaign_email_select).text()
+        var email_list_name = $("option:selected", campaign_email_select).text();
 
         //Update the campaign email list in the campaign info
         campaign_email_list_text.html(email_list_name);
+
+        //Update the email list id locally 
+        current_email_list_id = email_list_id;
 
         //AJAX Call to controller to update the campaigns email list
         $.ajax({
@@ -123,13 +138,28 @@ $(function() {
             success: function(response) {
                 console.log("AJAX Success");
                 console.log(response);
-                $canvas.flowchart(response);
+                $canvas.flowchart({
+                    verticalConnection: true,
+                    data: response,
+                    linkWidth: 20,
+                    grid: 25,
+                    canUserEditLinks: false,
+                    canUserMoveOperators: false,
+                    onOperatorSelect: function(operatorId) {
+                        showButtons(operatorId);
+                        return true;
+                    },
+                    onOperatorUnselect: function() {
+                        hideButtons();
+                        return true;
+                    }
+                });
             }
         });
     }
 
     // UPDATE NODE
-    edit_selected_job.click(function(event) {
+    edit_selected_job_button.click(function(event) {
         var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
         var jobId = nodeId.split("_")[1];
 
@@ -159,8 +189,7 @@ $(function() {
                 $('#node_update_hook_identifier').text(response['hook_identifier']);
 
                 $('#node_update_job_executed').text(response['executed']);
-                $('#node_update_job_execute_time').text(response['execute_time']);
-                $('#node_update_job_execute_frequency').val(response['execute_frequency']);
+                $('#node_update_execute_time').val(response['execute_time']);
 
                 $('#node_update_app_id').html(response['app_id']);
                 $('#node_update_campaign_id').html(response['campaign_id']);
@@ -175,13 +204,10 @@ $(function() {
     edit_modal_submit_button.click(function(event) {
         var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
         var jobId = nodeId.split("_")[1];
-
-        // TODO: Verify we are not trying to modify a campaign (example below in delete submit)
-
-        // TODO: Get the value of these, and set them to the data for the AJAX Call in data section below
         
         id = $('#node_id_hidden').val();
         name = $('#node_update_job_name').val();
+        execute_time = $('#node_update_execute_time').val();
         subject = $('#node_update_job_subject').val();
         content = $('#node_update_job_content').val();
 
@@ -191,6 +217,7 @@ $(function() {
             data: {
                 job_id: id,
                 name: name,
+                execute_time: execute_time,
                 subject: subject,
                 content: content,
                 authenticity_token: csrf_token
@@ -198,78 +225,95 @@ $(function() {
             dataType: "json",
             url: "/fbapi_update",
             cache: false,
+            error: function(e) {
+                console.log(e);
+                //Close the Update Job Modal
+                update_job_modal.modal('hide');
+
+                //Display Error Result Modal
+                $('#result_modal').modal('show');
+                $('#result_modal_title').text('Error');
+                $('#result_modal_text').text('Job was NOT updated!');
+            },
             success: function(response) {
-                $('#modal_node_update').modal('hide');
-                update_modal_success.modal('show');
+                //Close the Udate Job Modal
+                update_job_modal.modal('hide');
+                //Open result modal
+                $('#result_modal').modal('show');
+                $('#result_modal_title').text('Success');
+                $('#result_modal_text').text('Job was updated succesfully!');
             }
         });
 
     });
 
-    // CREATE NODE
-    $('#create_button').click(function(event) {
+    //On New Job Button Click
+    new_job_button.click(function(event) {
+    
+        $('#node_new_app_id').text(app_id);
+        $('#node_new_campaign_id').text(campaign_id);
+        $('#node_new_email_list_id').text(current_email_list_id);
 
-        //$('#node_update_hook_identifier').text(<%= @campaign.hook_identifier %>);
-
-        $('#node_update_app_id').text(app_id);
-        $('#node_update_campaign_id').text(campaign_id);
-
-        $('#modal_node_create').modal('show');
+        create_new_job_modal.modal('show');
 
     });
 
     // CREATE NODE
-    $('#create_button_submit').click(function(event) {
+    new_job_modal_submit_button.click(function(event) {
 
+        //AJAX call to fbapi_create -- creates a new Job
         var ajaxCall = $.ajax({
             method: "POST",
             data: {
                 app_id: app_id,
                 campaign_id: campaign_id,
+                email_list_id: current_email_list_id,
+                name: $('#node_new_job_name').val(),
+                subject: $('#node_new_job_subject').val(),
+                content: $('#node_new_job_content').val(),
+                execute_time: $('#node_new_job_execute_time').val(),
                 authenticity_token: csrf_token
             },
             dataType: "json",
             url: "/fbapi_create",
             cache: false,
+            error: function(e) {
+                console.log(e);
+                //Close the Create New Job Modal
+                create_new_job_modal.modal('hide');
+
+                //Display Error Result Modal
+                $('#result_modal').modal('show');
+                $('#result_modal_title').text('Error');
+                $('#result_modal_text').text('Job was NOT created');
+            },
             success: function(response) {
-                // TODO: Verify this all works
-                if (response['status'] === 'true') {
+                create_new_job_modal.modal('hide'); //Close the Create New Job Modal
+
+                // Display result modal with the status returned by the controller
+                if (response['status'] ===  true) {
                     $('#result_modal').modal('show');
-                    $('#result_status_message').text('Job was created succesfully');
+                    $('#result_modal_title').text('Success');
+                    $('#result_modal_text').text('Job was created succesfully!');
                     // TODO: Also tell the user the new Job ID
                 } else {
                     $('#result_modal').modal('show');
-                    $('#result_status_message').text('Job was NOT created');
+                    $('#result_modal_title').text('Error');
+                    $('#result_modal_text').text('Job was NOT created');
                 }
+
             }
         });
     });
 
     // DELETE NODE
-    $('#delete_selected_button').click(function() {
-        // Modal to ask Yes / No to delete job
-        $('#modal_node_delete').modal('show');
-    });
-
-    $('#node_status_acknowledge').click(function() {
-        reload_canvas();
-    });
-
-    $('#delete_selected_button_submit').click(function() {
-        // If user selectes YES delete this job
+    delete_selected_button.click(function() {
+        
+        //Get Job ID from the funnel object
         var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-        var split = nodeId.split("_");
-        var nodeType = split[0];
-        var jobId = split[1];
+        var jobId = nodeId.split("_")[1];
 
-        //Job ID: job_32
-        //Campaign ID: campaign_0
-
-        if (nodeType === 'campaign') {
-            console.log("This is a campaign");
-            //TODO: Make sure we canot delete the campaign
-        }
-
+        //AJAX Call to get the selected jobs info from DB
         var ajaxCall = $.ajax({
             method: "POST",
             data: {
@@ -277,21 +321,70 @@ $(function() {
                 authenticity_token: csrf_token
             },
             dataType: "json",
-            url: "/fbapi_delete",
+            url: "/fbapi_read",
             cache: false,
             success: function(response) {
-                console.log("AJAX DELETE Success");
-                // TODO: Verify this all works
-                if (response['status'] === 'true') {
+                //Open up confirmation modal
+                delete_job_modal.modal('show');
+
+                //Populate fields with Job info
+                $('#node_delete_job_id').html(response['id']);
+                $('#node_delete_id_hidden').val(response['id']);
+                $('#node_delete_job_name').html(response['name']);
+
+                $('#node_delete_email_subject').html(response['subject']);
+                $('#node_delete_email_content').html(response['content']);
+      
+            }
+        });
+
+    });
+
+    delete_job_modal_confirm_button.click(function() {
+        //Get the Job ID from the hidden input field in modal
+        jobID = $('#node_delete_id_hidden').val();
+
+        //AJAX Call to delete the job
+        var ajaxCall = $.ajax({
+            method: "POST",
+            data: {
+                job_id: jobID,
+                authenticity_token: csrf_token
+            },
+            dataType: "json",
+            url: "/fbapi_delete",
+            cache: false,
+            error: function(e) {
+                console.log(e);
+                //Hide the current modal
+                delete_job_modal.modal('hide');
+
+                //Display Error Result Modal
+                $('#result_modal').modal('show');
+                $('#result_modal_title').text('Error');
+                $('#result_modal_text').text('Job was NOT deleted!');
+            },
+            success: function(response) {
+                //Hide the current modal
+                delete_job_modal.modal('hide');
+                
+                //Open result modal with appropriate result message
+                if (response['status'] === true) {
                     $('#result_modal').modal('show');
-                    $('#result_status_message').text('Job was deleted succesfully');
+                    $('#result_modal_title').text('Success');
+                    $('#result_modal_text').text('Job was deleted succesfully');
                 } else {
                     $('#result_modal').modal('show');
-                    $('#result_status_message').text('Job was NOT deleted created');
+                    $('#result_modal_title').text('Error');
+                    $('#result_modal_text').text('Job was NOT deleted!');
                 }
             }
         });
         $canvas.flowchart('deleteSelected');
+    });
+
+    $('#node_status_acknowledge').click(function() {
+        reloadCanvas();
     });
 
     $canvas.siblings('.get_data').click(function() {
@@ -299,13 +392,8 @@ $(function() {
         $('#flowchart_data').val(JSON.stringify(flowchart_data, null, 2));
     });
 
-    $('#node_delete_job_ok').click(function() {
-
-    });
-
-    function isJob() {
-        var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-        var split = nodeId.split("_");
+    function isJob(operatorID) {
+        var split = operatorID.split("_");
         var nodeType = split[0];
         var jobId = split[1];
 
@@ -314,9 +402,8 @@ $(function() {
         }
     }
 
-    function isCampaign() {
-        var nodeId = $('#funnel-builder-canvas').flowchart('getSelectedOperatorId');
-        var split = nodeId.split("_");
+    function isCampaign(operatorID) {
+        var split = operatorID.split("_");
         var nodeType = split[0];
         var jobId = split[1];
 
@@ -324,6 +411,25 @@ $(function() {
             return true;
         }
     }
+
+    function showButtons(operatorID) {
+
+        //If it is a campaign do not continue
+        if (isCampaign(operatorID)) {
+            return;
+        }
+
+        //Otherwise, show the delete and edit button
+        delete_selected_button.show();
+        edit_selected_job_button.show();
+
+    } 
+
+    function hideButtons() {
+        delete_selected_button.hide();
+        edit_selected_job_button.hide();
+    }
+
 
     function populateModal(response) {
         console.log(response['name']);
@@ -350,23 +456,5 @@ $(function() {
         $('#node_update_campaign_id').text(response['client_campaign']);
         $('#node_update_local_identifier').text(response['local_identifier']);
     }
-
-    //      // Apply the plugin on a standard, empty div...
-    //      $('#funnel-builder-canvas').flowchart({
-    //          onOperatorSelect: function (operatorId) {
-    //              if(isJob()) {
-    //                  $('#delete_selected_button').show();
-    //                  $('#delete_selected_button').show();
-    //              }
-    //              return true;
-    //          },
-    //          onOperatorUnselect: function () {
-    //              if(isJob()) {
-    //                  $('#delete_selected_button').hide();
-    //                  $('#delete_selected_button').hide();
-    //              }
-    //              return true;
-    //          }
-    //      });
 
 });

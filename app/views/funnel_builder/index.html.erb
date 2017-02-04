@@ -148,17 +148,25 @@
 
 <!-- REMOVED ALL JS THAT WAS HERE AND PUT IT IN SEPERATE FILE -->
 
+
 <!-- RESULT MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#result_modal">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-header">
-      <h4 class="modal-title" id="delete_job_label">Delete Job</h4>
-    </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="result_modal" aria-labelledby="#result_modal">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <span id="result_status_message"></span>
-      <span id="node_delete_job_id"></span>?
-			<!--TODO: Verify that this #node_status_acknowledge.click() succesfully reloads canvas -->
-      <input type="btn btn-success" id="" value="Ok"/>
+
+      <div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="result_modal_title"></h4>
+      </div>
+
+      <div class="modal-body text-center">
+        <h3 id="result_modal_text"></h3>  
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="node_status_acknowledge" data-dismiss="modal">Okay</button>
+      </div>
     </div>
   </div>
 </div>
@@ -166,14 +174,57 @@
 
 <!-- DELETE NODE MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#modal_node_delete">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-header">
-      <h4 class="modal-title" id="delete_job_label">Delete Job</h4>
-    </div>
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      Job deleted succesfully!
-			<span id="node_delete_job_id"></span>?
-			<input type="btn btn-success" id="delete_selected_button_submit" value="Ok"/>
+
+      <div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Job</h4>
+      </div>
+
+      <div class="modal-body">
+        <h4>Are you sure you want to delete the following job?</h4>  
+        <br>
+
+        <!-- Job Info -->
+        <div class="list-group"> 
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job Name:</strong> <span class="list-group-item-text" id="node_delete_job_name"></span>
+            </h6>
+          </span>
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job ID:</strong> <span class="list-group-item-text" id="node_delete_job_id"></span>
+            </h6>
+            <input type="number" class="hidden" id="node_delete_id_hidden" />
+          </span>
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email Subject:</strong> <span class="list-group-item-text" id="node_delete_email_subject"></span>
+            </h6>
+          </span>
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email Content:</strong> <span class="list-group-item-text" id="node_delete_email_content"></span>
+            </h6>
+          </span>
+
+        </div>
+        <!-- END Job Info -->
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">No, Keep Job</button>
+        <button type="button" class="btn btn-success pull-right" id="modal_node_delete_confirm">Yes, Delete Job</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -183,39 +234,77 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_node_create" aria-labelledby="#modal_node_create">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #008cba; color: #ffffff;">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Create New Job</h4>
       </div>
       <div class="modal-body">
 
-        
-        <div class="list-group"> <!-- TODO: Dynamically fetch the value names from their ID's below -->
+      <form>
+          <div class="well">
+            <legend>Job</legend>
+            <div class="form-group">
+              <label for="node_update_job_name" class="control-label"><b>Name:</b></label>
+              <input type="text" class="form-control" id="node_new_job_name" placeholder="Enter a name for the job"/>
+            </div>
+
+            <div class="form-group">
+              <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
+              <input type="number" name="execute_time" class="form-control" id="node_new_job_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="well">
+            <legend>Email</legend>
+            <div class="form-group">
+              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Subject</span>
+              <input type="text" class="form-control" id="node_new_job_subject" value="">
+            </div>
+            <div class="form-group">
+              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Content</span>
+              <textarea class="form-control mediumEditable" rows=5 id="node_new_job_content"></textarea>
+            </div>
+          </div>
+          <hr>
+        </form>
+
+        <div class="list-group"> 
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Campaign ID: </h6>
-            <span class="list-group-item-text" id=""></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">App ID:</strong> <span class="list-group-item-text" id="node_new_app_id"><%= @app_id %></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Hook Identifier:</h6>
-            <span class="list-group-item-text" id=""></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Campaign ID:</strong> <span class="list-group-item-text" id="node_new_campaign_id"><%= @campaign.id %></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">App ID:</h6>
-            <span id=""></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email List ID:</strong> <span class="list-group-item-text" id="node_new_email_list_id"><%= @email_list.id %></span>
+            </h6>
           </span>
+
           <span class="list-group-item">
-            <h6 class="list-group-item-heading">Email List ID:</h6>
-            <span class="list-group-item-text" id=""></span>
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Hook Identifier:</strong> <span class="list-group-item-text" id="node_new_hook_name"><%= @hook.name %></span>
+            </h6>
           </span>
+
         </div>
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       <button type="button" id="new_job_submit" class="btn btn-primary">Create Job</button>
     </div>
   </div>
-</div>
 </div>
 </div>
 <!-- END NEW JOB MODAL -->
@@ -241,7 +330,7 @@
 
             <div class="form-group">
               <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
-              <input type="text" name="execute_time" class="form-control" id="node_update_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+              <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
             </div>
           </div>
 
@@ -306,9 +395,7 @@
             <strong style="color: #008cba;">Executed:</strong> <span class="list-group-item-text" id="node_update_job_executed"></span>
             </h6>
           </span>
-
         </div>
-      </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -317,29 +404,4 @@
   </div>
 </div>
 </div>
-</div>
 <!-- END UPDATE JOB MODAL -->
-
-<!-- UPDATE SUCCESS MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" id="update_modal_success" aria-labelledby="#update_modal_success">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #008cba; color: #ffffff;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Job Success</h4>
-      </div>
-      <div class="modal-body text-center">
-    
-      <h3>Job Updated Successfully!</h3>
-        
-      </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" id="node_status_acknowledge" data-dismiss="modal">Okay</button>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<!-- END UPDATE SUCCESS MODAL -->
