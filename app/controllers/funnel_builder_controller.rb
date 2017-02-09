@@ -12,11 +12,14 @@ class FunnelBuilderController < ApplicationController
 
 		j = Job.find(id)
 
+		job_queue = JobQueue.where(j.queue_identifier)
+
 		# No Need to create a new local Job, just return a json array of the job
 		# and print them out in the modal, then you can just call a function update 
 		# with the new inputs
 
 		result = j.to_json
+		# append job_queue info to the result
 
 		logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
 
@@ -234,6 +237,11 @@ class FunnelBuilderController < ApplicationController
 		job.subject = params[:subject]
 		job.content = params[:content]
 		job.execute_time = params[:execute_time]
+
+		#if executed
+		if job.executed 
+			job.executed = false
+		end
 
 		#Set Job updated_at to now and save to DB
 		job.updated_at    = DateTime.now

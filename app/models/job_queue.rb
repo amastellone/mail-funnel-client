@@ -1,0 +1,3 @@
+class JobQueue < RestModel
+
+end

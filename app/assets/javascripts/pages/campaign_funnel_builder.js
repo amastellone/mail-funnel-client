@@ -177,6 +177,42 @@ $(function() {
                 console.log("AJAX READ Success");
                 console.log(response);
 
+                $.ajax({
+                    method: "POST",
+                    data: {
+                    job_id: jobId,
+                    authenticity_token: csrf_token
+                    },
+                dataType: "json",
+            url: "/fbapi_read",
+            cache: false,
+            success: function(response) {
+                $('#modal_node_update').modal('show');
+                console.log("AJAX READ Success");
+                console.log(response);
+
+                $('#node_update_job_id').html(response['id']);
+                $('#node_id_hidden').val(response['id']);
+                $('#node_update_job_name').val(response['name']);
+
+                $('#node_update_email_list_id').text(response['email_list_id']);
+
+                $('#node_update_job_subject').val(response['subject']);
+                $('#node_update_job_content').val(response['content']);
+
+                $('#node_update_hook_identifier').text(response['hook_identifier']);
+
+                $('#node_update_job_executed').text(response['executed']);
+                $('#node_update_execute_time').val(response['execute_time']);
+
+                $('#node_update_app_id').html(response['app_id']);
+                $('#node_update_campaign_id').html(response['campaign_id']);
+                $('#node_update_local_identifier').html('job_' + response['id']);
+
+      
+            }
+        });
+
                 $('#node_update_job_id').html(response['id']);
                 $('#node_id_hidden').val(response['id']);
                 $('#node_update_job_name').val(response['name']);

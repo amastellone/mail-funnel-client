@@ -41,29 +41,37 @@
 <div class="container">
 	<div class="col-xs-12">
 		<legend>
-			<h3>Email List <%= @email_list.name %></h3>
+			<h3>Email List: <%= @email_list.name %></h3>
 			<h6><%= @message %></h6>
 		</legend>
 
-		<div class="row">
-			<div class="col-xs-3">
-				<h4>Email Contents:</h4>
-			</div>
-			<div class="col-xs-6">
-				<p><%= @email_list.description %></p>
+		<!-- Emails Lists Table -->
+	<table class="table table-striped">
 
-			</div>
-		</div>
+		<!-- Emails List Table Headers -->
+		<tr class="active" style="color: #ffffff !important">
+			<th style="background-color: #008cba !important;"><h4>Name</h4></th>
+			<th style="background-color: #008cba !important;"><h4>Description</h4></th>
+		</tr>
+		<!-- END Emails List Table Headers -->
+
+		<!-- Emails List Table BODY -->
+		<tbody>
+				<tr>
+					<td>
+						<h6 class="text-primary"><%= @email_list.name %></h6>
+					</td>
+
+					<td>
+						<h6><%= @email_list.description %></h6>
+					</td>
+
+				</tr>
+		</tbody>
+		<!-- END Emails List Table BODY -->
+
+	</table>
+	<!-- END Email Lists Table -->
 
 	</div>
-
-</div>
-
-
-
-<div class="container">
-	
-
-
-
 </div>
