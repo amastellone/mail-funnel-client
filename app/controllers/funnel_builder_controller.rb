@@ -12,18 +12,20 @@ class FunnelBuilderController < ApplicationController
 
 		j = Job.find(id)
 
-		job_queue = JobQueue.where(j.queue_identifier)
+		job_queue = JobQueue.where(queue_identifier: j.queue_identifier)
 
 		# No Need to create a new local Job, just return a json array of the job
 		# and print them out in the modal, then you can just call a function update 
 		# with the new inputs
 
-		result = j.to_json
-		# append job_queue info to the result
+		job_json =  j.to_json
+		job_q_json job_queue.to_json 
+
+		result = job_json + job_q_json
 
 		logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
 
-		render json: result
+		render json: result.to_json
 	end
 
 	def api_index
