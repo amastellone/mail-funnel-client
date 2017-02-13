@@ -195,7 +195,6 @@ $(function() {
                 $('#node_update_campaign_id').html(response['campaign_id']);
                 $('#node_update_local_identifier').html('job_' + response['id']);
 
-      
             }
         });
 
