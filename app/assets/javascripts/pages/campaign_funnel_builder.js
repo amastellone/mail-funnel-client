@@ -191,6 +191,13 @@ $(function() {
                 $('#node_update_job_executed').text(response['executed']);
                 $('#node_update_execute_time').val(response['execute_time']);
 
+                //If the sidekiq status is executed 
+                if (!response['executed']) {
+                    $('#node_update_job_re_execute').show();
+                } else {
+                    $('#node_update_job_re_execute').hide();
+                }
+
                 $('#node_update_app_id').html(response['app_id']);
                 $('#node_update_campaign_id').html(response['campaign_id']);
                 $('#node_update_local_identifier').html('job_' + response['id']);
@@ -210,6 +217,12 @@ $(function() {
         subject = $('#node_update_job_subject').val();
         content = $('#node_update_job_content').val();
 
+        var update_execute = false;
+        //If the re execute button is checked
+        if ($('#node_update_job_re_execute').is(":checked"))
+        {
+            update_execute = true;
+        }
 
         var ajaxCall = $.ajax({
             method: "POST",
@@ -219,6 +232,7 @@ $(function() {
                 execute_time: execute_time,
                 subject: subject,
                 content: content,
+                update_execute: update_execute,
                 authenticity_token: csrf_token
             },
             dataType: "json",

@@ -241,7 +241,9 @@ class FunnelBuilderController < ApplicationController
 
 		#if executed
 		if job.executed 
-			job.executed = false
+			if params[:update_execute]
+				job.executed = false
+			end
 		end
 
 		#Set Job updated_at to now and save to DB
