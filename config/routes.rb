@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  # MF-CLIENT - ROUTES.RB
 
   # Main
   root :to => 'main_interface#index'
   get '/campaign/:campaign_id', to: 'main_interface#campaign'
+  get '/campaigns', to: 'main_interface#campaigns'
+  get '/new_campaign', to: 'main_interface#new_campaign'
+  get '/create_campaign', to: 'main_interface#create_campaign'
+  get '/job/:id', to: 'main_interface#job'
 
   # Funnel-Builder
   get '/funnel/:campaign_id', to: 'funnel_builder#index'

@@ -1,0 +1,123 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<%= root_url %>">Mail Funnels</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="<%= root_url %>">Home</a></li>
+				<li><a href="<%= funnel_url %>">Mail-Funnel-Builder</a></li>
+				<li class="active"><a href="<%= root_url %>campaigns">Campaigns<span class="sr-only">(current)</span></a></li>
+				<li><a href="<%= root_url %>lists">Email Lists</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#">Link</a></li>-->
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	
+	<div class="col-xs-12">
+		
+		<legend>
+			<h1>New Campaign</h1>
+		</legend>
+		
+		
+		<% external_url = MailFunnelConfig.where(name: 'server_url').first.value + 'email_lists' %>
+		<% internal_url = root_url + 'new_campaign' %>
+		
+		
+		<% logger.debug "Internal URL: " + internal_url %>
+		<% logger.debug "External URL: " + external_url %>
+		
+		
+		<script>
+			$(document).ready(function () {
+				var csrf_token = $('meta[name=csrf-token]').attr('content');
+				var csrf_param = $('meta[name=csrf-param]').attr('content');
+			});
+		</script>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form method="POST" action="create_list" data-shopify-app-submit="new_email_list" class="form-horizontal">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<legend>Create New Campaign:</legend>
+					
+					
+					<div class="col-lg-8 col-xs-12">
+						<div id="nameFormGroup" class="form-group">
+							<label class="col-xs-2 control-label" for="name">Name:</label>
+							<div class="col-xs-10">
+								<input type="text" name="name" class="form-control" id="name"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-8 col-xs-12">
+						<div id="descriptionFormGroup" class="form-group">
+							<label class="col-xs-2 control-label" for="description">Description:</label>
+							<div class="col-xs-10">
+								<input type="text" name="description" class="form-control" id="description"/><br>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-8 col-xs-12">
+						<div id="descriptionFormGroup" class="form-group">
+							<label class="col-xs-2 control-label" for="description">Email List:</label>
+							<div class="col-xs-10">
+								<%= render 'email_list_select' %>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-8 col-xs-12">
+						<div id="descriptionFormGroup" class="form-group">
+							<label class="col-xs-2 control-label" for="description">Hook:</label>
+							<div class="col-xs-10">
+								<%= render 'hook_list_select' %>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-2">
+						<button id="newListSubmitButton" type="submit" name="submit" class="btn btn-primary btn-lg btn-block">
+							Create Campaign
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	
+	
+	</div>
+</div>

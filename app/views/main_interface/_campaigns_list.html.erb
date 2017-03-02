@@ -1,0 +1,77 @@
+<style>
+	.borderless td, .borderless th {
+		border: none;
+	}
+
+</style>
+
+<!-- Hooks Table -->
+<table id="campaigns_table" class="table table-striped borderless">
+	
+	<!-- Hooks Table Header -->
+	<thead>
+	<tr class="active" style="color: #ffffff !important">
+		<th style="background-color: #008cba !important;"><h5>Campaign Name</h5></th>
+		<th style="background-color: #008cba !important;"><h5>Hook</h5></th>
+		<th style="background-color: #008cba !important;"><h5>Email-List</h5></th>
+		<th style="background-color: #008cba !important;"><h5>Subscribers</h5></th>
+		<th style="background-color: #008cba !important;" class="no-sort"><h5></h5></th>
+	</tr>
+	</thead>
+	<!-- END Hooks Table Header -->
+	
+	<!-- Hooks Table BODY -->
+	<tbody>
+	<% @campaigns.each do |c| %>
+			<tr>
+				<td style="width:40%;">
+					<h5 class="text-primary"><%= c.name %></h5>
+					<!--<p class="text-muted"><strong>Hook:</strong> <%= Hook.find(c.hook_id).identifier %></p>-->
+				</td>
+				<td>
+					<h6>
+						<%= Hook.find(c.hook_id).identifier %>
+					</h6>
+				</td>
+				<td>
+					<h6>
+						<%= EmailList.find(c.email_list_id).name %>
+					</h6>
+				</td>
+				<td class="text-center">
+					<h6>0</h6>
+				</td>
+				<td style="width:35px;">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="<%= root_url %>funnel/<%= c.id %>">Funnel Builder</a></li>
+							<li><a href="<%= root_url %>campaign/<%= c.id %>">View Jobs</a></li>
+						</ul>
+					</div>
+				
+				</td>
+			
+			</tr>
+	<% end %>
+	</tbody>
+	<!-- END Hooks Table BODY -->
+
+</table>
+<!-- END Hooks Table -->
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#campaigns_table').DataTable({
+			"columnDefs": [ {
+				"targets": 'no-sort',
+				"orderable": false,
+			} ]
+		});
+		
+		
+	});
+
+</script>

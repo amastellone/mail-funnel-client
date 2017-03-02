@@ -27,12 +27,12 @@
 			</button>
 			<a class="navbar-brand" href="<%= root_url %>">Mail Funnels</a>
 		</div>
-
+		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="<%= root_url %>">Home <span class="sr-only">(current)</span></a></li>
+				<li><a href="<%= root_url %>">Home</a></li>
 				<li><a href="<%= funnel_url %>">Mail-Funnel-Builder</a></li>
-				<li class="active"><a href="<%= root_url %>campaigns">Campaigns</a></li>
+				<li class="active"><a href="<%= root_url %>campaigns">Campaigns<span class="sr-only">(current)</span></a></li>
 				<li><a href="<%= root_url %>lists">Email Lists</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -47,44 +47,14 @@
 	<div class="col-xs-12">
 		
 		<legend>
-			<h1>Campaign Jobs: <%= @campaign.name %></h1>
+			<h1>Campaigns</h1>
 		</legend>
 		
-		<div class="col-xs-12">
-			<%= render 'email_list_select', collection: @lists %>
-			
-			<table class="table table-striped">
-				
-				<tr class="active">
-					<th><h4>Job Name</h4></th>
-					<th><h4>Hook</h4></th>
-					<th><h4>Jobs</h4></th>
-				</tr>
-				
-				<tbody>
-				<% @jobs.each do |c| %>
-						<tr>
-							<td style="width:85%;">
-								<h6><%= c.name %></h6>
-							</td>
-							<td>
-								<h6>
-									
-								</h6>
-							</td>
-							<td>
-								<a href="<%= root_url %>job/<%= c.id %>" class="btn btn-primary btn-block">View></a>
-							</td>
-						</tr>
-				<% end %>
-				</tbody>
-			
-			</table>
-			
-			<br>
-		
+		<div class="pull-right">
+			<a class="btn btn-primary btn-block" href="<%= root_url %>new_campaign">New Campaign</a>
 		</div>
-	
+		
+		<%= render 'campaigns_list' %>
 	
 	</div>
 </div>
