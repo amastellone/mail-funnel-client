@@ -1,0 +1,123 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<%= root_url %>">Mail Funnels</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="<%= root_url %>">Home <span class="sr-only">(current)</span></a></li>
+				<li><a href="<%= funnel_url %>">Mail-Funnel-Builder</a></li>
+				<li><a href="<%= root_url %>campaigns">Campaigns</a></li>
+				<li><a href="<%= root_url %>lists">Email Lists</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#">Link</a></li>-->
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	
+	<div class="col-xs-12">
+		
+		<legend>
+			<h1>Job: <%= @job.name %></h1>
+		</legend>
+		
+		<div class="col-xs-12">
+			
+			<table class="table table-striped">
+				
+				<!--<tr class="active">-->
+					<!--<th><h4>A</h4></th>-->
+					<!--<th><h4>Hook</h4></th>-->
+					<!--<th></th>-->
+				<!--</tr>-->
+				
+				<tbody>
+						<tr>
+							<td style="width:15%;"><h6>ID</h6></td>
+							<td><h6><%= @job.id %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Subject</h6></td>
+							<td><h6><%= @job.subject %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Content</h6></td>
+							<td><h6><%= @job.content %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Created</h6></td>
+							<td><h6><%= @job.created_at %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Updated</h6></td>
+							<td><h6><%= @job.updated_at %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Email List</h6></td>
+							<td>
+								<h6>
+									<%= @job.email_list_id %>
+										<%#= EmailList.where(id: @job.email_list_id).first.name != nil %>
+								</h6>
+							</td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Executed</h6></td>
+							<td><h6><%= @job.executed %></h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Execute Time</h6></td>
+							<td><h6><%= @job.execute_time %> hours</h6></td>
+						</tr>
+						<tr>
+							<td style="width:15%;"><h6>Name</h6></td>
+							<td><h6><%= @job.name %></h6></td>
+						</tr>						<tr>
+							<td style="width:15%;"><h6>Campaign</h6></td>
+							<td><h6><%= Campaign.find(@job.campaign_id).name %></h6></td>
+						</tr>						<tr>
+							<td style="width:15%;"><h6>Last Execute Date</h6></td>
+							<td><h6><%= @job.execute_date %></h6></td>
+						</tr>
+				
+				
+				</tbody>
+			
+			</table>
+			
+			<br>
+		
+		</div>
+	
+	
+	</div>
+</div>

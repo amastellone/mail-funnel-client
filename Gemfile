@@ -48,7 +48,7 @@ gem 'faraday', '~> 0.9.2'
 # Bootstrap, Bootswatch, Font-Awesome, SASS
 gem 'bootstrap_form'
 gem 'bootswatch-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
