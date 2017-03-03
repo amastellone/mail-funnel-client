@@ -323,29 +323,32 @@
               <label for="node_update_job_name" class="control-label"><b>Name:</b></label>
               <input type="text" class="form-control" id="node_update_job_name" placeholder="Enter a name for the job"/>
             </div>
-
-            <div class="form-group">
-              <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
-              <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
-            </div>
           </div>
 
           <hr>
 
           <div class="well">
             <legend>Status</legend>
-              <span class="list-group-item">
-              <h6 class="list-group-item-heading">
-              <strong style="color: #008cba;">Executed:</strong> <span class="list-group-item-text" id="node_queue_status"></span>
-              </h6>
-            </span>
+	            <div id="pending_status">
+	              <span class="list-group-item">
+		              <h6 class="list-group-item-heading">
+		                <strong style="color: #008cba;">Job Status:</strong> <span class="list-group-item-text" id="node_queue_status"></span>
+			              <strong style="color: #008cba;">Set + Wait:</strong> <span class="list-group-item-text" id="node_queue_set_time"></span><br>
 
-            <span class="list-group-item">
-              <h6 class="list-group-item-heading">
-              <label>Re Execute Job?</label>
-              <input type="checkbox" id="node_update_job_re_execute" class="form-control"/>
-              </h6>
-            </span>
+		              </h6>
+		            </span>
+	            </div>
+	
+	          <div id="executed_status">
+	            <span class="list-group-item">
+	              <h6 class="list-group-item-heading">
+	              <label>Re Execute Job?</label>
+	              <input type="checkbox" id="node_update_job_re_execute" class="form-control"/>
+	              </h6>
+			          <label for="node_update_execute_time" class="control-label"><b>Send email in how many hours?</b></label>
+			          <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder=""/>
+	            </span>
+	          </div>
           </div>
           <hr>
 
@@ -356,7 +359,23 @@
               <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Subject</span>
               <input type="text" class="form-control" id="node_update_job_subject" value="">
             </div>
-            <div class="form-group">
+	          <div class="panel panel-primary">
+		
+		          <div class="panel-heading">
+			          <h3 class="panel-title">Email Short-Codes</h3>
+		          </div>
+		          <div class="panel-body">
+			          <h5><b>Recipient Email: </b> (% mf-recipient-email %) </h5>
+			          <h5><b>Recipient Name: </b> (% mf-recipient-name %) </h5>
+			          <h5><b>Product Link: </b>(% mf-product-link #1234 %)</h5>
+			          <h5><b>Product Image: </b>(% mf-product-image #1234 %)</h5>
+			          <h5><b>Product Title: </b>(% mf-product-title #1234 %)</h5>
+			          <h5><b>Product Description: </b>(% mf-product-description #1234 %)</h5>
+		          </div>
+	
+	          </div>
+	          
+	          <div class="form-group">
               <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Content</span>
               <textarea class="form-control mediumEditable" rows=5 id="node_update_job_content"></textarea>
             </div>

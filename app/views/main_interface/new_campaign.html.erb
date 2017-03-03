@@ -1,21 +1,16 @@
-<% content_for :javascript do %>
-		<script type="text/javascript">
-			window.mainPageTitle = 'Main Page';
-			ShopifyApp.ready(function () {
-				ShopifyApp.Bar.initialize({
-					title: window.mainPageTitle,
-					icon: '/shopify.png',
-					buttons: {
-						secondary: {
-							label: "Mail-Funnel Home",
-							href: "http://docs.shopify.com/embedded-app-sdk",
-							target: 'new'
-						}
-					}
-				});
-			});
-		</script>
-<% end %>
+<script type="text/javascript">
+	ShopifyApp.ready(function () {
+		ShopifyApp.Bar.initialize({
+			buttons: {
+				primary: {
+					label: 'Save',
+					message: 'new_campaign',
+					loading: true
+				}
+			}
+		});
+	});
+</script>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -68,7 +63,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12">
-				<form method="POST" action="create_list" data-shopify-app-submit="new_email_list" class="form-horizontal">
+				<form method="POST" action="create_campaign" data-shopify-app-submit="new_campaign" class="form-horizontal">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<legend>Create New Campaign:</legend>
 					
@@ -110,7 +105,7 @@
 					</div>
 					
 					<div class="col-xs-2">
-						<button id="newListSubmitButton" type="submit" name="submit" class="btn btn-primary btn-lg btn-block">
+						<button id="newCampaignSubmitButton" type="submit" name="submit" class="btn btn-primary btn-lg btn-block">
 							Create Campaign
 						</button>
 					</div>

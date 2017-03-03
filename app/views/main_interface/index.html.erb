@@ -60,6 +60,10 @@
 			<h2>Campaigns</h2>
 		</legend>
 		
+		<div style="margin:10px" class="pull-right">
+			<%= ShopifyAPI::Shop.current.id %>
+		</div>
+		
 		<!-- Campaign Selector Partial -->
 		<!--<div class="col-xs-12">
 			<%= render 'campaign_select' %>
@@ -74,5 +78,4 @@
 
 
 </div>
-
 

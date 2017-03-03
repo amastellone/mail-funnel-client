@@ -6,5 +6,25 @@ class ApplicationController < ActionController::Base
   # TODO Security - Enable forgery protection in controller that was temp. disabled for AJAX Calls
   protect_from_forgery with: :exception
 
-  # around_filter timecop??
+
+  def isInstalled
+    if session[:shopify].site != nil
+
+      siteName = session[:shopify].site
+
+      clientApp = App.where(name: siteName).first
+
+      if clientApp.any?
+
+      end
+
+    else
+      return false
+    end
+  end
+
+  def installMailfunnelClient
+
+  end
+
 end

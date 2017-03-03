@@ -7,4 +7,9 @@ ShopifyApp.configure do |config|
   # TODO: Verify app_scope works in shipify_app.rb and in .env
   config.scope = "read_orders, read_products"
   config.embedded_app = true
+
+  config.webhooks = [
+     {topic: 'carts/update', address: 'mfserver.ngrok.io/api/carts_update'},
+     {topic: 'carts/create', address: 'mfserver.ngrok.io/api/carts_create'}
+  ]
 end

@@ -190,14 +190,24 @@ $(function() {
 
                 $('#node_update_job_executed').text(response['executed']);
                 $('#node_update_execute_time').val(response['execute_time']);
-
-                //If the sidekiq status is executed 
-                if (!response['executed']) {
-                    $('#node_update_job_re_execute').show();
-                } else {
-                    $('#node_update_job_re_execute').hide();
-                }
-
+	
+	              if (response['executed']) {
+		                $('#pending_status').show();
+		                $('#executed_status').hide();
+		              
+		                $('#node_queue_status').text('Executed at ' + response['execute_date']);
+		                $('#node_update_job_re_execute').attr("disabled", "disabled");
+	              } else {
+		                // Pending
+		                $('#pending_status').show();
+		                $('#executed_status').hide();
+		
+		                $('#node_update_set_time').text(response['execute_time'] + ' + ' + response['execute_set_time'] + 'hr');
+		                $('#node_queue_set_time').hide();
+		                $('#node_queue_status').text('Pending. Scheduled ');
+		                $('#node_update_job_re_execute').removeAttr("disabled");
+	            }
+                
                 $('#node_update_app_id').html(response['app_id']);
                 $('#node_update_campaign_id').html(response['campaign_id']);
                 $('#node_update_local_identifier').html('job_' + response['id']);
@@ -445,6 +455,8 @@ $(function() {
 
 
     function populateModal(response) {
+    	  console.log('populating modal');
+    	
         console.log(response['name']);
 
         console.log(response);
@@ -459,10 +471,18 @@ $(function() {
 
         $('#node_update_hook_identifier').text(response['hook_identifier']);
 
-        console.log('executed: ' + response['executed']);
+        console.log('Executed Param: ' + response['executed']);
 
-        $('#node_update_job_executed').text(response['executed']);
-        $('#node_update_job_execute_time').text(response['execute_time']);
+        if(response['executed'] === true) {
+	        $('#node_queue_status').text('Executed at ' + response['execute_date']);
+	        $('#node_update_job_execute_time').attr("disabled", "disabled");
+        } else {
+	        $('#node_queue_status').text('Pending. ' + response['execute_time']);
+	        $('#node_update_job_execute_time').removeAttr("disabled");
+        }
+	
+	      $('#node_update_job_executed').text(response['executed']);
+	      $('#node_update_job_execute_time').text(response['execute_time']);
         $('#node_update_job_execute_frequency').val(response['execute_frequency']);
 
         $('#node_update_app_id').text(response['app_id']);

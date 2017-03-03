@@ -13,42 +13,6 @@ MailFunnelConfig.create(name: "server_url", value: ENV['SERVER_URL'])
 
 MailFunnelConfig.create(name: "dev_shop_name", value: "bluehelmet-dev")
 
-# Cart
-# cart_hooks       = HookType.create(name: 'Cart')
-# cart_create_hook = HooksConstant.create(hook_type:  cart_hooks, name: 'Create',
-#                                         identifier: 'cart_create')
-# campaign         = Campaign.create(name:            'Cart / Create', hooks_constant_id: cart_create_hook.id,
-#                                    hook_identifier: cart_create_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# cart_update_hook = HooksConstant.create(hook_type: cart_hooks, name: 'Update', identifier: 'cart_update', hook_type_id: cart_hooks.id);
-# campaign = Campaign.create(name: 'Cart / Update', hooks_constant_id: cart_update_hook.id, hook_identifier: cart_update_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# cart_abandon_hook = HooksConstant.create(hook_type: cart_hooks, name: 'abandon', identifier: 'cart_abandon', hook_type_id: cart_hooks.id);
-# campaign = Campaign.create(name: 'Cart / Abandon', hooks_constant_id: cart_abandon_hook.id, hook_identifier: cart_abandon_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# # Checkout
-# checkout_hooks       = HookType.create(name: 'Checkout')
-# checkout_create_hook = HooksConstant.create(hook_type: checkout_hooks, name: 'Create', identifier: 'checkout_create', hook_type_id: checkout_hooks.id);
-# campaign = Campaign.create(name: 'Checkout / Create', hooks_constant_id: checkout_create_hook.id, hook_identifier: checkout_create_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# checkout_update_hook = HooksConstant.create(hook_type: checkout_hooks, name: 'Update', identifier: 'checkout_update', hook_type_id: checkout_hooks.id);
-# campaign = Campaign.create(name: 'Checkout / Update', hooks_constant_id: checkout_update_hook.id, hook_identifier: checkout_create_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# # Order
-# order_hooks       = HookType.create(name: 'Order')
-# order_create_hook = HooksConstant.create(hook_type: order_hooks, name: 'Create', identifier: 'order_create', hook_type_id: order_hooks.id);
-# campaign = Campaign.create(name: 'Order / Create', hooks_constant_id: order_create_hook.id, hook_identifier: order_create_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-#
-# order_update_hook = HooksConstant.create(hook_type: order_hooks, name: 'Update', identifier: 'order_update', hook_type_id: order_hooks.id);
-# campaign = Campaign.create(name: 'Order / Update', hooks_constant_id: order_update_hook.id, hook_identifier: order_update_hook.identifier);
-# puts "Campaign + Hook Created: " + campaign.name.to_s
-
 rest_server_interaction = true
 if rest_server_interaction
 
@@ -113,7 +77,7 @@ if rest_server_interaction
 
 	Hook.all.each do |h|
 		$x = 0
-		until $x >= Random.rand(2...5) do
+		until $x >= Random.rand(0...2) do
 			this_list       = lists.fetch(Random.rand(0...(lists.size-1)))
 			c               = Campaign.new
 			c.hook_id       = h.id
@@ -123,18 +87,20 @@ if rest_server_interaction
 			c.save
 
 			$y = 0
-			until $y >= Random.rand(5...7) do
-				j                 = Job.new
-				j.hook_id         = h.id
-				j.name            = Faker::Lorem.sentence
-				j.hook_identifier = h.identifier
-				j.subject         = Faker::Lorem.sentence
-				j.content         = Faker::Lorem.paragraphs(1)
-				j.app_id          = app.id
-				j.campaign_id     = c.id
-				j.app_id          = app.id
+			# until $y >= Random.rand(0...1) do
+			until $y >= 1 do
+					j                   = Job.new
+				j.hook_id           = h.id
+				j.name              = Faker::Lorem.sentence
+				j.hook_identifier   = h.identifier
+				j.subject           = Faker::Lorem.sentence
+				j.content           = Faker::Lorem.paragraphs(1)
+				j.app_id            = app.id
+				j.campaign_id       = c.id
+				j.app_id            = app.id
 				j.execute_frequency = "execute_now"
 				j.execute_time      = Random.rand(3...5)
+				j.execute_set_time  = DateTime.current
 				j.executed = false
 				j.save
 				$y         += 1
