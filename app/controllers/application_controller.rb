@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :install_server_app
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   # protect_from_forgery with: :null_session
@@ -7,24 +8,24 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  def isInstalled
-    if session[:shopify].site != nil
+  def install_server_app
 
-      siteName = session[:shopify].site
+    begin
+      domain = ShopifyAPI::Shop.current.domain
 
-      clientApp = App.where(name: siteName).first
+      if domain != nil
+        server_app = App.where(name: domain)
 
-      if clientApp.any?
+        if server_app.any? == false
+          digest = OpenSSL::Digest.new('sha256')
+          token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
+          server_app = App.create(name: domain, auth_token: token)
+        end
 
       end
-
-    else
-      return false
     end
-  end
-
-  def installMailfunnelClient
-
+  rescue => e
+    logger.error e.message
   end
 
 end

@@ -2,7 +2,7 @@ namespace :Bluehelmet do
 
 	desc "Generate Jobs"
 	task :seed_job => :environment do
-		app      = App.where(name: "bluehelmet-dev").first
+		app      = App.where(name: ShopifyAPI::Shop.current.domain).first
 
 		hook     = HooksConstant.all.second
 
@@ -128,7 +128,7 @@ namespace :Bluehelmet do
 		Rake::Task["db:migrate"].invoke
 		Rake::Task["Bluehelmet:seed"].invoke # Seed Campaigns and Hooks
 		# Create
-		railsapp = App.where(name: "bluehelmet-dev").first.id
+		railsapp = App.where(name: ShopifyAPI::Shop.current.domain).first.id
 	end
 
 	desc "Test Seeding 2"

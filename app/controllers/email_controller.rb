@@ -6,7 +6,7 @@ class EmailController < ApplicationController
 	def lists
 
 		# appname = BluehelmetUtil.get_shopify_session_app_name
-		@app    = App.where(name: "bluehelmet-dev").first
+		@app    = App.where(name: ShopifyAPI::Shop.current.domain).first
 		@list = EmailList.where(app_id: @app.id)
 
 	end
@@ -29,7 +29,7 @@ class EmailController < ApplicationController
 
 		logger.debug 'We made it to create_list'
 
-		app = App.where(name: "bluehelmet-dev").first
+		app = App.where(name: ShopifyAPI::Shop.current.domain).first
 
 		@email_list = EmailList.new(name: params[:name], description: params[:description], app_id: app.id)
 
@@ -44,7 +44,7 @@ class EmailController < ApplicationController
 	def emails
 
 		# appname = BluehelmetUtil.get_shopify_session_app_name
-		@app    = App.where(name: "bluehelmet-dev").first
+		@app    = App.where(name: ShopifyAPI::Shop.current.domain).first
 		@emails = Email.where(email_list_id: @list.id)
 
 
