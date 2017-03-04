@@ -10,7 +10,8 @@ class JobLocal
 	              :app_id, :client_campaign,
 	              :campaign_id, :hook_id,
 	              :another_one, :created_at,
-	              :updated_at
+	              :updated_at, :execute_set_time,
+	              :total_revenue
 
 
 	def attributes
@@ -25,12 +26,14 @@ class JobLocal
 		   'content' => content,
 		   'execute_frequency' => execute_frequency,
 		   'executed' => executed,
-		   'execute_time' => execute_time,
+		   'execute_set_time' => execute_set_time,
+		   'executed_at'  => executed_at,
 		   'app_id' => app_id,
 		   'client_campaign' => client_campaign,
 			 'campaign_id' => campaign_id,
 		   'created_at' => created_at,
-		   'updated_at' => updated_at
+		   'updated_at' => updated_at,
+		   'total_revenue' => total_revenue
 		}
 	end
 

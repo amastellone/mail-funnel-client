@@ -21,7 +21,7 @@ class FunnelBuilderController < ApplicationController
 
 		#result = job_json + job_q_json
 
-		#logger.debug "Funnel-Builder INDEX VIEW JOB: " + result.to_s
+		#logger.debug 'Funnel-Builder INDEX VIEW JOB: ' + result.to_s
 
 		render json: job_json
 	end
@@ -39,28 +39,27 @@ class FunnelBuilderController < ApplicationController
 
 		@local_jobs = Array.new
 
-		left1         = (width.to_i - 138) / 4
 		left          = 0
 		top           = 0
 		top_increment = 125 #Top Increment
 
 		operators = Hash.new
 
-		# TODO: Convert all Hash Keys to :key format and change from " to ' single quotes
+		# TODO: Convert all Hash Keys to :key format and change from ' to ' single quotes
 
 		campaign  = Campaign.find(campaign_id)
 
-		operators["campaign_0"] =
+		operators['campaign_0'] =
 			 {
-					"top"                  => top.to_s,
-					"left"                 => left.to_s,
-					"multipleLinksOnInput" => "true",
-					"properties"           => {
-						 "title"   => "Campaign",
-						 "inputs"  => {},
-						 "outputs" => {
-								"output_1" => {
-									 "label" => campaign.name + " Jobs:",
+					:top                  => top.to_s,
+					:left                 => left.to_s,
+					:multipleLinksOnInput => 'true',
+					:properties           => {
+						 :title   => 'Campaign',
+						 :inputs  => {},
+						 :outputs => {
+							  :output_1 => {
+								   :label => campaign.name + ' Jobs:',
 								}
 						 }
 					}
@@ -74,54 +73,61 @@ class FunnelBuilderController < ApplicationController
 		Job.where(campaign_id: campaign.id).each do |j|
 			p 'Adding Job ID ' + appid.to_s
 
-			jl                  = JobLocal.new
-			jl.local_identifier = 'job_' + j.id.to_s
-			jl.name             = j.name
+			jl                      = JobLocal.new
+			jl.local_identifier     = 'job_' + j.id.to_s
+			jl.name                 = j.name
 
-			jl.hook_identifier = campaign.hook_identifier
-			jl.hook_id         = j.hook_id
-			jl.campaign_id     = j.campaign_id
+			jl.hook_identifier      = campaign.hook_identifier
+			jl.hook_id              = j.hook_id
+			jl.campaign_id          = j.campaign_id
 
-			jl.subject = j.subject
-			jl.content = j.content
+			jl.subject              = j.subject
+			jl.content              = j.content
 
-			jl.email_list_id = j.email_list_id
-			jl.app_id        = j.app_id
-			jl.executed      = j.executed
-			jl.created_at    = j.created_at
-			jl.updated_at    = j.updated_at
-			jl.execute_time  = j.execute_time
+			jl.email_list_id        = j.email_list_id
+			jl.app_id               = j.app_id
+			jl.executed             = j.executed
+			jl.created_at           = j.created_at
+			jl.updated_at           = j.updated_at
+			jl.execute_time         = j.execute_time
+			jl.execute_set_time     = j.execute_set_time
 
-			@local_jobs << jl
-
-			if jl.executed == true
-				executedstring = "Executed"
-			else
-				executedstring = "Unexecuted"
+			total_revenue = 0
+			CampaignEmailLeads.where(job_id: j.id, sold: true, app_id: appid).each do |cel|
+				total_revenue += cel.sale_ammount
 			end
+			jl.total_revenue        = total_revenue
 
 			# Add the execute time to the time it was created to find the next execute time
 			date = DateTime.parse(jl.created_at) # Convert Timestamp to DateTime Object
 			add_time = jl.execute_time # Get jobs execute time
 			date = date + add_time.hours # Add jobs execute time to DateTime Object
-			label = "Next Job: " + date.strftime('%c') 
+			label = date.strftime('%c')
+			
+			if jl.executed == true
+				executedstring = 'Executed ' + j.execute_set_time
+			else
+				executedstring = 'Pending. ' + label
+			end
+
+			@local_jobs << jl
 
 			if operator_title = (jl.local_identifier).to_s
 				operators[operator_title] =
 					 {
-							"top"                  => top.to_s,
-							"left"                 => left.to_s,
-							"multipleLinksOnInput" => "false",
-							"properties"           => {
-								 "title"   => "<b>Job: </b>" + j.name,
-								 "inputs"  => {
-										"input_1" => {
-											 "label" => "Job ID: " + j.id.to_s
+							'top'                  => top.to_s,
+							'left'                 => left.to_s,
+							'multipleLinksOnInput' => 'false',
+							'properties'           => {
+								 'title'   => '<b>Job: </b>' + j.name,
+								 'inputs'  => {
+										'input_1' => {
+											 'label' => 'Job ID: ' + j.id.to_s
 										}
 								 },
-								 "outputs" => {
-										"output_1" => {
-											 "label" => label.html_safe
+								 'outputs' => {
+										'output_1' => {
+											 'label' => executedstring.html_safe
 										}
 								 }
 							}
@@ -137,23 +143,23 @@ class FunnelBuilderController < ApplicationController
 		firstjob    = true
 
 		Job.where(campaign_id: campaign.id).each do |j|
-			connector_title = ("link_" + link_count.to_s).to_s
+			connector_title = ('link_' + link_count.to_s).to_s
 			if firstjob
 				connections[connector_title] =
 					 {
-							"fromOperator"  => "campaign_0",
-							"fromConnector" => "output_1",
-							"toOperator"    => "job_" + j.id.to_s,
-							"toConnector"   => "input_1"
+							'fromOperator'  => 'campaign_0',
+							'fromConnector' => 'output_1',
+							'toOperator'    => 'job_' + j.id.to_s,
+							'toConnector'   => 'input_1'
 					 }
 				firstjob                     = false
 			else
 				connections[connector_title] =
 					 {
-							"fromOperator"  => "job_" + last_job_id.to_s,
-							"fromConnector" => "output_1",
-							"toOperator"    => "job_" + j.id.to_s,
-							"toConnector"   => "input_1"
+							'fromOperator'  => 'job_' + last_job_id.to_s,
+							'fromConnector' => 'output_1',
+							'toOperator'    => 'job_' + j.id.to_s,
+							'toConnector'   => 'input_1'
 					 }
 			end
 			last_job_id = j.id
@@ -161,22 +167,22 @@ class FunnelBuilderController < ApplicationController
 		end
 
 		data = JSON.pretty_generate({
-			 "operators" => operators,
-			 "links"     => connections
+			 'operators' => operators,
+			 'links'     => connections
 		})
 
 
 		# This is unecessarry, just return the data as a json and set the options in 
 		# the JS file so that you can add callback functions to it
 		#final_json = JSON.pretty_generate({
-		#	                                   "verticalConnection" => "true",
-		#	                                   "data"               => data,
-		#	                                   "linkWidth"          => "20",
-		#	                                   "grid"               => "25",
-		#	                                   "canUserEditLinks" => false,
-      	#									   "canUserMoveOperators" => false 
+		#	                                   'verticalConnection' => 'true',
+		#	                                   'data'               => data,
+		#	                                   'linkWidth'          => '20',
+		#	                                   'grid'               => '25',
+		#	                                   'canUserEditLinks' => false,
+      	#									   'canUserMoveOperators' => false 
 		#                                 })
-		#logger.debug "Funnel-Builder INDEX JSON: " + final_json.to_s
+		#logger.debug 'Funnel-Builder INDEX JSON: ' + final_json.to_s
 
 		render json: data
 	end
@@ -219,7 +225,7 @@ class FunnelBuilderController < ApplicationController
 			end
 
 		else
-			app = App.where(name: "bluehelmet-dev").first #TODO: Dynamically load App-Name here
+			app = App.where(name: 'bluehelmet-dev').first #TODO: Dynamically load App-Name here
 
 			@campaigns = Campaign.where(app_id: app.id)
 
@@ -251,7 +257,7 @@ class FunnelBuilderController < ApplicationController
 		job.save
 
 		final_json = JSON.pretty_generate(result = {
-			 "status" => true
+			 'status' => true
 		})
 
 		render json: final_json
@@ -281,11 +287,11 @@ class FunnelBuilderController < ApplicationController
 		# Check to see if the job was saved and return correct JSON response
 		if newJobSaved 
 			final_json = JSON.pretty_generate(result = {
-			 "status" => true
+			 'status' => true
 			})
 		else 
 			final_json = JSON.pretty_generate(result = {
-			 "status" => false
+			 'status' => false
 			})
 		end
 
@@ -312,15 +318,16 @@ class FunnelBuilderController < ApplicationController
 
 		if true
 			final_json = JSON.pretty_generate(result = {
-				 "status" => true
+				 'status' => true
 			})
 		else
 			final_json = JSON.pretty_generate(result = {
-				 "status" => false
+				 'status' => false
 			})
 		end
 
 		render json: final_json
 
 	end
+
 end
