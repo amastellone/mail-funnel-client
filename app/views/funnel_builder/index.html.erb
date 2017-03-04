@@ -353,33 +353,8 @@
           <hr>
 
 
-          <div class="well">
-            <legend>Email</legend>
-            <div class="form-group">
-              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Subject</span>
-              <input type="text" class="form-control" id="node_update_job_subject" value="">
-            </div>
-	          <div class="panel panel-primary">
-		
-		          <div class="panel-heading">
-			          <h3 class="panel-title">Email Short-Codes</h3>
-		          </div>
-		          <div class="panel-body">
-			          <h5><b>Recipient Email: </b> (% mf-recipient-email %) </h5>
-			          <h5><b>Recipient Name: </b> (% mf-recipient-name %) </h5>
-			          <h5><b>Product Link: </b>(% mf-product-link #1234 %)</h5>
-			          <h5><b>Product Image: </b>(% mf-product-image #1234 %)</h5>
-			          <h5><b>Product Title: </b>(% mf-product-title #1234 %)</h5>
-			          <h5><b>Product Description: </b>(% mf-product-description #1234 %)</h5>
-		          </div>
-	
-	          </div>
-	          
-	          <div class="form-group">
-              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Content</span>
-              <textarea class="form-control mediumEditable" rows=5 id="node_update_job_content"></textarea>
-            </div>
-          </div>
+          <%= render 'funnel_builder/funnel_builder_modals/job_email_fields.html.erb' %>
+	        
           <hr>
         </form>
 
