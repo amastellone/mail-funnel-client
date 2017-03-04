@@ -1,13 +1,13 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   def index
-    app = App.where(name: "bluehelmet-dev").first
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first
     @campaigns = Campaign.where(app_id: app.id)
   end
 
   def job
 
-    app = App.where(name: "bluehelmet-dev").first
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first
 
     @job = Job.find(params[:id])
 
@@ -17,7 +17,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     logger.debug 'We made it to create_campaign'
 
-    app = App.where(name: "bluehelmet-dev").first # TODO: Get this app name dynamically
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first # TODO: Get this app name dynamically
 
 
     @campaign = Campaign.new(name: params[:name], hook: params[:hook_list_select], email_list_id: params[:email_list_select], app_id: app.id)
@@ -31,13 +31,13 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
   def new_campaign
-    app = App.where(name: "bluehelmet-dev").first #TODO: Change this to dynamic app name
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first #TODO: Change this to dynamic app name
     @lists = EmailList.where(app_id: app.id)
     @hookslist = Hook.all
   end
 
   def campaign
-    app = App.where(name: "bluehelmet-dev").first #TODO: Get App name dynamically
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first #TODO: Get App name dynamically
 
     @campaign_id = params[:campaign_id]
 
@@ -49,7 +49,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
   def campaigns
-    app = App.where(name: "bluehelmet-dev").first # TODO: Make this load the app dynamically
+    app = App.where(name: ShopifyAPI::Shop.current.domain).first # TODO: Make this load the app dynamically
 
     @campaigns = Campaign.where(app_id: app.id)
   end
