@@ -17,13 +17,18 @@ rest_server_interaction = true
 if rest_server_interaction
 
 	# CLIENT INSTALL-SCRIPT:
-	app_create = App.where(name: "bluehelmet-dev") # bluehelmet-dev.myshopifyapp.com
+	domain = 'bluehelmet-dev.myshopifyapp.com'
+	app_create = App.where(name: "bluehelmet-dev.myshopifyapp.com") # bluehelmet-dev.myshopifyapp.com
 
 	if app_create.empty?
-		app_create = App.create(name: "bluehelmet-dev")
+		puts "Creating App + " + domain
+		digest = OpenSSL::Digest.new('sha256')
+		token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
+		app_create = App.create(name: domain, auth_token: token)
 		app        = app_create
 		puts "App did not exist, created with id: " + app.id.to_s
 	else
+		puts "Blue Helmet Dev App already exists " +  app_create.id
 		app = app_create.first
 		puts "App exists already, id: " + app.id.to_s
 	end
@@ -58,7 +63,7 @@ if rest_server_interaction
 	lists = Array.new
 	$x    = 0
 	until $x > Random.rand(2...3) do
-		list = EmailList.create(name:        Faker::Lorem.sentence,
+		list = EmailList.create(name:        Faker::App.name,
 		                        description: Faker::Lorem.sentence,
 		                        app_id:      app.id)
 		lists << list.id
@@ -89,9 +94,9 @@ if rest_server_interaction
 			$y = 0
 			# until $y >= Random.rand(0...1) do
 			until $y >= 1 do
-					j                   = Job.new
+				j                   = Job.new
 				j.hook_id           = h.id
-				j.name              = Faker::Lorem.sentence
+				j.name              = Faker::App.name
 				j.hook_identifier   = h.identifier
 				j.subject           = Faker::Lorem.sentence
 				j.content           = Faker::Lorem.paragraphs(1)
