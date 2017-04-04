@@ -1,4 +1,4 @@
-class MailFunnelConfigsController < ApplicationController
+class MailFunnelConfigsController < ShopifyApp::AuthenticatedController
   before_action :set_mail_funnel_config, only: [:show, :edit, :update, :destroy]
 
   # GET /mail_funnel_configs

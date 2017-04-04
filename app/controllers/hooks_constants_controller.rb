@@ -1,4 +1,4 @@
-class HooksConstantsController < ApplicationController
+class HooksConstantsController < ShopifyApp::AuthenticatedController
 	before_action :set_hooks_constant, only: [:show, :edit, :update, :destroy]
 
 	# GET /hooks_constants

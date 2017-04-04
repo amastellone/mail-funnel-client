@@ -17,8 +17,8 @@ rest_server_interaction = true
 if rest_server_interaction
 
 	# CLIENT INSTALL-SCRIPT:
-	domain = 'bluehelmet-dev.myshopifyapp.com'
-	app_create = App.where(name: "bluehelmet-dev.myshopifyapp.com") # bluehelmet-dev.myshopifyapp.com
+	domain = 'bluehelmet-dev.myshopify.com'
+	app_create = App.where(name: domain) # bluehelmet-dev.myshopifyapp.com
 
 	if app_create.empty?
 		puts "Creating App + " + domain

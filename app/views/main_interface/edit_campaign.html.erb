@@ -61,57 +61,9 @@
 			});
 		</script>
 		
-		<div class="row">
-			<div class="col-xs-12">
-				<form method="POST" action="create_campaign" data-shopify-app-submit="new_campaign" class="form-horizontal">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<legend>Create New Campaign:</legend>
-					
-					
-					<div class="col-lg-8 col-xs-12">
-						<div id="nameFormGroup" class="form-group">
-							<label class="col-xs-2 control-label" for="name">Name:</label>
-							<div class="col-xs-10">
-								<input type="text" name="name" class="form-control" id="name"/>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-8 col-xs-12">
-						<div id="descriptionFormGroup" class="form-group">
-							<label class="col-xs-2 control-label" for="description">Description:</label>
-							<div class="col-xs-10">
-								<input type="text" name="description" class="form-control" id="description"/><br>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-8 col-xs-12">
-						<div id="descriptionFormGroup" class="form-group">
-							<label class="col-xs-2 control-label" for="description">Email List:</label>
-							<div class="col-xs-10">
-								<%= render 'email_list_select' %>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-8 col-xs-12">
-						<div id="descriptionFormGroup" class="form-group">
-							<label class="col-xs-2 control-label" for="description">Hook:</label>
-							<div class="col-xs-10">
-								<%= render 'hook_list_select' %>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-xs-2">
-						<button id="newCampaignSubmitButton" type="submit" name="submit" class="btn btn-primary btn-lg btn-block">
-							Create Campaign
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
+		<form type="POST" action="<%= root_url %>/create_campaign/<%= @campaign.id %>">
+			<%= render 'main_interface/campaign_form', campaign: @campaign %>
+		</form>
 	
 	
 	</div>

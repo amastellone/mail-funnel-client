@@ -1,0 +1,385 @@
+<% content_for :javascript do %>
+		<%= javascript_include_tag 'campaign_funnel_builder_manifest' %>
+		<script type="text/javascript">
+			window.mainPageTitle = 'Main Page';
+			ShopifyApp.ready(function () {
+				ShopifyApp.Bar.initialize({
+					title: window.mainPageTitle,
+					icon: '/shopify.png',
+					buttons: {
+						secondary: {
+							label: "Mail-Funnel Home",
+							href: "http://docs.shopify.com/embedded-app-sdk",
+							target: 'new'
+						}
+					}
+				});
+			});
+		</script>
+<% end %>
+
+<!-- NAV BAR -->
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<%= root_url %>">Mail Funnels</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="<%= root_url %>">Home <span class="sr-only">(current)</span></a></li>
+				<li class="active"><a href="<%= funnel_path %>">Mail-Funnel-Builder</a></li>
+				<li><a href="<%= campaigns_url %>">Campaigns</a></li>
+				<li><a href="<%= root_url %>lists">Email Lists</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#">Link</a></li>-->
+			</ul>
+		</div>
+	</div>
+</nav>
+<!-- END NAV BAR -->
+
+
+<div class="container">
+	<div class="col-xs-12">
+		
+		<!-- Mail Funnel Builder Title -->
+		<legend>
+			<h2>Mail Funnel Builder</h2>
+		</legend>
+		<!-- END Mail Funnel Builder Title -->
+		
+		<div class="row">
+			
+			<!-- START RIGHT SIDE PANELS -->
+			<div class="col-xs-12 col-sm-6 pull-right">
+				
+				<!-- Campaign Info Panel -->
+				<div class="panel panel-primary">
+					
+					<!-- Campaign Info Title -->
+					<div class="panel-heading">
+						<h3 class="panel-title">Campaign Info</h3>
+					</div>
+					
+					<!-- Campaign Info Body -->
+					<div class="panel-body">
+						<h5><b>Campaign: </b><%= @campaign.name %></h5>
+						<h5><b>Hook: </b><%= @hook.name %></h5>
+						<h5><b>Email-List: </b><span id="email_list_name"><%= @email_list.name %></span></h5>
+						<!-- Hidden Div to hold IDs -->
+						<div class="hidden">
+							<input type="number" id="current_app_id" value="<%= @app_id %>" />
+							<input type="number" id="current_email_list_id_holder" value="<%= @email_list.id %>" />
+							<input type="number" id="campaign_id_holder" value="<%= @campaign.id %>"/>
+						</div>
+						<!-- END Hidden Div -->
+					</div>
+				
+				</div>
+				<hr>
+				<!-- END Campaign Info Panel -->
+				
+				<!-- Job Actions Panel -->
+				<div class="panel panel-primary">
+					
+					<!-- Campaign Info Title -->
+					<div class="panel-heading">
+						<h3 class="panel-title">Job Actions</h3>
+					</div>
+					
+					<!-- Campaign Info Body -->
+					<div class="panel-body">
+						<button class="btn btn-primary" id="create_button">New Job</button>
+						<button class="btn btn-danger" style="" id="delete_selected_button">Delete Selected Job</button>
+						<button class="btn btn-success" style="" id="edit_selected_button">Edit Selected Job</button>
+					</div>
+				
+				</div>
+				<hr>
+				<!-- END Job Actions Panel -->
+				
+				<!-- Select Campaign Email List Panel -->
+				<div class="panel panel-primary">
+					
+					<!-- Campaign Info Title -->
+					<div class="panel-heading">
+						<h3 class="panel-title">Change Campaign Email List</h3>
+					</div>
+					
+					<!-- Campaign Info Body -->
+					<div class="panel-body">
+						<div class="col-xs-12">
+							<%= render 'main_interface/email_list_select' %>
+						</div>
+					</div>
+				
+				</div>
+				<!-- END Selest Campaign Email List Panel -->
+			
+			</div>
+			<!-- END RIGHT SIDE PANELS -->
+			
+			<!-- START Campaign Funnel Builder Flow Chart -->
+			<style>
+				.flowchart-operator-title {
+					background-color: #008cba !important;
+					color: #ffffff;
+				}
+			</style>
+			<div class="col-xs-12 col-sm-6" id="funnel-builder-canvas">
+				<input type="number" id="canvas_height_holder" class="hidden" value="<%= @height %>" />
+			</div>
+			<!-- END Campaign Funnel Builder Flow Chart -->
+		
+		</div>
+	</div>
+</div>
+
+<!-- REMOVED ALL JS THAT WAS HERE AND PUT IT IN SEPERATE FILE -->
+
+
+<!-- RESULT MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="result_modal" aria-labelledby="#result_modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			
+			<div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="result_modal_title"></h4>
+			</div>
+			
+			<div class="modal-body text-center">
+				<h3 id="result_modal_text"></h3>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" id="node_status_acknowledge" data-dismiss="modal">Okay</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END RESULT MODAL -->
+
+<!-- DELETE NODE MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_delete" aria-labelledby="#modal_node_delete">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			
+			<div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Delete Job</h4>
+			</div>
+			
+			<div class="modal-body">
+				<h4>Are you sure you want to delete the following job?</h4>
+				<br>
+				
+				<!-- Job Info -->
+				<div class="list-group">
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job Name:</strong> <span class="list-group-item-text" id="node_delete_job_name"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job ID:</strong> <span class="list-group-item-text" id="node_delete_job_id"></span>
+            </h6>
+            <input type="number" class="hidden" id="node_delete_id_hidden" />
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email Subject:</strong> <span class="list-group-item-text" id="node_delete_email_subject"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email Content:</strong> <span class="list-group-item-text" id="node_delete_email_content"></span>
+            </h6>
+          </span>
+				
+				</div>
+				<!-- END Job Info -->
+			
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">No, Keep Job</button>
+				<button type="button" class="btn btn-success pull-right" id="modal_node_delete_confirm">Yes, Delete Job</button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+<!-- END DELETE NODE MODAL -->
+
+<!-- NEW JOB MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_create" aria-labelledby="#modal_node_create">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create New Job</h4>
+			</div>
+			<div class="modal-body">
+				
+				<form>
+					<div class="well">
+						<legend>Job</legend>
+						<div class="form-group">
+							<label for="node_update_job_name" class="control-label"><b>Name:</b></label>
+							<input type="text" class="form-control" id="node_new_job_name" placeholder="Enter a name for the job"/>
+						</div>
+						
+						<div class="form-group">
+							<label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
+							<input type="number" name="execute_time" class="form-control" id="node_new_job_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+						</div>
+					</div>
+					
+					<hr>
+					
+					<%= render 'funnel_builder/funnel_builder_modals/job_email_fields.html.erb' %>
+					
+					<hr>
+				</form>
+				
+				<div class="list-group">
+
+          <span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">App ID:</strong> <span class="list-group-item-text" id="node_new_app_id"><%= @app_id %></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Campaign ID:</strong> <span class="list-group-item-text" id="node_new_campaign_id"><%= @campaign.id %></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email List ID:</strong> <span class="list-group-item-text" id="node_new_email_list_id"><%= @email_list.id %></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Hook Identifier:</strong> <span class="list-group-item-text" id="node_new_hook_name"><%= @hook.name %></span>
+            </h6>
+          </span>
+				
+				</div>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="new_job_submit" class="btn btn-primary">Create Job</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END NEW JOB MODAL -->
+
+<!-- UPDATE JOB MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_node_update" aria-labelledby="#modal_node_update">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #008cba; color: #ffffff;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Update Job</h4>
+			</div>
+			<div class="modal-body">
+				
+				<form>
+					<div class="well">
+						<legend>Job</legend>
+						<div class="form-group">
+							<label for="node_update_job_name" class="control-label"><b>Name:</b></label>
+							<input type="text" class="form-control" id="node_update_job_name" placeholder="Enter a name for the job"/>
+							<legend>Status</legend>
+							<span class="list-group-item">
+			          <label for="node_update_execute_time" class="control-label"><b>Send email in how many hours?</b></label>
+			          <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder=""/>
+	            </span>
+						</div>
+					</div>
+					
+					<hr>
+					
+					<%= render 'funnel_builder/funnel_builder_modals/job_email_fields.html.erb' %>
+					
+					<hr>
+				</form>
+				
+				<div class="list-group">
+					<!-- TODO: Dynamically fetch the value names from their ID's below -->
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">App ID:</strong> <span id="node_update_app_id"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Campaign ID:</strong> <span class="list-group-item-text" id="node_update_campaign_id"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job ID:</strong> <span class="list-group-item-text" id="node_update_job_id"></span>
+            </h6>
+            <input type="number" class="hidden" id="node_id_hidden" />
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Job Local Identifier:</strong> <span class="list-group-item-text" id="node_update_local_identifier"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Email List ID:</strong> <span class="list-group-item-text" id="node_update_email_list_id"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Hook Identifier:</strong> <span class="list-group-item-text" id="node_update_hook_identifier"></span>
+            </h6>
+          </span>
+					
+					<span class="list-group-item">
+            <h6 class="list-group-item-heading">
+            <strong style="color: #008cba;">Executed:</strong> <span class="list-group-item-text" id="node_update_job_executed"></span>
+            </h6>
+          </span>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="update_job_submit" class="btn btn-primary">Update Job</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END UPDATE JOB MODAL -->

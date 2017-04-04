@@ -3,6 +3,7 @@ class App < RestModel
 	has_many :email_lists
 	has_many :emails
 	has_many :campaigns
+	has_many :campaign_product_leads
 
 	def myId()
 		# TODO: Verify this works / get it working

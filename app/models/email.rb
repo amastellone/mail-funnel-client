@@ -6,4 +6,6 @@ class Email  < RestModel
 	# include_root_in_json :email
 
 	# collection_path "/email_lists/:email_list_id/emails"
+
+	has_many :campaign_product_leads
 end

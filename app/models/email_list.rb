@@ -4,4 +4,5 @@ class EmailList < RestModel
 	belongs_to :app
 	# has_one :job
 	belongs_to :campaign
+	has_many :campaign_product_leads
 end

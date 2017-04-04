@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
+  def activate_session
+    ShopifyAPI::Base.activate_session(session)
+  end
+
   def install_server_app
 
     begin

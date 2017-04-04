@@ -1,0 +1,70 @@
+<script type="text/javascript">
+	ShopifyApp.ready(function () {
+		ShopifyApp.Bar.initialize({
+			buttons: {
+				primary: {
+					label: 'Save',
+					message: 'new_campaign',
+					loading: true
+				}
+			}
+		});
+	});
+</script>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<%= root_url %>">Mail Funnels</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="<%= root_url %>">Home</a></li>
+				<li><a href="<%= funnel_url %>">Mail-Funnel-Builder</a></li>
+				<li class="active"><a href="<%= root_url %>campaigns">Campaigns<span class="sr-only">(current)</span></a></li>
+				<li><a href="<%= root_url %>lists">Email Lists</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#">Link</a></li>-->
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	
+	<div class="col-xs-12">
+		
+		<legend>
+			<h1>New Campaign</h1>
+		</legend>
+		
+		
+		<% external_url = MailFunnelConfig.where(name: 'server_url').first.value + 'email_lists' %>
+		<% internal_url = root_url + 'new_campaign' %>
+		
+		
+		<% logger.debug "Internal URL: " + internal_url %>
+		<% logger.debug "External URL: " + external_url %>
+		
+		
+		<script>
+			$(document).ready(function () {
+				var csrf_token = $('meta[name=csrf-token]').attr('content');
+				var csrf_param = $('meta[name=csrf-param]').attr('content');
+			});
+		</script>
+		
+		<form type="POST" action="<%= root_url %>/create_campaign">
+			<%= render 'main_interface/campaign_form', campaign: @campaign %>
+		</form>
+	
+	
+	</div>
+</div>

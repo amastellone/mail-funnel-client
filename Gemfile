@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 # CLIENT
 
+
+gem 'log4r'
 gem 'foreman'
 gem 'hash_dot'
 
@@ -85,6 +87,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :development do
+	gem "better_errors"
+end
 
 group :development, :staging do
 	gem 'timecop'

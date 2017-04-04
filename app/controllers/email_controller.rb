@@ -1,4 +1,4 @@
-class EmailController < ApplicationController
+class EmailController < ShopifyApp::AuthenticatedController
 	before_action :set_list_id, only: [:emails]
 	before_action :set_email_list, only: [:editlist, :updatelist, :destroylist]
 	protect_from_forgery with: :null_session
@@ -6,7 +6,7 @@ class EmailController < ApplicationController
 	def lists
 
 		# appname = BluehelmetUtil.get_shopify_session_app_name
-		@app    = App.where(name: ShopifyAPI::Shop.current.domain).first
+		@app  = BluehelmetUtil.get_app
 		@list = EmailList.where(app_id: @app.id)
 
 	end
@@ -29,7 +29,7 @@ class EmailController < ApplicationController
 
 		logger.debug 'We made it to create_list'
 
-		app = App.where(name: ShopifyAPI::Shop.current.domain).first
+		app = BluehelmetUtil.get_app
 
 		@email_list = EmailList.new(name: params[:name], description: params[:description], app_id: app.id)
 
@@ -44,7 +44,7 @@ class EmailController < ApplicationController
 	def emails
 
 		# appname = BluehelmetUtil.get_shopify_session_app_name
-		@app    = App.where(name: ShopifyAPI::Shop.current.domain).first
+		@app    = BluehelmetUtil.get_app
 		@emails = Email.where(email_list_id: @list.id)
 
 
@@ -63,10 +63,10 @@ class EmailController < ApplicationController
 	end
 
 	private
-		# Use callbacks to share common setup or constraints between actions.
-		def set_list_id
-			@list = EmailList.find(params[:list_id])
-		end
+	# Use callbacks to share common setup or constraints between actions.
+	def set_list_id
+		@list = EmailList.find(params[:list_id])
+	end
 
 	# Use callbacks to share common setup or constraints between actions.
 	def set_email_list

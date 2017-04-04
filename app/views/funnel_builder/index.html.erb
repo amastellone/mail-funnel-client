@@ -1,5 +1,5 @@
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'campaign_funnel_builder_manifest' %>  
+  <%= javascript_include_tag 'campaign_funnel_builder_manifest' %>
   <script type="text/javascript">
     window.mainPageTitle = 'Main Page';
     ShopifyApp.ready(function () {
@@ -252,19 +252,10 @@
           </div>
 
           <hr>
-
-          <div class="well">
-            <legend>Email</legend>
-            <div class="form-group">
-              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Subject</span>
-              <input type="text" class="form-control" id="node_new_job_subject" value="">
-            </div>
-            <div class="form-group">
-              <span class="input-group-addon" style="background-color: #008cba; color: #ffffff">Content</span>
-              <textarea class="form-control mediumEditable" rows=5 id="node_new_job_content"></textarea>
-            </div>
-          </div>
-          <hr>
+	
+	      <%= render 'funnel_builder/funnel_builder_modals/job_email_fields.html.erb' %>
+	
+	      <hr>
         </form>
 
         <div class="list-group"> 
@@ -322,36 +313,15 @@
             <div class="form-group">
               <label for="node_update_job_name" class="control-label"><b>Name:</b></label>
               <input type="text" class="form-control" id="node_update_job_name" placeholder="Enter a name for the job"/>
+	            <legend>Status</legend>
+	            <span class="list-group-item">
+			          <label for="node_update_execute_time" class="control-label"><b>Send email in how many hours?</b></label>
+			          <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder=""/>
+	            </span>
             </div>
           </div>
 
           <hr>
-
-          <div class="well">
-            <legend>Status</legend>
-	            <div id="pending_status">
-	              <span class="list-group-item">
-		              <h6 class="list-group-item-heading">
-		                <strong style="color: #008cba;">Job Status:</strong> <span class="list-group-item-text" id="node_queue_status"></span>
-			              <strong style="color: #008cba;">Set + Wait:</strong> <span class="list-group-item-text" id="node_queue_set_time"></span><br>
-
-		              </h6>
-		            </span>
-	            </div>
-	
-	          <div id="executed_status">
-	            <span class="list-group-item">
-	              <h6 class="list-group-item-heading">
-	              <label>Re Execute Job?</label>
-	              <input type="checkbox" id="node_update_job_re_execute" class="form-control"/>
-	              </h6>
-			          <label for="node_update_execute_time" class="control-label"><b>Send email in how many hours?</b></label>
-			          <input type="number" name="execute_time" class="form-control" id="node_update_execute_time" placeholder=""/>
-	            </span>
-	          </div>
-          </div>
-          <hr>
-
 
           <%= render 'funnel_builder/funnel_builder_modals/job_email_fields.html.erb' %>
 	        
